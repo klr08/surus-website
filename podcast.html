@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast - Surus</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><h1>Surus</h1></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="podcast.html" class="active">Podcast</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <h1>Form & Structure Podcast</h1>
+            <p>Exploring the intersection of law, technology, and finance with industry experts and thought leaders.</p>
+        </section>
+
+        <section class="podcast-grid" id="podcast-episodes">
+            <div class="loading">Loading podcast episodes...</div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Contact: hello@surus.io · ©2025 Surus. All Rights Reserved.</p>
+    </footer>
+
+    <script src="js/podcast.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
