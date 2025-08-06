@@ -1,6 +1,328 @@
 /* Surus Website Styles */
-body {
-    font-family: Inter, corbel;
+* {
     margin: 0;
     padding: 0;
-}Add CSS folder and basic styles
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+}
+
+/* Header Styles */
+header {
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo h1 {
+    color: #dc2626;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #dc2626;
+}
+
+/* Main Content */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+/* Hero Section */
+#hero {
+    text-align: center;
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    margin: 0 -5%;
+}
+
+#hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+#hero p {
+    font-size: 1.2rem;
+    color: #64748b;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#hero button {
+    background: #dc2626;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#hero button:hover {
+    background: #b91c1c;
+}
+
+/* Pricing Section */
+#pricing {
+    padding: 4rem 0;
+}
+
+.pricing-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#pricing h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.pricing-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 3rem;
+}
+
+.calculator-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border: 1px solid #e2e8f0;
+}
+
+.calculator-input {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.calculator-input label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #374151;
+}
+
+#aum-input {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: #e5e7eb;
+    outline: none;
+    margin-bottom: 1rem;
+}
+
+#aum-input::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #dc2626;
+    cursor: pointer;
+}
+
+.aum-display {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #dc2626;
+}
+
+.results-section {
+    display: grid;
+    gap: 2rem;
+}
+
+.surus-result {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.surus-result h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.tier-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.fee-display .monthly-fee {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.fee-period {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.annual-fee {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+}
+
+.effective-rate {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.comparison-section h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #374151;
+}
+
+.comparison-table {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.comparison-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 1rem;
+    text-align: center;
+}
+
+.comparison-row.header {
+    background: #f8fafc;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.comparison-row.surus-row {
+    background: #fef2f2;
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.comparison-row.competitor-row {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.savings-amount.positive,
+.savings-percent.positive {
+    color: #059669;
+    font-weight: 600;
+}
+
+.cta-section {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.cta-button {
+    background: #dc2626;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-bottom: 1rem;
+}
+
+.cta-button:hover {
+    background: #b91c1c;
+}
+
+.cta-subtitle {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* Other Sections */
+section {
+    padding: 3rem 0;
+}
+
+section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+#about, #contact {
+    text-align: center;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #hero h1 {
+        font-size: 2rem;
+    }
+    
+    nav ul {
+        gap: 1rem;
+    }
+    
+    .comparison-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .comparison-row span {
+        padding: 0.25rem;
+    }
+    
+    main {
+        padding: 0 3%;
+    }
+}
