@@ -1,0 +1,90 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Netlify Large Media for image optimization
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+# Collections define the content types you can manage
+collections:
+  # Blog Posts
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Author", name: "author", widget: "string"}
+      - {label: "Summary", name: "summary", widget: "text", required: false}
+      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  # Podcast Episodes  
+  - name: "podcast"
+    label: "Podcast Episodes"
+    folder: "content/podcast"
+    create: true
+    slug: "episode-{{fields.episode_number}}-{{slug}}"
+    fields:
+      - {label: "Episode Number", name: "episode_number", widget: "number"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Guest Name", name: "guest", widget: "string", required: false}
+      - {label: "Episode Image", name: "image", widget: "image"}
+      - {label: "Libsyn URL", name: "libsyn_url", widget: "string", required: false}
+      - {label: "Spotify URL", name: "spotify_url", widget: "string", required: false}
+      - {label: "Apple Podcasts URL", name: "apple_url", widget: "string", required: false}
+      - {label: "Amazon Music URL", name: "amazon_url", widget: "string", required: false}
+      - {label: "Duration", name: "duration", widget: "string", required: false}
+      - {label: "Episode Notes", name: "body", widget: "markdown"}
+
+  # Team Members
+  - name: "team"
+    label: "Team Members" 
+    folder: "content/team"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Position", name: "position", widget: "string"}
+      - {label: "Bio", name: "bio", widget: "text"}
+      - {label: "Photo", name: "image", widget: "image"}
+      - {label: "LinkedIn URL", name: "linkedin", widget: "string", required: false}
+      - {label: "Twitter URL", name: "twitter", widget: "string", required: false}
+      - {label: "Order", name: "order", widget: "number", default: 1}
+
+  # Company Info (About page content)
+  - name: "pages"
+    label: "Pages"
+    files:
+      - name: "about"
+        label: "About Page"
+        file: "content/pages/about.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string", default: "About Us"}
+          - {label: "Hero Text", name: "hero", widget: "text"}
+          - {label: "Mission Statement", name: "mission", widget: "markdown"}
+          - {label: "Company Story", name: "story", widget: "markdown"}
+          - {label: "Leadership Section Title", name: "leadership_title", widget: "string", default: "Leadership Team"}
+          
+      - name: "services"  
+        label: "Services Page"
+        file: "content/pages/services.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string", default: "Our Services"}
+          - {label: "Hero Text", name: "hero", widget: "text"}
+          - {label: "Services List", name: "services", widget: "list", fields: [
+              {label: "Service Name", name: "name", widget: "string"},
+              {label: "Description", name: "description", widget: "text"},
+              {label: "Icon", name: "icon", widget: "image", required: false}
+            ]}
+
+# Site settings
+site_url: https://aug5-surus-website.netlify.app
+display_url: https://aug5-surus-website.netlify.app
+logo_url: /images/surus-logo.png
