@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Surus</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><h1>Surus</h1></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="podcast.html">Podcast</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <h1>About Surus</h1>
+            <p>Your Bridge Between TradFi and DeFi</p>
+        </section>
+
+        <section class="about-content">
+            <div class="about-section">
+                <h2>Our Mission</h2>
+                <p>Our mission is to accelerate and improve the onchain financial ecosystem with digitally native trust services.</p>
+            </div>
+
+            <div class="about-section">
+                <h2>What We Do</h2>
+                <p>Surus powers onchain finance by providing builders with regulated infrastructure that bridges traditional and digital assets. We provide institutional-grade asset management, custody, and compliance platform for the future of finance, built on top of our licensed and regulated financial institution: Surus Trust Company.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-item">
+                    <h3>Reserve Management</h3>
+                    <p>Custom portfolio construction (Treasuries, HQLAs, Equities, Bonds), daily settlement and redemption balances, and real-time reporting.</p>
+                </div>
+                
+                <div class="service-item">
+                    <h3>Token Issuance Infrastructure</h3>
+                    <p>Product structuring & token design, built-in KYC/AML compliance, deploy on any major blockchain, and tax & reporting services.</p>
+                </div>
+                
+                <div class="service-item">
+                    <h3>Digital Asset Trusts</h3>
+                    <p>Single asset trusts (focused exposure), mixed asset trusts (diversified portfolios), on-chain trustee services, and custom fiduciary solutions.</p>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2>Leadership Team & Backing</h2>
+                <p>Our team combines deep expertise in traditional finance, digital assets, and regulatory compliance. We're backed by leading investors including Castle Island Ventures, Plural, Protocol VC, and Protagonist.</p>
+                
+                <div class="leadership-grid">
+                    <div class="leader-card">
+                        <h4>Patrick Murck</h4>
+                        <p class="leader-title">Chief Executive Officer</p>
+                        <p>Co-founder and Principal at Plural VC. Previously, President & CLO at Transparent Systems, Special Counsel at Cooley LLP, and co-founder of Bitcoin Foundation.</p>
+                    </div>
+                    
+                    <div class="leader-card">
+                        <h4>Brad Gibson</h4>
+                        <p class="leader-title">Chief Technology Officer</p>
+                        <p>Previously VP of Engineering at Transparent Systems. CEO at Human Enginuity and Co-Founder & CTO at LearnBIG (Acquired).</p>
+                    </div>
+                    
+                    <div class="leader-card">
+                        <h4>Beth Wheeler</h4>
+                        <p class="leader-title">Chief Trust Officer</p>
+                        <p>Previously, Chief Trust Officer at Paxos. Founder of Fiduciary Management Solutions. More than thirty years of experience in the trust industry.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2>Why Builders Choose Surus</h2>
+                <div class="value-props">
+                    <div class="value-prop">
+                        <h4>Asset Protection</h4>
+                        <p>Bankruptcy-remote trusts mean assets are legally separated. Not on your balance sheet.</p>
+                    </div>
+                    <div class="value-prop">
+                        <h4>Daily Operations</h4>
+                        <p>We handle mint/burn reconciliation, cash management, and settlement.</p>
+                    </div>
+                    <div class="value-prop">
+                        <h4>Flexible Liquidity</h4>
+                        <p>We balance yield optimization with redemption needs. No lock-up periods.</p>
+                    </div>
+                    <div class="value-prop">
+                        <h4>Real-Time Transparency</h4>
+                        <p>Dashboard access for monitoring holdings, yields, and flows.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Ready to Build?</h2>
+            <p>Let's talk about how Surus can support your business</p>
+            <a href="index.html#contact" class="cta-button">Get in Touch</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>Contact: hello@surus.io · ©2025 Surus. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
