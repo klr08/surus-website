@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surus - Your Bridge Between TradFi and DeFi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Surus</h1>
+            </div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>You Build the DeFi. We'll Handle the TradFi.</h1>
+            <p>Surus is an institutional-grade asset management, custody, and compliance platform for the future of finance.</p>
+            <button onclick="scrollToCalculator()">Calculate Your Savings</button>
+        </section>
+
+        <section id="pricing">
+            <h2>Pricing that scales with you</h2>
+            <p>Free up to $1M AUM. Pay only for what you use.</p>
+            <div id="calculator">
+                <label for="aum-input">Treasury Size (AUM):</label>
+                <input type="range" id="aum-input" min="100000" max="1000000000" value="5000000" oninput="updateCalculation()">
+                <div id="results">
+                    <!-- Calculator results will appear here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>What We Do</h2>
+            <p>Surus powers onchain finance by providing builders with regulated infrastructure that bridges traditional and digital assets.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Get in Touch</h2>
+            <p>Let's talk about how Surus can support your business</p>
+            <p>Email: hello@surus.io</p>
+        </section>
+    </main>
+
+    <script src="js/pricing.js"></script>
+</body>
+</html>
