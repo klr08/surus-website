@@ -13,10 +13,10 @@
             <div class="logo"><h1>Surus</h1></div>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="blog.html">Blog</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
                 <li><a href="podcast.html">Podcast</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -28,11 +28,25 @@
         </section>
 
         <section class="blog-grid" id="blog-posts">
-            <!-- Blog posts will be loaded here by JavaScript -->
             <div class="loading">Loading blog posts...</div>
         </section>
     </main>
 
+    <footer>
+        <p>Contact: hello@surus.io · ©2025 Surus. All Rights Reserved.</p>
+    </footer>
+
     <script src="js/blog.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
 </body>
 </html>
