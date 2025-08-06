@@ -415,3 +415,131 @@ section h2 {
     color: #64748b;
     grid-column: 1 / -1;
 }
+/* Podcast-specific styles */
+.podcast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.podcast-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.podcast-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.podcast-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.podcast-content {
+    padding: 2rem;
+}
+
+.podcast-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.episode-number {
+    background: #dc2626;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.podcast-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1e293b;
+    line-height: 1.3;
+}
+
+.podcast-guest {
+    color: #dc2626;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.podcast-description {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.podcast-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.podcast-link {
+    background: #f8fafc;
+    color: #374151;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.podcast-link:hover {
+    background: #e2e8f0;
+}
+
+.podcast-link.spotify:hover {
+    background: #1db954;
+    color: white;
+}
+
+.podcast-link.apple:hover {
+    background: #fc3c44;
+    color: white;
+}
+
+.podcast-link.amazon:hover {
+    background: #ff9900;
+    color: white;
+}
+
+/* Blog image styles */
+.blog-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.blog-content {
+    padding: 1.5rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .podcast-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .podcast-links {
+        justify-content: center;
+    }
+}
