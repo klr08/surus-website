@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surus - On-Demand Pricing for Treasury Infrastructure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+        
+        .hero .subtitle {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .hero .highlight {
+            font-size: 20px;
+            color: #1a1a1a;
+            font-weight: 500;
+            background: #fff;
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Pricing Calculator Section */
+        .pricing-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+        
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .pricing-header h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+        
+        .pricing-header p {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        /* Calculator Widget */
+        .calculator-container {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            background: #f9f9f9;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .calculator-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #1a1a1a;
+        }
+        
+        .slider-container {
+            margin-bottom: 40px;
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .aum-display {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e0e0e0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #e73c3c;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(231, 60, 60, 0.3);
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #e73c3c;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(231, 60, 60, 0.3);
+        }
+        
+        .pricing-display {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .pricing-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-item {
+            text-align: center;
+        }
+        
+        .pricing-label {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .pricing-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .pricing-value.free {
+            color: #4caf50;
+        }
+        
+        .pricing-value small {
+            font-size: 16px;
+            font-weight: 400;
+            color: #666;
+        }
+        
+        .effective-rate {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .effective-rate .label {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+        
+        .effective-rate .value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4caf50;
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            max-width: 900px;
+            margin: 60px auto;
+            overflow-x: auto;
+        }
+        
+        .comparison-table h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+        
+        th {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #1a1a1a;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        td {
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 16px;
+        }
+        
+        tr:hover {
+            background: #fafafa;
+        }
+        
+        .highlight-cell {
+            color: #4caf50;
+            font-weight: 600;
+        }
+        
+        .savings-badge {
+            background: #4caf50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        /* Code Block */
+        .code-section {
+            max-width: 800px;
+            margin: 60px auto;
+            text-align: center;
+        }
+        
+        .code-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+        
+        .code-block {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            text-align: left;
+            overflow-x: auto;
+        }
+        
+        .code-comment {
+            color: #6a9955;
+        }
+        
+        .code-keyword {
+            color: #c586c0;
+        }
+        
+        .code-string {
+            color: #ce9178;
+        }
+        
+        .code-number {
+            color: #b5cea8;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 60px 0;
+            text-align: center;
+            background: #f5f5f5;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: #e73c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(231, 60, 60, 0.3);
+        }
+        
+        .cta-button:hover {
+            background: #d63333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(231, 60, 60, 0.4);
+        }
+        
+        .cta-text {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>On-Demand Pricing for Treasury Infrastructure</h1>
+            <p class="subtitle">Pay only for what you use. Billed daily. No minimums, no lock-ups.</p>
+            <div class="highlight">
+                Free up to $1M AUM • Then starting at $0.04 per $10K daily
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Calculator Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-header">
+                <h2>Transparent Daily Billing</h2>
+                <p>80% cheaper than TradFi at scale. 100% transparent.</p>
+            </div>
+
+            <!-- Interactive Calculator -->
+            <div class="calculator-container">
+                <h3 class="calculator-title">Calculate Your Daily Rate</h3>
+                
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span>Treasury Size (AUM)</span>
+                        <span class="aum-display" id="aumDisplay">$1M</span>
+                    </div>
+                    <input type="range" min="0" max="7" value="3" class="slider" id="aumSlider">
+                </div>
+
+                <div class="pricing-display">
+                    <div class="pricing-row">
+                        <div class="pricing-item">
+                            <div class="pricing-label">Daily Fee</div>
+                            <div class="pricing-value" id="dailyFee">$4</div>
+                        </div>
+                        <div class="pricing-item">
+                            <div class="pricing-label">Monthly Fee</div>
+                            <div class="pricing-value" id="monthlyFee">$120</div>
+                        </div>
+                        <div class="pricing-item">
+                            <div class="pricing-label">Annual Fee</div>
+                            <div class="pricing-value" id="annualFee">$1,460</div>
+                        </div>
+                    </div>
+                    <div class="effective-rate">
+                        <div class="label">Effective Annual Rate</div>
+                        <div class="value" id="effectiveRate">15 bps</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="comparison-table">
+                <h3>Compare to Competition</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>AUM</th>
+                            <th>Surus Daily</th>
+                            <th>Surus Monthly</th>
+                            <th>Annual Rate</th>
+                            <th>vs BENJI (15 bps)</th>
+                            <th>Your Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>&lt;$1M</strong></td>
+                            <td class="highlight-cell">Free</td>
+                            <td class="highlight-cell">Free</td>
+                            <td class="highlight-cell">0 bps</td>
+                            <td>$125/mo minimum</td>
+                            <td><span class="savings-badge">100% savings</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>$1M</strong></td>
+                            <td>$4</td>
+                            <td>$120</td>
+                            <td>15 bps</td>
+                            <td>$125/mo</td>
+                            <td><span class="savings-badge">4% savings</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>$10M</strong></td>
+                            <td>$26</td>
+                            <td>$780</td>
+                            <td class="highlight-cell">9.6 bps</td>
+                            <td>$1,250/mo</td>
+                            <td><span class="savings-badge">38% savings</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>$25M</strong></td>
+                            <td>$55</td>
+                            <td>$1,650</td>
+                            <td class="highlight-cell">8.0 bps</td>
+                            <td>$3,125/mo</td>
+                            <td><span class="savings-badge">47% savings</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>$100M</strong></td>
+                            <td>$167</td>
+                            <td>$5,000</td>
+                            <td class="highlight-cell">6.0 bps</td>
+                            <td>$12,500/mo</td>
+                            <td><span class="savings-badge">60% savings</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>$1B</strong></td>
+                            <td>$1,047</td>
+                            <td>$31,400</td>
+                            <td class="highlight-cell">3.8 bps</td>
+                            <td>$125,000/mo</td>
+                            <td><span class="savings-badge">75% savings</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Code Section -->
+            <div class="code-section">
+                <h3>Our Entire Pricing Model in One Line of Code</h3>
+                <div class="code-block">
+                    <span class="code-comment">// Simple, transparent, developer-friendly pricing</span><br>
+                    <span class="code-keyword">const</span> dailyFee = AUM < <span class="code-number">1M</span> ? <span class="code-number">0</span> : <span class="code-number">4.167</span> * Math.pow(AUM/<span class="code-number">1M</span>, <span class="code-number">0.8</span>);
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <a href="#" class="cta-button" onclick="openCalculator()">Calculate Your Rate →</a>
+                <p class="cta-text">Start free. Scale seamlessly. Pay daily.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // AUM slider values (in millions)
+        const aumValues = [0.5, 1, 5, 10, 25, 50, 100, 500];
+        
+        // Pricing calculation function
+        function calculateDailyFee(aumInMillions) {
+            if (aumInMillions < 1) return 0;
+            return 4.167 * Math.pow(aumInMillions, 0.8);
+        }
+        
+        // Format currency
+        function formatCurrency(amount, includeDecimals = false) {
+            if (amount === 0) return 'Free';
+            if (amount < 1000) {
+                return includeDecimals ? `$${amount.toFixed(2)}` : `$${Math.round(amount)}`;
+            }
+            if (amount < 1000000) {
+                return `$${(amount / 1000).toFixed(1)}K`;
+            }
+            return `$${(amount / 1000000).toFixed(1)}M`;
+        }
+        
+        // Format AUM display
+        function formatAUM(millions) {
+            if (millions < 1) return `$${(millions * 1000).toFixed(0)}K`;
+            if (millions < 1000) return `$${millions}M`;
+            return `$${(millions / 1000).toFixed(1)}B`;
+        }
+        
+        // Update pricing display
+        function updatePricing() {
+            const slider = document.getElementById('aumSlider');
+            const aumInMillions = aumValues[slider.value];
+            
+            // Update AUM display
+            document.getElementById('aumDisplay').textContent = formatAUM(aumInMillions);
+            
+            // Calculate fees
+            const dailyFee = calculateDailyFee(aumInMillions);
+            const monthlyFee = dailyFee * 30;
+            const annualFee = dailyFee * 365;
+            
+            // Calculate effective rate in basis points
+            let effectiveRate = 0;
+            if (aumInMillions >= 1) {
+                effectiveRate = (annualFee / (aumInMillions * 1000000)) * 10000;
+            }
+            
+            // Update displays
+            document.getElementById('dailyFee').textContent = formatCurrency(dailyFee);
+            document.getElementById('dailyFee').className = dailyFee === 0 ? 'pricing-value free' : 'pricing-value';
+            
+            document.getElementById('monthlyFee').textContent = formatCurrency(monthlyFee);
+            document.getElementById('monthlyFee').className = monthlyFee === 0 ? 'pricing-value free' : 'pricing-value';
+            
+            document.getElementById('annualFee').textContent = formatCurrency(annualFee);
+            document.getElementById('annualFee').className = annualFee === 0 ? 'pricing-value free' : 'pricing-value';
+            
+            document.getElementById('effectiveRate').textContent = effectiveRate === 0 ? '0 bps' : `${effectiveRate.toFixed(1)} bps`;
+        }
+        
+        // Initialize
+        document.getElementById('aumSlider').addEventListener('input', updatePricing);
+        updatePricing();
+        
+        // Open calculator function for CTA
+        function openCalculator() {
+            // Scroll to calculator
+            document.querySelector('.calculator-container').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
