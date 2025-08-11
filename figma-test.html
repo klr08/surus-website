@@ -1,24 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Figma Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma Features Section Test</title>
     <style>
-        body {
+        * {
             margin: 0;
-            font-family: Arial;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .purple-section {
-            background: linear-gradient(135deg, #6B2C91 0%, #3D1E6D 100%);
-            color: white;
-            padding: 50px;
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        /* Test header */
+        .test-header {
+            background: #f0f0f0;
+            padding: 20px;
             text-align: center;
+            border-bottom: 3px solid #333;
+        }
+        
+        /* Method 1: Use your image as background */
+        .content-34-image-bg {
+            width: 100%;
+            min-height: 620px;
+            background-image: url('https://aug5-surus-website.netlify.app/images/figma-test/content_34.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Method 2: Use image as img tag */
+        .content-34-image-tag {
+            width: 100%;
+            max-width: 1400px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        /* Container for centering */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .content-34-image-bg {
+                min-height: 400px;
+            }
+            
+            .content-34-image-tag {
+                width: 100%;
+            }
+        }
+        
+        .test-section {
+            margin: 40px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .test-section h3 {
+            margin-bottom: 15px;
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <div class="purple-section">
-        <h1>🎉 Figma Test Works!</h1>
-        <p>If you can see this with purple background, we're ready for the real Figma design!</p>
+    <div class="test-header">
+        <h1>🎨 Figma Features Section Test</h1>
+        <p>Testing your exported design with different methods</p>
+    </div>
+
+    <div class="test-section">
+        <h3>Method 1: Background Image (Responsive)</h3>
+        <div class="content-34-image-bg">
+            <!-- Content overlay could go here if needed -->
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h3>Method 2: Direct Image (Maintains aspect ratio)</h3>
+        <img src="https://aug5-surus-website.netlify.app/images/figma-test/content_34.png" 
+             alt="Features Section" 
+             class="content-34-image-tag">
+    </div>
+
+    <div style="background: #f0f0f0; padding: 20px; text-align: center; margin-top: 40px;">
+        <h3>✅ Test Results</h3>
+        <p><strong>Method 1</strong>: Good for responsive backgrounds, content overlay</p>
+        <p><strong>Method 2</strong>: Good for exact image display, simpler implementation</p>
+        <p>Choose the method that looks better for your needs!</p>
     </div>
 </body>
 </html>
