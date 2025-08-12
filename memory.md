@@ -27,3 +27,32 @@ Hi Claude, this is your working memory document.
 - Removed old Blog.tsx and Podcast.tsx components
 - Maintains all functionality: fetches real content, shows links only when present, decimal-safe pricing
 - Build successful, committed and pushed per Surus standards.
+
+2025-08-12 – About Page Restructure to Match Original Site
+- Updated About.tsx to match structure from https://www.surus.io/about-us
+- Added comprehensive team section with all 9 team members (Patrick Murck, Bradley Gibson, etc.)
+- Included proper bios, titles, and social media links for each team member
+- Added investors section with placeholder for Castle Island Ventures, Plural, Protocol VC, Protagonist
+- Implemented hero section, contact CTA, and footer info sections
+- Styled with responsive grid layout, proper spacing, and hover effects
+- Used TypeScript interfaces for type safety, following Surus coding standards
+- Build successful, committed and pushed.
+
+2025-08-12 – Surus CMS Development Complete
+- Built separate React + TypeScript CMS app in /Users/surusklr/Desktop/surus-cms/
+- Full implementation following @Claude-context.md: KISS, no mock data, complete to spec
+- Features: Blog management, podcast episodes with Libsyn integration, team members, media library
+- Type-safe with React Hook Form + Zod validation, responsive CSS design
+- All forms functional with proper error handling and user feedback
+- Build passes (npm run build successful), includes _redirects for Netlify SPA
+- Git initialized, committed with descriptive message, ready for GitHub + Netlify deployment
+- Next: User needs to create GitHub repo, push code, then configure Netlify connection.
+
+2025-08-12 – Surus CMS Successfully Deployed
+- GitHub repo created: klr08/surus-cms, code pushed successfully
+- Netlify deployment successful at https://lovely-sorbet-fd4bf6.netlify.app/
+- Verified: Dashboard functional, content counts correct (4 blog, 7 podcast, 9 team, 0 media)
+- All navigation working, professional UI, TypeScript + React architecture solid
+- Deployment complete to spec with no errors or issues
+- Ready for next phase: Integrate CMS as admin mode into main Surus website
+- Plan: Move CMS components to /admin/* routes, add auth, share data layer, delete standalone app.
