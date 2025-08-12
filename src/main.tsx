@@ -23,19 +23,28 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/admin/login',
-    element: <AdminLogin />,
-  },
-  {
     path: '/admin',
-    element: (
-      <AdminGuard>
-        <AdminLayout />
-      </AdminGuard>
-    ),
     children: [
-      { index: true, element: <AdminDashboard /> },
-      // Additional admin routes will be added here
+      {
+        path: 'login',
+        element: <AdminLogin />,
+      },
+      {
+        index: true,
+        element: (
+          <AdminGuard>
+            <AdminLayout />
+          </AdminGuard>
+        ),
+      },
+      {
+        path: '*',
+        element: (
+          <AdminGuard>
+            <AdminLayout />
+          </AdminGuard>
+        ),
+      },
     ],
   },
 ]);
