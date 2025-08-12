@@ -848,6 +848,224 @@ section h2 {
     }
 }
 
+/* About page styles */
+.about-hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.about-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #1e293b;
+}
+
+.about-hero-description {
+    font-size: 1.2rem;
+    color: #64748b;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.team-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.team-container h2 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+}
+
+.team-member {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.team-member:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.team-member-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.team-member-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #dc2626;
+    margin-bottom: 1rem;
+}
+
+.team-member-bio {
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.team-member-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.social-link:hover {
+    background: #e2e8f0;
+}
+
+.social-icon {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.investors-section {
+    padding: 4rem 2rem;
+    background: #f8fafc;
+}
+
+.investors-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.investors-container h2 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 2rem;
+}
+
+.investors-placeholder {
+    color: #64748b;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-cta {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.contact-cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-cta h2 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.contact-cta p {
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.contact-button {
+    display: inline-block;
+    background: #dc2626;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: background 0.3s;
+}
+
+.contact-button:hover {
+    background: #b91c1c;
+}
+
+.about-footer-info {
+    padding: 2rem;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+}
+
+.footer-info-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-info-content p {
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Mobile responsiveness for about page */
+@media (max-width: 768px) {
+    .about-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .about-hero-description {
+        font-size: 1.1rem;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .team-container h2,
+    .investors-container h2,
+    .contact-cta h2 {
+        font-size: 2rem;
+    }
+    
+    .about-hero,
+    .team-section,
+    .investors-section,
+    .contact-cta {
+        padding: 3rem 1rem;
+    }
+}
+
 /* Footer */
 footer {
     background: #f8fafc;

@@ -19,3 +19,11 @@ Hi Claude, this is your working memory document.
 - Updated main.tsx CSS import to relative path: '../public/css/style.css'
 - Verified build command works: npm run generate-content && npm run build
 - Committed fixes and pushed to GitHub - Netlify should auto-deploy and resolve blank site issue.
+
+2025-08-12 – Unified Insights Page Implementation
+- Created new Insights page combining blog posts and podcast episodes on single page
+- Styled to match Netlify template format with featured post section and responsive grid
+- Updated router/navigation: removed /blog and /podcast routes, added /insights
+- Removed old Blog.tsx and Podcast.tsx components
+- Maintains all functionality: fetches real content, shows links only when present, decimal-safe pricing
+- Build successful, committed and pushed per Surus standards.
