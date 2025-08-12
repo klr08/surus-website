@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-interface AdminLoginProps {
-  onLoginSuccess?: () => void;
-}
-
-export default function AdminLogin({ onLoginSuccess }: AdminLoginProps = {}): JSX.Element {
+export default function AdminLogin(): JSX.Element {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -29,11 +25,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps = {}): JS
           expires: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
         }));
 
-        if (onLoginSuccess) {
-          onLoginSuccess();
-        } else {
-          navigate(from, { replace: true });
-        }
+        navigate(from, { replace: true });
       } else {
         setError('Invalid email or password');
       }
