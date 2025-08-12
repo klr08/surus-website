@@ -1,0 +1,30 @@
+{
+  "name": "surus-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Surus website built with React + TypeScript and content generator",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5174",
+    "generate-content": "node scripts/generate-content.js"
+  },
+  "dependencies": {
+    "decimal.js": "10.4.3",
+    "glob": "10.3.10",
+    "gray-matter": "4.0.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "6.26.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "4.3.1",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "typescript": "5.5.4",
+    "vite": "5.4.2"
+  }
+}
+
