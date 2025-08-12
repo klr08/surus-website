@@ -24,24 +24,29 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/admin/login',
-    element: (
-      <ErrorBoundary>
-        <AdminLogin />
-      </ErrorBoundary>
-    ),
-  },
-  {
     path: '/admin',
-    element: (
-      <ErrorBoundary>
-        <AdminGuard>
-          <AdminLayout>
-            <AdminDashboard />
-          </AdminLayout>
-        </AdminGuard>
-      </ErrorBoundary>
-    ),
+    children: [
+      {
+        path: 'login',
+        element: (
+          <ErrorBoundary>
+            <AdminLogin />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        index: true,
+        element: (
+          <ErrorBoundary>
+            <AdminGuard>
+              <AdminLayout>
+                <AdminDashboard />
+              </AdminLayout>
+            </AdminGuard>
+          </ErrorBoundary>
+        ),
+      },
+    ],
   },
   {
     path: '*',
