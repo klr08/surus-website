@@ -7,7 +7,7 @@ import Blog from './pages/Blog';
 import Podcast from './pages/Podcast';
 import About from './pages/About';
 
-import '/css/style.css';
+import '../public/css/style.css';
 
 const router = createBrowserRouter([
   {
