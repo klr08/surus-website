@@ -1,7 +1,11 @@
 import React from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-export default function AdminLayout(): JSX.Element {
+interface AdminLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function AdminLayout({ children }: AdminLayoutProps): JSX.Element {
   const location = useLocation();
 
   const isActive = (path: string): boolean => {
@@ -47,7 +51,7 @@ export default function AdminLayout(): JSX.Element {
 
       <main className="admin-main">
         <div className="admin-content">
-          <Outlet />
+          {children}
         </div>
       </main>
 

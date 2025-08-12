@@ -5,10 +5,7 @@ import App from './App';
 import Home from './pages/Home';
 import Insights from './pages/Insights';
 import About from './pages/About';
-import AdminLayout from './components/admin/AdminLayout';
-import AdminGuard from './components/admin/AdminGuard';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminApp from './pages/admin/AdminApp';
 
 import '../public/css/style.css';
 
@@ -23,29 +20,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/admin',
-    children: [
-      {
-        path: 'login',
-        element: <AdminLogin />,
-      },
-      {
-        index: true,
-        element: (
-          <AdminGuard>
-            <AdminLayout />
-          </AdminGuard>
-        ),
-      },
-      {
-        path: '*',
-        element: (
-          <AdminGuard>
-            <AdminLayout />
-          </AdminGuard>
-        ),
-      },
-    ],
+    path: '/admin/*',
+    element: <AdminApp />,
   },
 ]);
 
