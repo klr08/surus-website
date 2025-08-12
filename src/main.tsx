@@ -5,7 +5,7 @@ import App from './App';
 import Home from './pages/Home';
 import Insights from './pages/Insights';
 import About from './pages/About';
-import Admin from './pages/Admin';
+import AdminEnhanced from './pages/AdminEnhanced';
 
 import '../public/css/style.css';
 
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <Admin />,
+    element: <AdminEnhanced />,
   },
 ]);
 

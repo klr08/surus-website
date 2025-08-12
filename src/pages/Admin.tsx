@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ContentSummary } from '../types/content';
+import { ContentSummary, BlogPost, PodcastEpisode, TeamMember } from '../types/content';
+import { ContentManager } from '../services/contentManager';
+import { FileUploadService } from '../services/fileUpload';
+import RichTextEditor from '../components/admin/RichTextEditor';
+import FileUpload from '../components/admin/FileUpload';
 
 export default function Admin(): JSX.Element {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -14,6 +18,21 @@ export default function Admin(): JSX.Element {
     teamMembers: 0,
     mediaFiles: 0,
   });
+
+  // CMS State
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'blog' | 'podcast' | 'team' | 'media'>('dashboard');
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [podcastEpisodes, setPodcastEpisodes] = useState<PodcastEpisode[]>([]);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [mediaFiles, setMediaFiles] = useState<any[]>([]);
+
+  // Form states
+  const [editingBlog, setEditingBlog] = useState<BlogPost | null>(null);
+  const [editingPodcast, setEditingPodcast] = useState<PodcastEpisode | null>(null);
+  const [editingTeam, setEditingTeam] = useState<TeamMember | null>(null);
+  const [showBlogForm, setShowBlogForm] = useState(false);
+  const [showPodcastForm, setShowPodcastForm] = useState(false);
+  const [showTeamForm, setShowTeamForm] = useState(false);
 
   // Check authentication on mount
   useEffect(() => {

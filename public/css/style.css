@@ -1325,6 +1325,379 @@ footer {
     font-size: 0.9rem;
 }
 
+/* Enhanced CMS Styles */
+.admin-nav button {
+    color: #64748b;
+    background: none;
+    border: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.admin-nav button:hover,
+.admin-nav button.active {
+    color: #dc2626;
+    background: #fef2f2;
+}
+
+.content-section {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f8fafc;
+}
+
+.content-form {
+    padding: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+    background: #fafbfc;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.content-list {
+    padding: 2rem;
+}
+
+.content-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background: white;
+}
+
+.content-info h4 {
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.content-info p {
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.content-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.content-meta .status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.content-meta .status.published {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.content-meta .status.draft {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.content-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Rich Text Editor */
+.rich-text-editor {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.editor-toolbar {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    opacity: 0;
+    transition: opacity 0.2s;
+    overflow-x: auto;
+}
+
+.editor-toolbar.visible {
+    opacity: 1;
+}
+
+.toolbar-btn {
+    padding: 0.5rem;
+    border: none;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    min-width: 32px;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.toolbar-btn:hover {
+    background: #e2e8f0;
+}
+
+.rich-text-textarea {
+    width: 100%;
+    border: none;
+    padding: 1rem;
+    resize: vertical;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.rich-text-textarea:focus {
+    outline: none;
+}
+
+.editor-help {
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.editor-help p {
+    margin-bottom: 0.25rem;
+}
+
+/* File Upload */
+.file-upload {
+    margin-bottom: 1rem;
+}
+
+.file-upload-input {
+    display: none;
+}
+
+.file-upload-dropzone {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fafbfc;
+}
+
+.file-upload-dropzone:hover {
+    border-color: #dc2626;
+    background: #fef2f2;
+}
+
+.file-upload-dropzone.drag-over {
+    border-color: #dc2626;
+    background: #fef2f2;
+    border-style: solid;
+}
+
+.file-upload-dropzone.uploading {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.upload-content .upload-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.upload-content h4 {
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.upload-content p {
+    color: #64748b;
+    margin-bottom: 0.5rem;
+}
+
+.upload-content small {
+    color: #9ca3af;
+}
+
+.upload-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e2e8f0;
+    border-top: 3px solid #dc2626;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.upload-error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #fef2f2;
+    color: #dc2626;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.image-preview {
+    margin-top: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.image-preview img {
+    max-width: 200px;
+    max-height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.remove-image {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+/* Media Grid */
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.media-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+}
+
+.media-preview {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+}
+
+.media-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.media-preview .file-icon {
+    font-size: 2rem;
+}
+
+.media-info {
+    padding: 1rem;
+}
+
+.media-info h5 {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.media-actions {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-top: 1px solid #e2e8f0;
+    background: #f8fafc;
+}
+
+.checkbox-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat-link {
+    background: none;
+    border: none;
+    color: #dc2626;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.action-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-align: left;
+}
+
 /* Admin responsive */
 @media (max-width: 768px) {
     .admin-header-content {
@@ -1346,5 +1719,18 @@ footer {
     .login-container {
         padding: 2rem 1.5rem;
         margin: 1rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-item {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .media-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 }
