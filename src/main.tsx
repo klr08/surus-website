@@ -3,8 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Home from './pages/Home';
-import Blog from './pages/Blog';
-import Podcast from './pages/Podcast';
+import Insights from './pages/Insights';
 import About from './pages/About';
 
 import '../public/css/style.css';
@@ -15,8 +14,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'blog', element: <Blog /> },
-      { path: 'podcast', element: <Podcast /> },
+      { path: 'insights', element: <Insights /> },
       { path: 'about', element: <About /> },
     ],
   },

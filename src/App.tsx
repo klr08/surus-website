@@ -9,8 +9,7 @@ export default function App(): JSX.Element {
           <div className="logo"><h1>Surus</h1></div>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/podcast">Podcast</Link></li>
+            <li><Link to="/insights">Insights</Link></li>
             <li><Link to="/about">About</Link></li>
           </ul>
         </nav>

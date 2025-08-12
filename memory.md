@@ -12,3 +12,10 @@ Hi Claude, this is your working memory document.
 - Build passes locally, committed and pushed to GitHub.
 - Issue: Netlify site (https://aug5-surus-website.netlify.app/) loading empty/blank.
 - Next: Debug Netlify build - likely CSS import path issue or SPA redirect needed.
+
+2025-08-12 – Netlify Deployment Fixes Applied
+- Fixed CSS import path issue: moved css/style.css → public/css/style.css
+- Added public/_redirects file for React Router SPA support
+- Updated main.tsx CSS import to relative path: '../public/css/style.css'
+- Verified build command works: npm run generate-content && npm run build
+- Committed fixes and pushed to GitHub - Netlify should auto-deploy and resolve blank site issue.
