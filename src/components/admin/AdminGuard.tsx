@@ -11,8 +11,18 @@ export default function AdminGuard({ children }: AdminGuardProps): JSX.Element {
 
   useEffect(() => {
     // Simple authentication check - in production, use proper JWT validation
-    const authToken = localStorage.getItem('surus_admin_auth');
-    setIsAuthenticated(Boolean(authToken));
+    const authData = localStorage.getItem('surus_admin_auth');
+    if (authData) {
+      try {
+        const parsed = JSON.parse(authData);
+        const isValid = parsed.token && parsed.expires > Date.now();
+        setIsAuthenticated(isValid);
+      } catch {
+        setIsAuthenticated(false);
+      }
+    } else {
+      setIsAuthenticated(false);
+    }
   }, []);
 
   // Show loading while checking auth
