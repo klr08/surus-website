@@ -9,6 +9,7 @@ import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminLayout from './components/admin/AdminLayout';
 import AdminGuard from './components/admin/AdminGuard';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import '../public/css/style.css';
 
@@ -24,16 +25,32 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin/login',
-    element: <AdminLogin />,
+    element: (
+      <ErrorBoundary>
+        <AdminLogin />
+      </ErrorBoundary>
+    ),
   },
   {
     path: '/admin',
     element: (
-      <AdminGuard>
-        <AdminLayout>
-          <AdminDashboard />
-        </AdminLayout>
-      </AdminGuard>
+      <ErrorBoundary>
+        <AdminGuard>
+          <AdminLayout>
+            <AdminDashboard />
+          </AdminLayout>
+        </AdminGuard>
+      </ErrorBoundary>
+    ),
+  },
+  {
+    path: '*',
+    element: (
+      <div style={{ padding: '2rem', textAlign: 'center' }}>
+        <h1>404 - Page Not Found</h1>
+        <p>The page you're looking for doesn't exist.</p>
+        <a href="/">Go Home</a>
+      </div>
     ),
   },
 ]);
