@@ -304,8 +304,35 @@ export default function AdminEnhanced(): JSX.Element {
         console.error('Podcast import error:', e);
       }
 
+      // Import Team Members
+      let importedTeam = 0;
+      try {
+        const res = await fetch('/data/team.json', { cache: 'no-cache' });
+        if (res.ok) {
+          const teamData = await res.json();
+          const items: any[] = Array.isArray(teamData) ? teamData : (Array.isArray(teamData.members) ? teamData.members : []);
+          for (const item of items) {
+            if (!item.name) continue;
+            const mapped = {
+              name: item.name || 'Unnamed',
+              title: item.position || item.title || 'Team Member',
+              bio: item.bio || '',
+              order: Number(item.order) || 99,
+              image: item.image || '',
+              linkedinUrl: item.linkedin || item.linkedinUrl || '',
+              twitterUrl: item.twitter || item.twitterUrl || '',
+              active: Boolean(item.active ?? true),
+            };
+            const r = ContentManager.saveTeamMember(mapped);
+            if (r.success) importedTeam += 1;
+          }
+        }
+      } catch (e) {
+        console.error('Team import error:', e);
+      }
+
       loadAllContent();
-      alert(`Import complete. Added ${importedBlogs} blog posts and ${importedEpisodes} podcast episodes. You can now edit them!`);
+      alert(`Import complete. Added ${importedBlogs} blog posts, ${importedEpisodes} podcast episodes, and ${importedTeam} team members. You can now edit them!`);
     } catch (e) {
       console.error('Import failed:', e);
       alert('Live import failed.');

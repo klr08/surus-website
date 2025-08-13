@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Patrick Murck",
+    "position": "Chief Executive Officer",
+    "bio": "Co-founder and Principal at Plural VC. Previously, President & CLO at Transparent Systems, Special Counsel at Cooley LLP, and co-founder of Bitcoin Foundation.",
+    "order": 1,
+    "image": "/images/uploads/patrick-murck_headshot.jpg",
+    "linkedin": "https://linkedin.com/in/patrickmurck",
+    "twitter": "https://x.com/virtuallylaw",
+    "active": true,
+    "slug": "patrick-murck"
+  },
+  {
+    "name": "Brad Gibson",
+    "position": "Chief Technology Officer",
+    "bio": "Previously VP of Engineering at Transparent Systems.  CEO at Human Enginuity and Co-Founder & CTO at LearnBIG (Acquired).",
+    "order": 2,
+    "image": "/images/uploads/brad-gibson_cto.png",
+    "linkedin": "",
+    "twitter": "",
+    "active": true,
+    "slug": "map-order-2-name-brad-gibson-position-chief-technology-officer-bio-previously-vp-of-engineering-at-transparent-systems-ceo-at-human-enginuity-and-co-founder-cto-at-learnbig-acquired-image-images-uploads-brad-gibson_cto"
+  },
+  {
+    "name": "Bethany Wheeler",
+    "position": "Chief Trust Officer",
+    "bio": "Previously, Chief Trust Officer at Paxos. Founder of Fiduciary Management Solutions. More than thirty years of experience in the trust industry.",
+    "order": 3,
+    "image": "/images/uploads/patrick-murck_chief-executive-officer-1-.png",
+    "linkedin": "",
+    "twitter": "",
+    "active": true,
+    "slug": "map-order-1-name-bethany-wheeler-position-chief-trust-officer-bio-previously-chief-trust-officer-at-paxos-founder-of-fiduciary-management-solutions-more-than-thirty-years-of-experience-in-the-trust-industry-image-images-up"
+  }
+]

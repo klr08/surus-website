@@ -46,18 +46,39 @@ async function buildPodcast() {
   return items;
 }
 
+async function buildTeam() {
+  const files = await glob('content/team/**/*.md');
+  const items = files.map(parseMarkdownFile)
+    .filter(t => !!(t.name && t.position))
+    .map(t => ({
+      name: t.name,
+      position: t.position,
+      bio: t.bio || '',
+      order: t.order || 99,
+      image: t.image || '',
+      linkedin: t.linkedin || '',
+      twitter: t.twitter || '',
+      active: true,
+      slug: t.slug
+    }))
+    .sort((a, b) => a.order - b.order);
+  return items;
+}
+
 async function main() {
   const outDir = 'public/data';
   mkdirSync(outDir, { recursive: true });
 
-  const [blog, podcast] = await Promise.all([buildBlog(), buildPodcast()]);
+  const [blog, podcast, team] = await Promise.all([buildBlog(), buildPodcast(), buildTeam()]);
   writeFileSync(path.join(outDir, 'blog.json'), JSON.stringify(blog, null, 2));
   writeFileSync(path.join(outDir, 'podcast.json'), JSON.stringify(podcast, null, 2));
+  writeFileSync(path.join(outDir, 'team.json'), JSON.stringify(team, null, 2));
   // Also emit at site root /data for Netlify static serving
   mkdirSync('data', { recursive: true });
   writeFileSync(path.join('data', 'blog.json'), JSON.stringify(blog, null, 2));
   writeFileSync(path.join('data', 'podcast.json'), JSON.stringify(podcast, null, 2));
-  console.log(`Generated ${blog.length} blog posts and ${podcast.length} podcast episodes.`);
+  writeFileSync(path.join('data', 'team.json'), JSON.stringify(team, null, 2));
+  console.log(`Generated ${blog.length} blog posts, ${podcast.length} podcast episodes, and ${team.length} team members.`);
 }
 
 main().catch(err => {
