@@ -429,6 +429,62 @@ export default function AdminEnhanced(): JSX.Element {
     }
   };
 
+  // Podcast handlers
+  const handleEditPodcast = (episode: PodcastEpisode): void => {
+    setPodcastForm({
+      episodeNumber: episode.episodeNumber,
+      title: episode.title,
+      slug: episode.slug,
+      description: episode.description,
+      guest: episode.guest || '',
+      guestTitle: episode.guestTitle || '',
+      duration: episode.duration || '',
+      image: episode.image || '',
+      audioUrl: episode.audioUrl || '',
+      spotifyUrl: episode.spotifyUrl || '',
+      appleUrl: episode.appleUrl || '',
+      amazonUrl: episode.amazonUrl || '',
+      youtubeUrl: episode.youtubeUrl || '',
+      transcript: episode.transcript || '',
+      tags: Array.isArray(episode.tags) ? episode.tags.join(', ') : (episode.tags || ''),
+      featured: episode.featured,
+      published: episode.published,
+      publishDate: episode.publishDate.split('T')[0] || '',
+    });
+    setEditingPodcast(episode);
+    setShowPodcastForm(true);
+  };
+
+  const handleDeletePodcast = (id: string): void => {
+    if (confirm('Are you sure you want to delete this episode?')) {
+      ContentManager.deletePodcastEpisode(id);
+      loadAllContent();
+    }
+  };
+
+  // Team handlers
+  const handleEditTeam = (member: TeamMember): void => {
+    setTeamForm({
+      name: member.name,
+      title: member.title,
+      bio: member.bio,
+      order: member.order,
+      image: member.image || '',
+      linkedinUrl: member.linkedinUrl || '',
+      twitterUrl: member.twitterUrl || '',
+      active: member.active,
+    });
+    setEditingTeam(member);
+    setShowTeamForm(true);
+  };
+
+  const handleDeleteTeam = (id: string): void => {
+    if (confirm('Are you sure you want to delete this team member?')) {
+      ContentManager.deleteTeamMember(id);
+      loadAllContent();
+    }
+  };
+
   // Auto-generate slug from title
   useEffect(() => {
     if (blogForm.title && !editingBlog) {
@@ -1170,41 +1226,13 @@ export default function AdminEnhanced(): JSX.Element {
                     </div>
                     <div className="content-actions">
                       <button 
-                        onClick={() => {
-                          setPodcastForm({
-                            episodeNumber: episode.episodeNumber,
-                            title: episode.title,
-                            slug: episode.slug,
-                            description: episode.description,
-                            guest: episode.guest || '',
-                            guestTitle: episode.guestTitle || '',
-                            duration: episode.duration,
-                            image: episode.image || '',
-                            audioUrl: episode.audioUrl,
-                            spotifyUrl: episode.spotifyUrl || '',
-                            appleUrl: episode.appleUrl || '',
-                            amazonUrl: episode.amazonUrl || '',
-                            youtubeUrl: episode.youtubeUrl || '',
-                            transcript: episode.transcript || '',
-                            tags: Array.isArray(episode.tags) ? episode.tags.join(', ') : episode.tags,
-                            featured: episode.featured,
-                            published: episode.published,
-                            publishDate: episode.publishDate.split('T')[0] || '',
-                          });
-                          setEditingPodcast(episode);
-                          setShowPodcastForm(true);
-                        }}
+                        onClick={() => handleEditPodcast(episode)}
                         className="btn btn-small"
                       >
                         Edit
                       </button>
                       <button 
-                        onClick={() => {
-                          if (confirm('Are you sure you want to delete this episode?')) {
-                            ContentManager.deletePodcastEpisode(episode.id);
-                            loadAllContent();
-                          }
-                        }}
+                        onClick={() => handleDeletePodcast(episode.id)}
                         className="btn btn-small btn-danger"
                       >
                         Delete
@@ -1370,31 +1398,13 @@ export default function AdminEnhanced(): JSX.Element {
                       </div>
                       <div className="content-actions">
                         <button 
-                          onClick={() => {
-                            setTeamForm({
-                              name: member.name,
-                              title: member.title,
-                              bio: member.bio,
-                              order: member.order,
-                              image: member.image || '',
-                              linkedinUrl: member.linkedinUrl || '',
-                              twitterUrl: member.twitterUrl || '',
-                              active: member.active,
-                            });
-                            setEditingTeam(member);
-                            setShowTeamForm(true);
-                          }}
+                          onClick={() => handleEditTeam(member)}
                           className="btn btn-small"
                         >
                           Edit
                         </button>
                         <button 
-                          onClick={() => {
-                            if (confirm('Are you sure you want to delete this team member?')) {
-                              ContentManager.deleteTeamMember(member.id);
-                              loadAllContent();
-                            }
-                          }}
+                          onClick={() => handleDeleteTeam(member.id)}
                           className="btn btn-small btn-danger"
                         >
                           Delete
