@@ -5,6 +5,7 @@ import { ContentManager } from '../services/contentManager';
 import { FileUploadService } from '../services/fileUpload';
 import RichTextEditor from '../components/admin/RichTextEditor';
 import FileUpload from '../components/admin/FileUpload';
+import { downloadJSON, getTimestampSlug } from '../services/backup';
 
 type TabType = 'dashboard' | 'blog' | 'podcast' | 'team' | 'media';
 
@@ -126,6 +127,45 @@ export default function AdminEnhanced(): JSX.Element {
       teamMembers: team.length,
       mediaFiles: media.length,
     });
+  };
+
+  const handleExportBackup = (): void => {
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      blogPosts,
+      podcastEpisodes,
+      teamMembers,
+      mediaFiles,
+    };
+    const name = `surus-backup-${getTimestampSlug()}.json`;
+    downloadJSON(name, payload);
+  };
+
+  const handleImportBackup = async (file: File): Promise<void> => {
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      if (!data) return;
+
+      // Replace localStorage buckets atomically
+      if (Array.isArray(data.blogPosts)) {
+        localStorage.setItem('surus_cms_blog_posts', JSON.stringify(data.blogPosts));
+      }
+      if (Array.isArray(data.podcastEpisodes)) {
+        localStorage.setItem('surus_cms_podcast_episodes', JSON.stringify(data.podcastEpisodes));
+      }
+      if (Array.isArray(data.teamMembers)) {
+        localStorage.setItem('surus_cms_team_members', JSON.stringify(data.teamMembers));
+      }
+      if (Array.isArray(data.mediaFiles)) {
+        localStorage.setItem('surus_cms_files', JSON.stringify(data.mediaFiles));
+      }
+
+      loadAllContent();
+      alert('Backup imported successfully.');
+    } catch (e) {
+      alert('Import failed. Please check the file format.');
+    }
   };
 
   const handleLogin = async (e: React.FormEvent): Promise<void> => {
@@ -415,6 +455,22 @@ export default function AdminEnhanced(): JSX.Element {
             </button>
           </nav>
           <div className="admin-user">
+            <button
+              onClick={handleExportBackup}
+              className="btn btn-secondary"
+              title="Download all content as JSON backup"
+            >
+              Export
+            </button>
+            <label className="btn btn-secondary file-input-label" title="Restore from a JSON backup">
+              Import
+              <input
+                type="file"
+                accept="application/json"
+                onChange={(e) => e.target.files && e.target.files[0] && handleImportBackup(e.target.files[0])}
+                style={{ display: 'none' }}
+              />
+            </label>
             <Link to="/" className="view-site">View Site</Link>
             <button onClick={handleLogout} className="logout-btn">Logout</button>
           </div>
