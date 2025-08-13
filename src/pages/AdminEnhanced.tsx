@@ -39,6 +39,7 @@ export default function AdminEnhanced(): JSX.Element {
   const [showBlogForm, setShowBlogForm] = useState(false);
   const [showPodcastForm, setShowPodcastForm] = useState(false);
   const [showTeamForm, setShowTeamForm] = useState(false);
+  const [publishLoading, setPublishLoading] = useState<boolean>(false);
 
   // Blog form state
   const [blogForm, setBlogForm] = useState({
@@ -188,7 +189,11 @@ export default function AdminEnhanced(): JSX.Element {
               summary: item.summary || item.excerpt || '',
               content: item.content || item.body || '',
               image: item.image || item.coverImage || '',
-              tags: (item.tags || []).join(', '),
+              tags: Array.isArray(item.tags)
+                ? item.tags
+                : (typeof item.tags === 'string'
+                    ? item.tags.split(',').map((t: string) => t.trim()).filter(Boolean)
+                    : []),
               featured: Boolean(item.featured),
               published: Boolean(item.published ?? true),
               publishDate: (item.publishDate || item.date || new Date().toISOString()).split('T')[0],
@@ -225,7 +230,11 @@ export default function AdminEnhanced(): JSX.Element {
               amazonUrl: item.amazonUrl || '',
               youtubeUrl: item.youtubeUrl || '',
               transcript: item.transcript || '',
-              tags: (item.tags || []).join(', '),
+              tags: Array.isArray(item.tags)
+                ? item.tags
+                : (typeof item.tags === 'string'
+                    ? item.tags.split(',').map((t: string) => t.trim()).filter(Boolean)
+                    : []),
               featured: Boolean(item.featured),
               published: Boolean(item.published ?? true),
               publishDate: (item.publishDate || item.date || new Date().toISOString()).split('T')[0],
@@ -275,9 +284,14 @@ export default function AdminEnhanced(): JSX.Element {
 
   // Blog handlers
   const handleSaveBlog = (): void => {
+    const normalized = {
+      ...blogForm,
+      tags: blogForm.tags.split(',').map(t => t.trim()).filter(Boolean),
+    } as any;
+
     const result = editingBlog 
-      ? ContentManager.updateBlogPost(editingBlog.id, blogForm)
-      : ContentManager.saveBlogPost(blogForm);
+      ? ContentManager.updateBlogPost(editingBlog.id, normalized)
+      : ContentManager.saveBlogPost(normalized);
 
     if (result.success) {
       loadAllContent();
@@ -312,7 +326,7 @@ export default function AdminEnhanced(): JSX.Element {
       summary: blog.summary,
       content: blog.content,
       image: blog.image || '',
-      tags: blog.tags.join(', '),
+      tags: Array.isArray(blog.tags) ? blog.tags.join(', ') : (typeof (blog as any).tags === 'string' ? (blog as any).tags : ''),
       featured: blog.featured,
       published: blog.published,
       publishDate: blog.publishDate.split('T')[0] || '',
@@ -543,6 +557,14 @@ export default function AdminEnhanced(): JSX.Element {
               title="Download all content as JSON backup"
             >
               Export
+            </button>
+            <button
+              onClick={handlePublish}
+              className="btn btn-primary"
+              disabled={publishLoading}
+              title="Commit data to GitHub and trigger deploy"
+            >
+              {publishLoading ? 'Publishing…' : 'Publish'}
             </button>
             <label className="btn btn-secondary file-input-label" title="Restore from a JSON backup">
               Import
