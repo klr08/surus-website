@@ -7,8 +7,9 @@ import RichTextEditor from '../components/admin/RichTextEditor';
 import FileUpload from '../components/admin/FileUpload';
 import { downloadJSON, getTimestampSlug } from '../services/backup';
 import { Publisher } from '../services/publisher';
+import { GitHubConfigManager } from '../services/github';
 
-type TabType = 'dashboard' | 'blog' | 'podcast' | 'team' | 'media';
+type TabType = 'dashboard' | 'blog' | 'podcast' | 'team' | 'media' | 'settings';
 
 export default function AdminEnhanced(): JSX.Element {
   // Authentication state
@@ -40,6 +41,14 @@ export default function AdminEnhanced(): JSX.Element {
   const [showBlogForm, setShowBlogForm] = useState(false);
   const [showPodcastForm, setShowPodcastForm] = useState(false);
   const [showTeamForm, setShowTeamForm] = useState(false);
+
+  // GitHub settings state
+  const [githubConfig, setGithubConfig] = useState({
+    token: '',
+    owner: 'klr08',
+    repo: 'surus-website',
+    branch: 'main',
+  });
 
   // Blog form state
   const [blogForm, setBlogForm] = useState({
@@ -108,6 +117,9 @@ export default function AdminEnhanced(): JSX.Element {
   useEffect(() => {
     if (isAuthenticated) {
       loadAllContent();
+      // Load GitHub config
+      const saved = GitHubConfigManager.load();
+      setGithubConfig(prev => ({ ...prev, ...saved }));
     }
   }, [isAuthenticated]);
 
@@ -172,13 +184,13 @@ export default function AdminEnhanced(): JSX.Element {
   const handlePublishToSite = async (): Promise<void> => {
     try {
       const stats = Publisher.getPublishStats();
-      const confirmed = confirm(
-        `Publish ${stats.published} items to live site?\n\n` +
-        `This will download updated JSON files that you need to upload to public/data/ and commit to GitHub.\n\n` +
-        `Published: ${stats.published} items\n` +
-        `Drafts: ${stats.draft} items (will not be published)`
-      );
+      const isConfigured = GitHubConfigManager.isConfigured();
       
+      const message = isConfigured 
+        ? `Publish ${stats.published} items directly to GitHub?\n\nThis will commit updated JSON files and trigger a Netlify rebuild.\n\nPublished: ${stats.published} items\nDrafts: ${stats.draft} items (will not be published)`
+        : `Publish ${stats.published} items to live site?\n\nGitHub not configured - files will be downloaded for manual upload.\n\nPublished: ${stats.published} items\nDrafts: ${stats.draft} items (will not be published)`;
+      
+      const confirmed = confirm(message);
       if (!confirmed) return;
 
       const result = await Publisher.publishToGitHub();
@@ -189,6 +201,32 @@ export default function AdminEnhanced(): JSX.Element {
       }
     } catch (error) {
       alert(`Publishing failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  };
+
+  const handleSaveGitHubConfig = (): void => {
+    GitHubConfigManager.save(githubConfig);
+    alert('GitHub configuration saved! You can now use one-click publishing.');
+  };
+
+  const handleTestGitHubConfig = async (): Promise<void> => {
+    try {
+      GitHubConfigManager.save(githubConfig);
+      const publisher = GitHubConfigManager.getPublisher();
+      
+      if (!publisher) {
+        alert('Invalid configuration');
+        return;
+      }
+
+      const result = await publisher.validateAccess();
+      if (result.success) {
+        alert('✅ GitHub configuration is valid! One-click publishing is ready.');
+      } else {
+        alert(`❌ Configuration test failed: ${result.error}`);
+      }
+    } catch (error) {
+      alert(`Test failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
@@ -558,6 +596,12 @@ export default function AdminEnhanced(): JSX.Element {
               className={activeTab === 'media' ? 'active' : ''}
             >
               Media ({summary.mediaFiles})
+            </button>
+            <button 
+              onClick={() => setActiveTab('settings')}
+              className={activeTab === 'settings' ? 'active' : ''}
+            >
+              Settings
             </button>
             <button 
               onClick={importFromLiveSite}
@@ -1332,6 +1376,117 @@ export default function AdminEnhanced(): JSX.Element {
                     <p>No team members yet. Add your first one!</p>
                   </div>
                 )}
+              </div>
+            </div>
+          )}
+
+          {/* Settings Tab */}
+          {activeTab === 'settings' && (
+            <div className="content-section">
+              <div className="content-header">
+                <h2>Settings</h2>
+              </div>
+
+              <div className="content-form">
+                <div className="form-header">
+                  <h3>GitHub Integration</h3>
+                  <p>Configure GitHub integration for one-click publishing to your live site.</p>
+                </div>
+
+                <div className="form-grid">
+                  <div className="form-group">
+                    <label>GitHub Personal Access Token *</label>
+                    <input
+                      type="password"
+                      value={githubConfig.token}
+                      onChange={(e) => setGithubConfig(prev => ({ ...prev, token: e.target.value }))}
+                      placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    />
+                    <small>
+                      Required permissions: <code>repo</code> (Full control of private repositories)
+                      <br />
+                      <a href="https://github.com/settings/tokens/new?scopes=repo&description=Surus%20CMS" target="_blank" rel="noopener noreferrer">
+                        Create new token →
+                      </a>
+                    </small>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Repository Owner</label>
+                    <input
+                      type="text"
+                      value={githubConfig.owner}
+                      onChange={(e) => setGithubConfig(prev => ({ ...prev, owner: e.target.value }))}
+                      placeholder="klr08"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Repository Name</label>
+                    <input
+                      type="text"
+                      value={githubConfig.repo}
+                      onChange={(e) => setGithubConfig(prev => ({ ...prev, repo: e.target.value }))}
+                      placeholder="surus-website"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Branch Name</label>
+                    <input
+                      type="text"
+                      value={githubConfig.branch}
+                      onChange={(e) => setGithubConfig(prev => ({ ...prev, branch: e.target.value }))}
+                      placeholder="main"
+                    />
+                  </div>
+
+                  <div className="form-group full-width">
+                    <div className="github-status">
+                      {GitHubConfigManager.isConfigured() ? (
+                        <div className="status-indicator success">
+                          ✅ GitHub configured - One-click publishing enabled
+                        </div>
+                      ) : (
+                        <div className="status-indicator warning">
+                          ⚠️ GitHub not configured - Files will be downloaded for manual upload
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-actions">
+                  <button onClick={handleSaveGitHubConfig} className="btn btn-secondary">
+                    Save Configuration
+                  </button>
+                  <button onClick={handleTestGitHubConfig} className="btn btn-primary">
+                    Test & Validate
+                  </button>
+                  <button 
+                    onClick={() => {
+                      GitHubConfigManager.clear();
+                      setGithubConfig({ token: '', owner: 'klr08', repo: 'surus-website', branch: 'main' });
+                      alert('GitHub configuration cleared.');
+                    }}
+                    className="btn btn-danger"
+                  >
+                    Clear Configuration
+                  </button>
+                </div>
+
+                <div className="settings-help">
+                  <h4>How it works:</h4>
+                  <ol>
+                    <li>Create a GitHub Personal Access Token with <code>repo</code> permissions</li>
+                    <li>Enter your repository details above</li>
+                    <li>Click "Test & Validate" to verify the configuration</li>
+                    <li>Use "🚀 Publish to Site" to automatically commit content and trigger Netlify deploy</li>
+                  </ol>
+
+                  <h4>Security:</h4>
+                  <p>Your token is stored locally in your browser and never transmitted to third parties. It's only used to communicate directly with GitHub's API.</p>
+                </div>
               </div>
             </div>
           )}

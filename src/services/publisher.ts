@@ -2,6 +2,7 @@
 import { ContentManager } from './contentManager';
 import { FileUploadService } from './fileUpload';
 import { downloadJSON } from './backup';
+import { GitHubPublisher, GitHubConfigManager } from './github';
 
 export interface PublishResult {
   success: boolean;
@@ -103,17 +104,61 @@ export class Publisher {
     downloadJSON(`team-${timestamp}.json`, teamData);
   }
 
-  // For future GitHub integration (when we add authentication)
+  // Publish directly to GitHub
   static async publishToGitHub(): Promise<PublishResult> {
-    // This would require GitHub API integration with authentication
-    // For now, we'll use the download approach
     try {
-      this.downloadPublishFiles();
-      return {
-        success: true,
-        message: 'Files downloaded. Please upload them to public/data/ and commit to GitHub.',
-        files: ['blog.json', 'podcast.json', 'team.json']
-      };
+      const publisher = GitHubConfigManager.getPublisher();
+      
+      if (!publisher) {
+        // Fallback to download if not configured
+        this.downloadPublishFiles();
+        return {
+          success: true,
+          message: 'GitHub not configured. Files downloaded for manual upload to public/data/.',
+          files: ['blog.json', 'podcast.json', 'team.json']
+        };
+      }
+
+      // Validate access first
+      const validation = await publisher.validateAccess();
+      if (!validation.success) {
+        return {
+          success: false,
+          message: `GitHub access validation failed: ${validation.error}`
+        };
+      }
+
+      // Prepare file updates
+      const files = [
+        {
+          path: 'public/data/blog.json',
+          content: JSON.stringify(this.generateBlogJSON(), null, 2)
+        },
+        {
+          path: 'public/data/podcast.json',
+          content: JSON.stringify(this.generatePodcastJSON(), null, 2)
+        },
+        {
+          path: 'public/data/team.json',
+          content: JSON.stringify(this.generateTeamJSON(), null, 2)
+        }
+      ];
+
+      // Publish to GitHub
+      const result = await publisher.publishFiles(files);
+      
+      if (result.success) {
+        return {
+          success: true,
+          message: `Successfully published ${result.data.length} files to GitHub. Netlify will rebuild automatically.`,
+          files: result.data
+        };
+      } else {
+        return {
+          success: false,
+          message: `GitHub publishing failed: ${result.error}`
+        };
+      }
     } catch (error) {
       return {
         success: false,
