@@ -6,6 +6,7 @@ import { FileUploadService } from '../services/fileUpload';
 import RichTextEditor from '../components/admin/RichTextEditor';
 import FileUpload from '../components/admin/FileUpload';
 import { downloadJSON, getTimestampSlug } from '../services/backup';
+import { Publisher } from '../services/publisher';
 
 type TabType = 'dashboard' | 'blog' | 'podcast' | 'team' | 'media';
 
@@ -39,7 +40,6 @@ export default function AdminEnhanced(): JSX.Element {
   const [showBlogForm, setShowBlogForm] = useState(false);
   const [showPodcastForm, setShowPodcastForm] = useState(false);
   const [showTeamForm, setShowTeamForm] = useState(false);
-  const [publishLoading, setPublishLoading] = useState<boolean>(false);
 
   // Blog form state
   const [blogForm, setBlogForm] = useState({
@@ -169,19 +169,45 @@ export default function AdminEnhanced(): JSX.Element {
     }
   };
 
+  const handlePublishToSite = async (): Promise<void> => {
+    try {
+      const stats = Publisher.getPublishStats();
+      const confirmed = confirm(
+        `Publish ${stats.published} items to live site?\n\n` +
+        `This will download updated JSON files that you need to upload to public/data/ and commit to GitHub.\n\n` +
+        `Published: ${stats.published} items\n` +
+        `Drafts: ${stats.draft} items (will not be published)`
+      );
+      
+      if (!confirmed) return;
+
+      const result = await Publisher.publishToGitHub();
+      if (result.success) {
+        alert(result.message);
+      } else {
+        alert(`Publishing failed: ${result.message}`);
+      }
+    } catch (error) {
+      alert(`Publishing failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  };
+
   const importFromLiveSite = async (): Promise<void> => {
     try {
+      // Clear existing data first for clean re-import
+      localStorage.removeItem('surus_cms_blog_posts');
+      localStorage.removeItem('surus_cms_podcast_episodes');
+
       // Import Blog
       let importedBlogs = 0;
       try {
         const res = await fetch('/data/blog.json', { cache: 'no-cache' });
         if (res.ok) {
           const blogData = await res.json();
-          const existingBySlug = new Set(ContentManager.getBlogPosts().map(b => b.slug));
           const items: any[] = Array.isArray(blogData) ? blogData : (Array.isArray(blogData.posts) ? blogData.posts : []);
           for (const item of items) {
             const slug: string = item.slug || (item.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-            if (!slug || existingBySlug.has(slug)) continue;
+            if (!slug) continue;
             const mapped = {
               title: item.title || 'Untitled',
               slug,
@@ -189,20 +215,18 @@ export default function AdminEnhanced(): JSX.Element {
               summary: item.summary || item.excerpt || '',
               content: item.content || item.body || '',
               image: item.image || item.coverImage || '',
-              tags: Array.isArray(item.tags)
-                ? item.tags
-                : (typeof item.tags === 'string'
-                    ? item.tags.split(',').map((t: string) => t.trim()).filter(Boolean)
-                    : []),
+              tags: Array.isArray(item.tags) ? item.tags.join(', ') : '',
               featured: Boolean(item.featured),
               published: Boolean(item.published ?? true),
               publishDate: (item.publishDate || item.date || new Date().toISOString()).split('T')[0],
             };
-            const r = ContentManager.saveBlogPost(mapped as any);
+            const r = ContentManager.saveBlogPost(mapped);
             if (r.success) importedBlogs += 1;
           }
         }
-      } catch {}
+      } catch (e) {
+        console.error('Blog import error:', e);
+      }
 
       // Import Podcast
       let importedEpisodes = 0;
@@ -210,44 +234,42 @@ export default function AdminEnhanced(): JSX.Element {
         const res = await fetch('/data/podcast.json', { cache: 'no-cache' });
         if (res.ok) {
           const podData = await res.json();
-          const existingBySlug = new Set(ContentManager.getPodcastEpisodes().map(p => p.slug));
           const items: any[] = Array.isArray(podData) ? podData : (Array.isArray(podData.episodes) ? podData.episodes : []);
           for (const item of items) {
             const slug: string = item.slug || (item.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-            if (!slug || existingBySlug.has(slug)) continue;
+            if (!slug) continue;
             const mapped = {
-              episodeNumber: Number(item.episodeNumber || item.number || 1),
+              episodeNumber: Number(item.episodeNumber || item.episode_number || item.number || 1),
               title: item.title || 'Untitled',
               slug,
-              description: item.description || item.summary || '',
+              description: item.description || item.summary || item.body || '',
               guest: item.guest || '',
-              guestTitle: item.guestTitle || '',
+              guestTitle: item.guestTitle || item.guest_title || '',
               duration: item.duration || '',
               image: item.image || item.coverImage || '',
-              audioUrl: item.audioUrl || '',
-              spotifyUrl: item.spotifyUrl || '',
-              appleUrl: item.appleUrl || '',
-              amazonUrl: item.amazonUrl || '',
-              youtubeUrl: item.youtubeUrl || '',
+              audioUrl: item.audioUrl || item.libsyn_url || '',
+              spotifyUrl: item.spotifyUrl || item.spotify_url || '',
+              appleUrl: item.appleUrl || item.apple_url || '',
+              amazonUrl: item.amazonUrl || item.amazon_url || '',
+              youtubeUrl: item.youtubeUrl || item.youtube_url || '',
               transcript: item.transcript || '',
-              tags: Array.isArray(item.tags)
-                ? item.tags
-                : (typeof item.tags === 'string'
-                    ? item.tags.split(',').map((t: string) => t.trim()).filter(Boolean)
-                    : []),
+              tags: Array.isArray(item.tags) ? item.tags.join(', ') : '',
               featured: Boolean(item.featured),
               published: Boolean(item.published ?? true),
               publishDate: (item.publishDate || item.date || new Date().toISOString()).split('T')[0],
             };
-            const r = ContentManager.savePodcastEpisode(mapped as any);
+            const r = ContentManager.savePodcastEpisode(mapped);
             if (r.success) importedEpisodes += 1;
           }
         }
-      } catch {}
+      } catch (e) {
+        console.error('Podcast import error:', e);
+      }
 
       loadAllContent();
-      alert(`Import complete. Added ${importedBlogs} blog posts and ${importedEpisodes} podcast episodes.`);
-    } catch {
+      alert(`Import complete. Added ${importedBlogs} blog posts and ${importedEpisodes} podcast episodes. You can now edit them!`);
+    } catch (e) {
+      console.error('Import failed:', e);
       alert('Live import failed.');
     }
   };
@@ -284,14 +306,9 @@ export default function AdminEnhanced(): JSX.Element {
 
   // Blog handlers
   const handleSaveBlog = (): void => {
-    const normalized = {
-      ...blogForm,
-      tags: blogForm.tags.split(',').map(t => t.trim()).filter(Boolean),
-    } as any;
-
     const result = editingBlog 
-      ? ContentManager.updateBlogPost(editingBlog.id, normalized)
-      : ContentManager.saveBlogPost(normalized);
+      ? ContentManager.updateBlogPost(editingBlog.id, blogForm)
+      : ContentManager.saveBlogPost(blogForm);
 
     if (result.success) {
       loadAllContent();
@@ -326,7 +343,7 @@ export default function AdminEnhanced(): JSX.Element {
       summary: blog.summary,
       content: blog.content,
       image: blog.image || '',
-      tags: Array.isArray(blog.tags) ? blog.tags.join(', ') : (typeof (blog as any).tags === 'string' ? (blog as any).tags : ''),
+      tags: blog.tags.join(', '),
       featured: blog.featured,
       published: blog.published,
       publishDate: blog.publishDate.split('T')[0] || '',
@@ -552,19 +569,18 @@ export default function AdminEnhanced(): JSX.Element {
           </nav>
           <div className="admin-user">
             <button
+              onClick={handlePublishToSite}
+              className="btn btn-primary"
+              title="Publish content to live website"
+            >
+              🚀 Publish to Site
+            </button>
+            <button
               onClick={handleExportBackup}
               className="btn btn-secondary"
               title="Download all content as JSON backup"
             >
               Export
-            </button>
-            <button
-              onClick={handlePublish}
-              className="btn btn-primary"
-              disabled={publishLoading}
-              title="Commit data to GitHub and trigger deploy"
-            >
-              {publishLoading ? 'Publishing…' : 'Publish'}
             </button>
             <label className="btn btn-secondary file-input-label" title="Restore from a JSON backup">
               Import
