@@ -26,7 +26,7 @@ export class Publisher {
         content: post.content,
         body: post.content, // Also include as body for compatibility
         image: post.image || undefined,
-        tags: post.tags.split(',').map(t => t.trim()).filter(Boolean),
+        tags: Array.isArray(post.tags) ? post.tags : (post.tags ? post.tags.split(',').map(t => t.trim()).filter(Boolean) : []),
         featured: post.featured,
         published: post.published,
       }));
@@ -63,7 +63,7 @@ export class Publisher {
         youtubeUrl: episode.youtubeUrl || undefined,
         youtube_url: episode.youtubeUrl || undefined,
         transcript: episode.transcript || undefined,
-        tags: episode.tags.split(',').map(t => t.trim()).filter(Boolean),
+        tags: Array.isArray(episode.tags) ? episode.tags : (episode.tags ? episode.tags.split(',').map(t => t.trim()).filter(Boolean) : []),
         featured: episode.featured,
         published: episode.published,
       }));

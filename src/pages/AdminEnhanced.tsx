@@ -371,9 +371,14 @@ export default function AdminEnhanced(): JSX.Element {
 
   // Blog handlers
   const handleSaveBlog = (): void => {
+    const blogData = {
+      ...blogForm,
+      tags: blogForm.tags.split(',').map(t => t.trim()).filter(Boolean),
+    };
+
     const result = editingBlog 
-      ? ContentManager.updateBlogPost(editingBlog.id, blogForm)
-      : ContentManager.saveBlogPost(blogForm);
+      ? ContentManager.updateBlogPost(editingBlog.id, blogData)
+      : ContentManager.saveBlogPost(blogData);
 
     if (result.success) {
       loadAllContent();
