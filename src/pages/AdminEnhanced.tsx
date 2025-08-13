@@ -168,6 +168,81 @@ export default function AdminEnhanced(): JSX.Element {
     }
   };
 
+  const importFromLiveSite = async (): Promise<void> => {
+    try {
+      // Import Blog
+      let importedBlogs = 0;
+      try {
+        const res = await fetch('/data/blog.json', { cache: 'no-cache' });
+        if (res.ok) {
+          const blogData = await res.json();
+          const existingBySlug = new Set(ContentManager.getBlogPosts().map(b => b.slug));
+          const items: any[] = Array.isArray(blogData) ? blogData : (Array.isArray(blogData.posts) ? blogData.posts : []);
+          for (const item of items) {
+            const slug: string = item.slug || (item.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            if (!slug || existingBySlug.has(slug)) continue;
+            const mapped = {
+              title: item.title || 'Untitled',
+              slug,
+              author: item.author || 'Surus Team',
+              summary: item.summary || item.excerpt || '',
+              content: item.content || item.body || '',
+              image: item.image || item.coverImage || '',
+              tags: (item.tags || []).join(', '),
+              featured: Boolean(item.featured),
+              published: Boolean(item.published ?? true),
+              publishDate: (item.publishDate || item.date || new Date().toISOString()).split('T')[0],
+            };
+            const r = ContentManager.saveBlogPost(mapped as any);
+            if (r.success) importedBlogs += 1;
+          }
+        }
+      } catch {}
+
+      // Import Podcast
+      let importedEpisodes = 0;
+      try {
+        const res = await fetch('/data/podcast.json', { cache: 'no-cache' });
+        if (res.ok) {
+          const podData = await res.json();
+          const existingBySlug = new Set(ContentManager.getPodcastEpisodes().map(p => p.slug));
+          const items: any[] = Array.isArray(podData) ? podData : (Array.isArray(podData.episodes) ? podData.episodes : []);
+          for (const item of items) {
+            const slug: string = item.slug || (item.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            if (!slug || existingBySlug.has(slug)) continue;
+            const mapped = {
+              episodeNumber: Number(item.episodeNumber || item.number || 1),
+              title: item.title || 'Untitled',
+              slug,
+              description: item.description || item.summary || '',
+              guest: item.guest || '',
+              guestTitle: item.guestTitle || '',
+              duration: item.duration || '',
+              image: item.image || item.coverImage || '',
+              audioUrl: item.audioUrl || '',
+              spotifyUrl: item.spotifyUrl || '',
+              appleUrl: item.appleUrl || '',
+              amazonUrl: item.amazonUrl || '',
+              youtubeUrl: item.youtubeUrl || '',
+              transcript: item.transcript || '',
+              tags: (item.tags || []).join(', '),
+              featured: Boolean(item.featured),
+              published: Boolean(item.published ?? true),
+              publishDate: (item.publishDate || item.date || new Date().toISOString()).split('T')[0],
+            };
+            const r = ContentManager.savePodcastEpisode(mapped as any);
+            if (r.success) importedEpisodes += 1;
+          }
+        }
+      } catch {}
+
+      loadAllContent();
+      alert(`Import complete. Added ${importedBlogs} blog posts and ${importedEpisodes} podcast episodes.`);
+    } catch {
+      alert('Live import failed.');
+    }
+  };
+
   const handleLogin = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     setLoginLoading(true);
@@ -452,6 +527,13 @@ export default function AdminEnhanced(): JSX.Element {
               className={activeTab === 'media' ? 'active' : ''}
             >
               Media ({summary.mediaFiles})
+            </button>
+            <button 
+              onClick={importFromLiveSite}
+              className={activeTab === 'dashboard' ? '' : ''}
+              title="Import posts and episodes from the live site"
+            >
+              Sync From Site
             </button>
           </nav>
           <div className="admin-user">
