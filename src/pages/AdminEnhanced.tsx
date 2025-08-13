@@ -224,6 +224,17 @@ export default function AdminEnhanced(): JSX.Element {
     }
   }, [blogForm.title, editingBlog]);
 
+  // Auto-generate slug for podcast from title
+  useEffect(() => {
+    if (podcastForm.title && !editingPodcast) {
+      const slug = podcastForm.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+      setPodcastForm(prev => ({ ...prev, slug }));
+    }
+  }, [podcastForm.title, editingPodcast]);
+
   // Similar handlers for podcast and team (simplified for brevity)
   const handleSavePodcast = (): void => {
     const episodeData = {
@@ -677,18 +688,475 @@ export default function AdminEnhanced(): JSX.Element {
             </div>
           )}
 
-          {/* Other tabs would be similar - truncated for brevity */}
+          {/* Podcast Tab */}
           {activeTab === 'podcast' && (
             <div className="content-section">
-              <h2>Podcast Episodes</h2>
-              <p>Podcast management interface would go here...</p>
+              <div className="content-header">
+                <h2>Podcast Episodes</h2>
+                <button 
+                  onClick={() => setShowPodcastForm(true)}
+                  className="btn btn-primary"
+                >
+                  New Episode
+                </button>
+              </div>
+
+              {showPodcastForm && (
+                <div className="content-form">
+                  <div className="form-header">
+                    <h3>{editingPodcast ? 'Edit Episode' : 'New Podcast Episode'}</h3>
+                    <button onClick={resetPodcastForm} className="btn btn-secondary">Cancel</button>
+                  </div>
+
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label>Episode Number *</label>
+                      <input
+                        type="number"
+                        value={podcastForm.episodeNumber}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, episodeNumber: parseInt(e.target.value) || 1 }))}
+                        min="1"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Duration</label>
+                      <input
+                        type="text"
+                        value={podcastForm.duration}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, duration: e.target.value }))}
+                        placeholder="45:30"
+                      />
+                    </div>
+
+                    <div className="form-group full-width">
+                      <label>Episode Title *</label>
+                      <input
+                        type="text"
+                        value={podcastForm.title}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, title: e.target.value }))}
+                        placeholder="Episode title"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Guest Name</label>
+                      <input
+                        type="text"
+                        value={podcastForm.guest}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, guest: e.target.value }))}
+                        placeholder="Guest name"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Guest Title</label>
+                      <input
+                        type="text"
+                        value={podcastForm.guestTitle}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, guestTitle: e.target.value }))}
+                        placeholder="CEO at Company"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Publish Date</label>
+                      <input
+                        type="date"
+                        value={podcastForm.publishDate}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, publishDate: e.target.value }))}
+                      />
+                    </div>
+
+                    <div className="form-group full-width">
+                      <label>Episode Description *</label>
+                      <RichTextEditor
+                        value={podcastForm.description}
+                        onChange={(description) => setPodcastForm(prev => ({ ...prev, description }))}
+                        placeholder="Write the episode description. You can include links to resources mentioned."
+                      />
+                    </div>
+
+                    <div className="form-group full-width">
+                      <label>Episode Cover Image</label>
+                      <FileUpload
+                        onUpload={(url) => setPodcastForm(prev => ({ ...prev, image: url }))}
+                        accept="image/*"
+                        label="Upload Episode Cover"
+                      />
+                      {podcastForm.image && (
+                        <div className="image-preview">
+                          <img src={podcastForm.image} alt="Episode cover" />
+                          <button 
+                            type="button"
+                            onClick={() => setPodcastForm(prev => ({ ...prev, image: '' }))}
+                            className="remove-image"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label>Audio File URL</label>
+                      <input
+                        type="url"
+                        value={podcastForm.audioUrl}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, audioUrl: e.target.value }))}
+                        placeholder="https://audio.libsyn.com/..."
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Spotify URL</label>
+                      <input
+                        type="url"
+                        value={podcastForm.spotifyUrl}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, spotifyUrl: e.target.value }))}
+                        placeholder="https://open.spotify.com/episode/..."
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Apple Podcasts URL</label>
+                      <input
+                        type="url"
+                        value={podcastForm.appleUrl}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, appleUrl: e.target.value }))}
+                        placeholder="https://podcasts.apple.com/..."
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Amazon Music URL</label>
+                      <input
+                        type="url"
+                        value={podcastForm.amazonUrl}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, amazonUrl: e.target.value }))}
+                        placeholder="https://music.amazon.com/..."
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>YouTube URL</label>
+                      <input
+                        type="url"
+                        value={podcastForm.youtubeUrl}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, youtubeUrl: e.target.value }))}
+                        placeholder="https://youtube.com/watch?v=..."
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Tags</label>
+                      <input
+                        type="text"
+                        value={podcastForm.tags}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, tags: e.target.value }))}
+                        placeholder="fintech, blockchain, innovation"
+                      />
+                    </div>
+
+                    <div className="form-group full-width">
+                      <label>Transcript (Optional)</label>
+                      <textarea
+                        value={podcastForm.transcript}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, transcript: e.target.value }))}
+                        placeholder="Episode transcript..."
+                        rows={10}
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <div className="checkbox-group">
+                        <label>
+                          <input
+                            type="checkbox"
+                            checked={podcastForm.featured}
+                            onChange={(e) => setPodcastForm(prev => ({ ...prev, featured: e.target.checked }))}
+                          />
+                          Featured Episode
+                        </label>
+                        <label>
+                          <input
+                            type="checkbox"
+                            checked={podcastForm.published}
+                            onChange={(e) => setPodcastForm(prev => ({ ...prev, published: e.target.checked }))}
+                          />
+                          Published
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="form-actions">
+                    <button onClick={handleSavePodcast} className="btn btn-primary">
+                      {editingPodcast ? 'Update Episode' : 'Create Episode'}
+                    </button>
+                    <button onClick={resetPodcastForm} className="btn btn-secondary">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <div className="content-list">
+                {podcastEpisodes.map((episode) => (
+                  <div key={episode.id} className="content-item">
+                    <div className="content-info">
+                      <h4>Episode {episode.episodeNumber}: {episode.title}</h4>
+                      <p>{episode.description.replace(/[#*`]/g, '').slice(0, 150)}...</p>
+                      <div className="content-meta">
+                        <span>{episode.guest ? `Guest: ${episode.guest}` : 'Solo Episode'}</span>
+                        <span>{episode.duration}</span>
+                        <span>{new Date(episode.publishDate).toLocaleDateString()}</span>
+                        <span className={`status ${episode.published ? 'published' : 'draft'}`}>
+                          {episode.published ? 'Published' : 'Draft'}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="content-actions">
+                      <button 
+                        onClick={() => {
+                          setPodcastForm({
+                            episodeNumber: episode.episodeNumber,
+                            title: episode.title,
+                            slug: episode.slug,
+                            description: episode.description,
+                            guest: episode.guest || '',
+                            guestTitle: episode.guestTitle || '',
+                            duration: episode.duration,
+                            image: episode.image || '',
+                            audioUrl: episode.audioUrl,
+                            spotifyUrl: episode.spotifyUrl || '',
+                            appleUrl: episode.appleUrl || '',
+                            amazonUrl: episode.amazonUrl || '',
+                            youtubeUrl: episode.youtubeUrl || '',
+                            transcript: episode.transcript || '',
+                            tags: episode.tags.join(', '),
+                            featured: episode.featured,
+                            published: episode.published,
+                            publishDate: episode.publishDate.split('T')[0] || '',
+                          });
+                          setEditingPodcast(episode);
+                          setShowPodcastForm(true);
+                        }}
+                        className="btn btn-small"
+                      >
+                        Edit
+                      </button>
+                      <button 
+                        onClick={() => {
+                          if (confirm('Are you sure you want to delete this episode?')) {
+                            ContentManager.deletePodcastEpisode(episode.id);
+                            loadAllContent();
+                          }
+                        }}
+                        className="btn btn-small btn-danger"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                ))}
+
+                {podcastEpisodes.length === 0 && (
+                  <div className="empty-state">
+                    <p>No podcast episodes yet. Create your first one!</p>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
+          {/* Team Tab */}
           {activeTab === 'team' && (
             <div className="content-section">
-              <h2>Team Members</h2>
-              <p>Team management interface would go here...</p>
+              <div className="content-header">
+                <h2>Team Members</h2>
+                <button 
+                  onClick={() => setShowTeamForm(true)}
+                  className="btn btn-primary"
+                >
+                  Add Team Member
+                </button>
+              </div>
+
+              {showTeamForm && (
+                <div className="content-form">
+                  <div className="form-header">
+                    <h3>{editingTeam ? 'Edit Team Member' : 'Add Team Member'}</h3>
+                    <button onClick={resetTeamForm} className="btn btn-secondary">Cancel</button>
+                  </div>
+
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label>Full Name *</label>
+                      <input
+                        type="text"
+                        value={teamForm.name}
+                        onChange={(e) => setTeamForm(prev => ({ ...prev, name: e.target.value }))}
+                        placeholder="John Doe"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Job Title *</label>
+                      <input
+                        type="text"
+                        value={teamForm.title}
+                        onChange={(e) => setTeamForm(prev => ({ ...prev, title: e.target.value }))}
+                        placeholder="Chief Executive Officer"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Display Order</label>
+                      <input
+                        type="number"
+                        value={teamForm.order}
+                        onChange={(e) => setTeamForm(prev => ({ ...prev, order: parseInt(e.target.value) || 1 }))}
+                        min="1"
+                        placeholder="1"
+                      />
+                      <small>Lower numbers appear first</small>
+                    </div>
+
+                    <div className="form-group">
+                      <div className="checkbox-group">
+                        <label>
+                          <input
+                            type="checkbox"
+                            checked={teamForm.active}
+                            onChange={(e) => setTeamForm(prev => ({ ...prev, active: e.target.checked }))}
+                          />
+                          Active Team Member
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="form-group full-width">
+                      <label>Professional Headshot</label>
+                      <FileUpload
+                        onUpload={(url) => setTeamForm(prev => ({ ...prev, image: url }))}
+                        accept="image/*"
+                        label="Upload Headshot"
+                      />
+                      {teamForm.image && (
+                        <div className="image-preview">
+                          <img src={teamForm.image} alt="Team member" />
+                          <button 
+                            type="button"
+                            onClick={() => setTeamForm(prev => ({ ...prev, image: '' }))}
+                            className="remove-image"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="form-group full-width">
+                      <label>Bio Description *</label>
+                      <RichTextEditor
+                        value={teamForm.bio}
+                        onChange={(bio) => setTeamForm(prev => ({ ...prev, bio }))}
+                        placeholder="Write a professional bio for this team member. You can include career highlights, education, achievements, etc."
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>LinkedIn Profile</label>
+                      <input
+                        type="url"
+                        value={teamForm.linkedinUrl}
+                        onChange={(e) => setTeamForm(prev => ({ ...prev, linkedinUrl: e.target.value }))}
+                        placeholder="https://linkedin.com/in/username"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Twitter/X Profile</label>
+                      <input
+                        type="url"
+                        value={teamForm.twitterUrl}
+                        onChange={(e) => setTeamForm(prev => ({ ...prev, twitterUrl: e.target.value }))}
+                        placeholder="https://x.com/username"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-actions">
+                    <button onClick={handleSaveTeam} className="btn btn-primary">
+                      {editingTeam ? 'Update Team Member' : 'Add Team Member'}
+                    </button>
+                    <button onClick={resetTeamForm} className="btn btn-secondary">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <div className="content-list">
+                {teamMembers
+                  .sort((a, b) => a.order - b.order)
+                  .map((member) => (
+                    <div key={member.id} className="content-item">
+                      <div className="content-info">
+                        <h4>{member.name}</h4>
+                        <p><strong>{member.title}</strong></p>
+                        <p>{member.bio.replace(/[#*`]/g, '').slice(0, 150)}...</p>
+                        <div className="content-meta">
+                          <span>Order: {member.order}</span>
+                          <span className={`status ${member.active ? 'published' : 'draft'}`}>
+                            {member.active ? 'Active' : 'Inactive'}
+                          </span>
+                          {member.linkedinUrl && <span>📱 LinkedIn</span>}
+                          {member.twitterUrl && <span>🐦 Twitter</span>}
+                        </div>
+                      </div>
+                      <div className="content-actions">
+                        <button 
+                          onClick={() => {
+                            setTeamForm({
+                              name: member.name,
+                              title: member.title,
+                              bio: member.bio,
+                              order: member.order,
+                              image: member.image || '',
+                              linkedinUrl: member.linkedinUrl || '',
+                              twitterUrl: member.twitterUrl || '',
+                              active: member.active,
+                            });
+                            setEditingTeam(member);
+                            setShowTeamForm(true);
+                          }}
+                          className="btn btn-small"
+                        >
+                          Edit
+                        </button>
+                        <button 
+                          onClick={() => {
+                            if (confirm('Are you sure you want to delete this team member?')) {
+                              ContentManager.deleteTeamMember(member.id);
+                              loadAllContent();
+                            }
+                          }}
+                          className="btn btn-small btn-danger"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+
+                {teamMembers.length === 0 && (
+                  <div className="empty-state">
+                    <p>No team members yet. Add your first one!</p>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 

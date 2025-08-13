@@ -1698,6 +1698,32 @@ footer {
     text-align: left;
 }
 
+.action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #64748b;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.form-group small {
+    display: block;
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
 /* Admin responsive */
 @media (max-width: 768px) {
     .admin-header-content {
