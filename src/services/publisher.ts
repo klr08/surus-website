@@ -131,15 +131,15 @@ export class Publisher {
       // Prepare file updates
       const files = [
         {
-          path: 'public/data/blog.json',
+          path: 'data/blog.json',
           content: JSON.stringify(this.generateBlogJSON(), null, 2)
         },
         {
-          path: 'public/data/podcast.json',
+          path: 'data/podcast.json',
           content: JSON.stringify(this.generatePodcastJSON(), null, 2)
         },
         {
-          path: 'public/data/team.json',
+          path: 'data/team.json',
           content: JSON.stringify(this.generateTeamJSON(), null, 2)
         }
       ];
