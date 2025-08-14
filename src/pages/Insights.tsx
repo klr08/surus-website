@@ -71,104 +71,79 @@ export default function Insights(): JSX.Element {
     );
   }
 
-  const featuredItem = insights.find(item => item.featured) || insights[0];
-  const otherItems = insights.filter(item => item !== featuredItem);
+  // Sort all items by date
+  const sortedInsights = insights.sort((a, b) => 
+    new Date(b.date || '').getTime() - new Date(a.date || '').getTime()
+  );
 
   return (
     <>
-      <section className="insights-header">
-        <h1>Blog</h1>
+      {/* Page Header */}
+      <section className="insights-hero">
+        <div className="insights-hero-content">
+          <h1>Insights</h1>
+          <p className="insights-subtitle">
+            Podcast episodes, blog posts, and announcements from the Surus team
+          </p>
+        </div>
       </section>
 
-      {featuredItem && (
-        <section className="featured-post">
-          <h2>Featured Post</h2>
-          <p className="featured-subtitle">This is the subtitle</p>
-          <Link 
-            to={`/insights/${featuredItem.type}/${featuredItem.slug}`}
-            className="featured-article-link"
-          >
-            <article className="featured-article">
-              {featuredItem.image && (
-                <div className="featured-thumbnail">
-                  <img src={featuredItem.image} alt={featuredItem.title} />
-                </div>
-              )}
-              <div className="featured-content">
-                <h3 className="featured-title">{featuredItem.title}</h3>
-                <div className="featured-meta">
-                  <span className="featured-author">
-                    {featuredItem.type === 'blog' 
-                      ? (featuredItem as BlogPost).author || 'Surus Team'
-                      : `Podcast${(featuredItem as Episode).guest ? ` • Guest: ${(featuredItem as Episode).guest}` : ''}`
-                    }
-                  </span>
-                  <span className="featured-date">
-                    {featuredItem.date ? new Date(featuredItem.date).toLocaleDateString() : ''}
-                  </span>
-                </div>
-                <p className="featured-description">
-                  {featuredItem.type === 'blog' 
-                    ? (featuredItem as BlogPost).summary
-                    : (featuredItem as Episode).description
-                  }
-                </p>
-                {featuredItem.type === 'podcast' && (featuredItem as Episode).spotify_url && (
-                  <div className="featured-links">
-                    <span className="listen-indicator">🎵 Listen on Spotify</span>
-                  </div>
-                )}
-              </div>
-            </article>
-          </Link>
-        </section>
-      )}
+      {/* Podcast Section */}
+      <section className="podcast-section">
+        <div className="podcast-section-content">
+          <h2>Listen to Form & Structure</h2>
+          <p className="podcast-description">
+            Hosted by Surus CEO, Patrick Murck, the Form & Structure podcast explores the intersection of policy, technology, and financial innovation.
+          </p>
+        </div>
+      </section>
 
-      <section className="insights-grid">
-        {otherItems.map((item) => (
-          <Link 
-            key={item.title + (item.date || '')}
-            to={`/insights/${item.type}/${item.slug}`}
-            className="insight-card-link"
-          >
-            <article className="insight-card">
-              {item.image && (
-                <div className="insight-thumbnail">
-                  <img src={item.image} alt={item.title} />
-                </div>
-              )}
-              <div className="insight-content">
-                <h3 className="insight-title">{item.title}</h3>
-                <div className="insight-meta">
-                  <span className="insight-author">
-                    {item.type === 'blog' 
-                      ? (item as BlogPost).author || 'Surus Team'
-                      : `Podcast${(item as Episode).guest ? ` • ${(item as Episode).guest}` : ''}`
-                    }
-                  </span>
-                  <span className="insight-date">
-                    {item.date ? new Date(item.date).toLocaleDateString() : ''}
-                  </span>
-                </div>
-                <p className="insight-description">
-                  {item.type === 'blog' 
-                    ? (item as BlogPost).summary
-                    : (item as Episode).description
-                  }
-                </p>
-                {item.type === 'podcast' && (
-                  <div className="podcast-links-small">
-                    <span className="listen-indicators">
-                      {(item as Episode).spotify_url && <span>🎵</span>}
-                      {(item as Episode).apple_url && <span>🎧</span>}
-                      {(item as Episode).amazon_url && <span>🎙️</span>}
+      {/* Recent Posts */}
+      <section className="recent-posts">
+        <div className="recent-posts-content">
+          <h2>Recent Posts</h2>
+          <div className="posts-grid">
+            {sortedInsights.map((item) => (
+              <Link 
+                key={item.title + (item.date || '')}
+                to={`/insights/${item.type}/${item.slug}`}
+                className="post-card-link"
+              >
+                <article className="post-card">
+                  <div className="post-header">
+                    <h3 className="post-title">{item.title}</h3>
+                    <div className="post-meta">
+                      <span className="post-author">
+                        {item.type === 'blog' 
+                          ? (item as BlogPost).author || 'Surus Team'
+                          : `Patrick Murck${(item as Episode).guest ? ` hosts ${(item as Episode).guest}` : ''}`
+                        }
+                      </span>
+                      <span className="post-description">
+                        {item.type === 'blog' 
+                          ? (item as BlogPost).summary
+                          : (item as Episode).description
+                        }
+                      </span>
+                    </div>
+                  </div>
+                  <div className="post-footer">
+                    <span className="post-type">
+                      {item.type === 'blog' ? 'Blog Post' : 'Podcast'}
+                    </span>
+                    <span className="post-date">
+                      {item.date ? new Date(item.date).toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      }) : ''}
                     </span>
                   </div>
-                )}
-              </div>
-            </article>
-          </Link>
-        ))}
+                </article>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
     </>
   );

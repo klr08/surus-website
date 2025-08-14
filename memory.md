@@ -95,3 +95,14 @@ Hi Claude, this is your working memory document.
 - Build successful, committed and pushed following @Claude-context.md KISS principles
 - Full workflow restored: CMS → localStorage → GitHub (correct paths) → Netlify → Live display
 - Next CMS publishes will use corrected paths automatically
+
+2025-08-13 – COMPLETE UI/UX ENHANCEMENT: Team Photos + Clickable Detail Pages
+- FIXED TEAM PHOTO SIZING: Added CSS for 120px circular images with object-fit cover, border, shadow
+- CREATED INDIVIDUAL DETAIL PAGES: BlogDetail and PodcastDetail components with full content display
+- ADDED ROUTING: /insights/blog/:slug and /insights/podcast/:slug routes in React Router
+- MADE CARDS CLICKABLE: Insights page cards now link to individual detail pages with hover effects
+- PODCAST DETAIL FEATURES: Listen buttons for all platforms, transcripts, guest info, full descriptions
+- BLOG DETAIL FEATURES: Full content display, author info, tags, proper typography
+- RESPONSIVE DESIGN: Mobile-optimized layout for all detail pages and enhanced cards
+- Built with React + TypeScript following @Claude-context.md: KISS, complete implementation
+- RESULT: Full feature parity with surus.io/insights - users can click through to read/listen to full content

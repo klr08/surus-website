@@ -646,24 +646,53 @@ section h2 {
 }
 
 /* Insights page styles */
-.insights-header {
+.insights-hero {
     text-align: center;
-    padding: 3rem 0 2rem;
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    margin-bottom: 3rem;
+    padding: 4rem 2rem;
+    background: #ffffff;
 }
 
-.insights-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+.insights-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.insights-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
     color: #1e293b;
+    margin-bottom: 1rem;
 }
 
 .insights-subtitle {
+    font-size: 1.2rem;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* Podcast Section */
+.podcast-section {
+    background: #f8fafc;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.podcast-section-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.podcast-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.podcast-description {
     font-size: 1.1rem;
     color: #64748b;
-    max-width: 600px;
-    margin: 0 auto;
+    line-height: 1.6;
 }
 
 .featured-post {
@@ -744,67 +773,99 @@ section h2 {
     background: #b91c1c;
 }
 
-.insights-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+/* Recent Posts Section */
+.recent-posts {
+    padding: 3rem 2rem;
+    background: #ffffff;
 }
 
-.insight-card {
+.recent-posts-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.recent-posts h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 2rem;
+}
+
+.posts-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Post Cards */
+.post-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.post-card {
     background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border: 1px solid #e2e8f0;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 2rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.insight-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+.post-card:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.insight-thumbnail img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
+.post-header {
+    margin-bottom: 1.5rem;
 }
 
-.insight-content {
-    padding: 1.5rem;
-}
-
-.insight-title {
-    font-size: 1.1rem;
+.post-title {
+    font-size: 1.25rem;
     font-weight: 600;
     color: #1e293b;
     margin-bottom: 1rem;
-    line-height: 1.3;
+    line-height: 1.5;
 }
 
-.insight-meta {
+.post-meta {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-    margin-bottom: 1rem;
-    font-size: 0.85rem;
-    color: #64748b;
+    gap: 0.5rem;
 }
 
-.insight-author {
+.post-author {
+    font-size: 0.875rem;
+    color: #6b7280;
     font-weight: 500;
 }
 
-.insight-description {
-    color: #64748b;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.post-description {
+    color: #4b5563;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #f3f4f6;
+}
+
+.post-type {
+    font-size: 0.875rem;
+    color: #dc2626;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.post-date {
+    font-size: 0.875rem;
+    color: #9ca3af;
 }
 
 .podcast-links-small {
@@ -839,12 +900,30 @@ section h2 {
         height: 200px;
     }
     
-    .insights-grid {
-        grid-template-columns: 1fr;
+    .insights-hero h1 {
+        font-size: 2.5rem;
     }
     
-    .insights-header h1 {
-        font-size: 2rem;
+    .insights-hero {
+        padding: 3rem 1rem;
+    }
+    
+    .podcast-section {
+        padding: 2rem 1rem;
+    }
+    
+    .recent-posts {
+        padding: 2rem 1rem;
+    }
+    
+    .post-card {
+        padding: 1.5rem;
+    }
+    
+    .post-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
     }
 }
 
@@ -2088,14 +2167,16 @@ footer {
 
 /* Clickable Cards */
 .featured-article-link,
-.insight-card-link {
+.insight-card-link,
+.post-card-link {
     text-decoration: none;
     color: inherit;
     display: block;
 }
 
 .featured-article-link:hover .featured-article,
-.insight-card-link:hover .insight-card {
+.insight-card-link:hover .insight-card,
+.post-card-link:hover .post-card {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
