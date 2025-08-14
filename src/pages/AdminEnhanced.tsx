@@ -538,7 +538,12 @@ export default function AdminEnhanced(): JSX.Element {
       loadAllContent();
       resetPodcastForm();
     } else {
-      alert(`Error: ${result.error}`);
+      // Enhanced error handling for quota issues
+      if (result.error?.includes('quota') || result.error?.includes('QuotaExceededError')) {
+        alert(`Storage limit reached! Please:\n\n1. Publish your current content to GitHub first\n2. Then try saving again\n\nThis will free up browser storage space.`);
+      } else {
+        alert(`Error: ${result.error}`);
+      }
     }
   };
 
@@ -779,6 +784,25 @@ export default function AdminEnhanced(): JSX.Element {
                   <div className="stat-number">{summary.mediaFiles}</div>
                   <div className="stat-label">Media Files</div>
                   <button onClick={() => setActiveTab('media')} className="stat-link">Manage →</button>
+                </div>
+
+                <div className="stat-card storage-card">
+                  <div className="stat-number">{(() => {
+                    const usage = ContentManager.getStorageUsage();
+                    const usedMB = (usage.used / (1024 * 1024)).toFixed(1);
+                    const totalMB = (usage.total / (1024 * 1024)).toFixed(1);
+                    return `${usedMB}/${totalMB}MB`;
+                  })()}</div>
+                  <div className="stat-label">Storage Used</div>
+                  <div className="storage-warning" style={{
+                    color: ContentManager.getStorageUsage().used / ContentManager.getStorageUsage().total > 0.8 ? '#e74c3c' : '#27ae60',
+                    fontSize: '12px',
+                    marginTop: '4px'
+                  }}>
+                    {ContentManager.getStorageUsage().used / ContentManager.getStorageUsage().total > 0.8 
+                      ? '⚠️ Consider publishing to free space' 
+                      : '✅ Storage healthy'}
+                  </div>
                 </div>
               </div>
 

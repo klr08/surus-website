@@ -105,7 +105,19 @@ export class ContentManager {
       };
 
       episodes.push(newEpisode);
-      localStorage.setItem(this.PODCAST_STORAGE_KEY, JSON.stringify(episodes));
+      
+      // Try to save with quota handling
+      try {
+        localStorage.setItem(this.PODCAST_STORAGE_KEY, JSON.stringify(episodes));
+      } catch (quotaError) {
+        if (quotaError instanceof Error && quotaError.name === 'QuotaExceededError') {
+          // Try to free up space by optimizing content
+          const optimizedEpisodes = this.optimizePodcastData(episodes);
+          localStorage.setItem(this.PODCAST_STORAGE_KEY, JSON.stringify(optimizedEpisodes));
+        } else {
+          throw quotaError;
+        }
+      }
       
       return Ok(newEpisode);
     } catch (error) {
@@ -213,6 +225,39 @@ export class ContentManager {
     } catch (error) {
       return Err(`Failed to delete team member: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
+  }
+
+  // Optimize podcast data to reduce storage size
+  private static optimizePodcastData(episodes: PodcastEpisode[]): PodcastEpisode[] {
+    return episodes.map(episode => ({
+      ...episode,
+      // Truncate very long descriptions to save space
+      description: episode.description && episode.description.length > 500 
+        ? episode.description.substring(0, 500) + '...' 
+        : episode.description,
+      // Remove any very large fields that might be causing issues
+      body: episode.body && episode.body.length > 2000 
+        ? episode.body.substring(0, 2000) + '...' 
+        : episode.body
+    }));
+  }
+
+  // Check localStorage usage
+  static getStorageUsage(): { used: number; total: number; available: number } {
+    let total = 0;
+    for (let key in localStorage) {
+      if (localStorage.hasOwnProperty(key)) {
+        total += localStorage[key].length + key.length;
+      }
+    }
+    
+    // Estimate total available (usually ~5-10MB)
+    const estimated = 5 * 1024 * 1024; // 5MB estimate
+    return {
+      used: total,
+      total: estimated,
+      available: estimated - total
+    };
   }
 
   // Export functionality for integration with main website
