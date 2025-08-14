@@ -11,77 +11,8 @@ type TeamMember = {
   active?: boolean;
 };
 
-// Fallback team data in case team.json fails to load
-const fallbackTeamMembers: TeamMember[] = [
-  {
-    name: "Patrick Murck",
-    title: "Founder & CEO",
-    bio: "Co-founder and Principal at Plural VC. Previously, President & CLO at Transparent Systems, Special Counsel at Cooley LLP, and co-founder of Bitcoin Foundation. Advisor to IMF and Federal Reserve Bank of NY. Affiliate with Berkman Klein Center at Harvard and MIT-DCI.",
-    linkedinUrl: "#",
-    twitterUrl: "#",
-    order: 1
-  },
-  {
-    name: "Bradley Gibson",
-    title: "Chief Technology Officer",
-    bio: "Previously VP of Engineering at Transparent Systems. CEO at Human Enginuity and Co-Founder & CTO at LearnBIG (Acquired).",
-    linkedinUrl: "#",
-    twitterUrl: "#",
-    order: 2
-  },
-  {
-    name: "Bethany Wheeler",
-    title: "Chief Trust Officer",
-    bio: "Previously, Chief Trust Officer at Paxos. Founder of Fiduciary Management Solutions. More than thirty years of experience in the trust industry.",
-    linkedinUrl: "#",
-    order: 3
-  },
-  {
-    name: "Jennifer Hoopes",
-    title: "Chief Legal Officer",
-    bio: "Previously, General Counsel at FarmTogether. Former General Counsel at Foreside Financial Group",
-    linkedinUrl: "#",
-    order: 4
-  },
-  {
-    name: "Melissa Wisner",
-    title: "Chief Compliance & BSA Officer",
-    bio: "Previously Vice President of Crypto Risk at Mastercard, with extensive experience in crypto (Paxos) and compliance (HSBC). Former official at U.S. Treasury.",
-    linkedinUrl: "#",
-    order: 5
-  },
-  {
-    name: "Tyler Whirty",
-    title: "Chief of Staff",
-    bio: "Previously, investment associate at Plural VC. Former founder of HODLpac and research associate at the Cato Institute's Center for Monetary and Financial Alternatives.",
-    linkedinUrl: "#",
-    twitterUrl: "#",
-    order: 6
-  },
-  {
-    name: "Nate Flint",
-    title: "Senior Software Engineer",
-    bio: "Previously, Senior Engineer at Transparent Systems. Former Senior Software Engineer at Parametric. Drawn to the world changing potential of Bitcoin.",
-    linkedinUrl: "#",
-    twitterUrl: "#",
-    order: 7
-  },
-  {
-    name: "Ava Trogus",
-    title: "Senior Software Engineer",
-    bio: "Previously, software engineer at Transparent Systems.",
-    linkedinUrl: "#",
-    order: 8
-  },
-  {
-    name: "Kyrha Ruff",
-    title: "Business Development & Marketing",
-    bio: "Investment Associate at Plural VC. Previously, Director of Brand Operations and Programming at The Post. Former Documentary Development Coordinator at Imagine Entertainment.",
-    linkedinUrl: "#",
-    twitterUrl: "#",
-    order: 9
-  }
-];
+// No fallback data - start with clean slate for CMS management
+const fallbackTeamMembers: TeamMember[] = [];
 
 export default function About(): JSX.Element {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>(fallbackTeamMembers);
