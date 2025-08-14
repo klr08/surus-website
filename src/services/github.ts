@@ -52,7 +52,7 @@ export class GitHubPublisher {
       
       const body = {
         message: `Update ${fileUpdate.path} from CMS`,
-        content: btoa(fileUpdate.content), // Base64 encode
+        content: btoa(unescape(encodeURIComponent(fileUpdate.content))), // UTF-8 safe Base64 encode
         branch: this.config.branch,
         ...(sha && { sha }), // Include SHA if file exists
       };
