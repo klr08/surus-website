@@ -76,14 +76,13 @@ export default function Insights(): JSX.Element {
   return (
     <>
       <section className="insights-header">
-        <h1>Insights</h1>
-        <p className="insights-subtitle">Latest thoughts on digital asset custody, tokenization, and the future of finance.</p>
+        <h1>Blog</h1>
       </section>
 
       {featuredItem && (
         <section className="featured-post">
           <h2>Featured Post</h2>
-          <p className="featured-subtitle">This is the latest insight</p>
+          <p className="featured-subtitle">This is the subtitle</p>
           <article className="featured-article">
             {featuredItem.image && (
               <div className="featured-thumbnail">
