@@ -106,14 +106,21 @@ export class ContentManager {
 
       episodes.push(newEpisode);
       
+      // Pre-optimize if storage is getting full (>80%)
+      const usage = this.getStorageUsage();
+      const isNearQuota = usage.used / usage.total > 0.8;
+      
+      const episodesToSave = isNearQuota ? this.optimizePodcastData(episodes) : episodes;
+      
       // Try to save with quota handling
       try {
-        localStorage.setItem(this.PODCAST_STORAGE_KEY, JSON.stringify(episodes));
+        localStorage.setItem(this.PODCAST_STORAGE_KEY, JSON.stringify(episodesToSave));
       } catch (quotaError) {
-        if (quotaError instanceof Error && quotaError.name === 'QuotaExceededError') {
-          // Try to free up space by optimizing content
-          const optimizedEpisodes = this.optimizePodcastData(episodes);
-          localStorage.setItem(this.PODCAST_STORAGE_KEY, JSON.stringify(optimizedEpisodes));
+        if (quotaError instanceof Error && (quotaError.name === 'QuotaExceededError' || quotaError.message.includes('quota'))) {
+          // More aggressive optimization - try removing old episodes temporarily
+          const recentEpisodes = episodes.slice(-10); // Keep only last 10 episodes
+          localStorage.setItem(this.PODCAST_STORAGE_KEY, JSON.stringify(recentEpisodes));
+          return Err('Storage full! Temporarily keeping only recent episodes. Please publish to GitHub to save all content permanently.');
         } else {
           throw quotaError;
         }
@@ -231,14 +238,18 @@ export class ContentManager {
   private static optimizePodcastData(episodes: PodcastEpisode[]): PodcastEpisode[] {
     return episodes.map(episode => ({
       ...episode,
-      // Truncate very long descriptions to save space
-      description: episode.description && episode.description.length > 500 
-        ? episode.description.substring(0, 500) + '...' 
+      // More aggressive truncation to save space
+      description: episode.description && episode.description.length > 200 
+        ? episode.description.substring(0, 200) + '...' 
         : episode.description,
-      // Remove any very large fields that might be causing issues
-      body: episode.body && episode.body.length > 2000 
-        ? episode.body.substring(0, 2000) + '...' 
-        : episode.body
+      // Remove large body content temporarily
+      body: episode.body && episode.body.length > 500 
+        ? episode.body.substring(0, 500) + '...' 
+        : episode.body,
+      // Remove any optional large fields
+      summary: episode.summary && episode.summary.length > 300
+        ? episode.summary.substring(0, 300) + '...'
+        : episode.summary
     }));
   }
 
