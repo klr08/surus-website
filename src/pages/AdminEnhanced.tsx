@@ -230,6 +230,22 @@ export default function AdminEnhanced(): JSX.Element {
     }
   };
 
+  const clearAllData = (): void => {
+    if (confirm('This will permanently delete ALL content from the CMS. Are you sure?')) {
+      localStorage.removeItem('surus_cms_blog_posts');
+      localStorage.removeItem('surus_cms_podcast_episodes');
+      localStorage.removeItem('surus_cms_team_members');
+      localStorage.removeItem('surus_cms_files');
+      
+      // Reset state
+      setBlogPosts([]);
+      setPodcastEpisodes([]);
+      setTeamMembers([]);
+      
+      alert('All CMS data cleared. You can now start fresh!');
+    }
+  };
+
   const importFromLiveSite = async (): Promise<void> => {
     try {
       // Clear existing data first for clean re-import
@@ -697,6 +713,13 @@ export default function AdminEnhanced(): JSX.Element {
               title="Import posts and episodes from the live site"
             >
               Sync From Site
+            </button>
+            <button 
+              onClick={clearAllData}
+              className="btn-danger"
+              title="Clear all CMS data and start fresh"
+            >
+              Clear All Data
             </button>
           </nav>
           <div className="admin-user">
