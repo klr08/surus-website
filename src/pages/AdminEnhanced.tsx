@@ -1570,6 +1570,49 @@ export default function AdminEnhanced(): JSX.Element {
                   <p>Your token is stored locally in your browser and never transmitted to third parties. It's only used to communicate directly with GitHub's API.</p>
                 </div>
               </div>
+
+              {/* Reset CMS Section */}
+              <div className="content-form" style={{ marginTop: '2rem', borderTop: '1px solid #e0e0e0', paddingTop: '2rem' }}>
+                <div className="form-header">
+                  <h3>Reset CMS Data</h3>
+                  <p>Clear all content and start fresh. This will remove all blog posts, podcasts, team members, and uploaded files from your browser storage.</p>
+                </div>
+
+                <div className="form-actions">
+                  <button 
+                    onClick={() => {
+                      if (confirm('⚠️ This will permanently delete ALL CMS content from your browser storage.\n\nMake sure you have published your content to GitHub first if you want to keep it.\n\nAre you sure you want to continue?')) {
+                        // Clear all localStorage data
+                        ContentManager.clearAllData();
+                        FileUploadService.clearAllFiles();
+                        
+                        // Reset state
+                        setBlogPosts([]);
+                        setPodcastEpisodes([]);
+                        setTeamMembers([]);
+                        setMediaFiles([]);
+                        setSummary({
+                          blogPosts: 0,
+                          podcastEpisodes: 0,
+                          teamMembers: 0,
+                          mediaFiles: 0,
+                        });
+                        
+                        alert('✅ CMS data cleared successfully! You can now start fresh.');
+                      }
+                    }}
+                    className="btn btn-danger"
+                    style={{ backgroundColor: '#dc3545', color: 'white' }}
+                  >
+                    🗑️ Reset All CMS Data
+                  </button>
+                </div>
+
+                <div className="settings-help">
+                  <h4>⚠️ Warning:</h4>
+                  <p>This action cannot be undone. Make sure to publish your content to GitHub first if you want to preserve it.</p>
+                </div>
+              </div>
             </div>
           )}
 

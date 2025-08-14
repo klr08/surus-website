@@ -271,6 +271,13 @@ export class ContentManager {
     };
   }
 
+  // Clear all CMS data from localStorage
+  static clearAllData(): void {
+    localStorage.removeItem(this.BLOG_STORAGE_KEY);
+    localStorage.removeItem(this.PODCAST_STORAGE_KEY);
+    localStorage.removeItem(this.TEAM_STORAGE_KEY);
+  }
+
   // Export functionality for integration with main website
   static exportToJSON(): {
     blogPosts: BlogPost[];
