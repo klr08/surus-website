@@ -35,9 +35,10 @@ export default function Insights(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const timestamp = Date.now();
     Promise.all([
-      fetch('/data/blog.json').then(r => r.ok ? r.json() : []),
-      fetch('/data/podcast.json').then(r => r.ok ? r.json() : [])
+      fetch(`/data/blog.json?v=${timestamp}`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : []),
+      fetch(`/data/podcast.json?v=${timestamp}`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : [])
     ])
       .then(([blogPosts, episodes]) => {
         const blogItems: BlogPost[] = blogPosts.map((post: any) => ({ ...post, type: 'blog' as const }));

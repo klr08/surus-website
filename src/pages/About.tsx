@@ -90,9 +90,10 @@ export default function About(): JSX.Element {
   useEffect(() => {
     // Load team data from CMS-managed JSON file
     const loadTeamData = async (): Promise<void> => {
-      try {
-        const response = await fetch('/data/team.json', { cache: 'no-cache' });
-        if (response.ok) {
+                try {
+            const timestamp = Date.now();
+            const response = await fetch(`/data/team.json?v=${timestamp}`, { cache: 'no-cache' });
+            if (response.ok) {
           const teamData = await response.json();
           if (Array.isArray(teamData) && teamData.length > 0) {
             // Filter active members and sort by order

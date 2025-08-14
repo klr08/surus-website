@@ -14,12 +14,13 @@ export default function AdminDashboard(): JSX.Element {
     // Load content summary from actual data files
     const loadSummary = async (): Promise<void> => {
       try {
+        const timestamp = Date.now();
         // Load blog posts
-        const blogResponse = await fetch('/data/blog.json');
+        const blogResponse = await fetch(`/data/blog.json?v=${timestamp}`, { cache: 'no-cache' });
         const blogData = blogResponse.ok ? await blogResponse.json() : [];
         
         // Load podcast episodes
-        const podcastResponse = await fetch('/data/podcast.json');
+        const podcastResponse = await fetch(`/data/podcast.json?v=${timestamp}`, { cache: 'no-cache' });
         const podcastData = podcastResponse.ok ? await podcastResponse.json() : [];
 
         setSummary({

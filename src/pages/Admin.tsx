@@ -54,10 +54,11 @@ export default function Admin(): JSX.Element {
     if (isAuthenticated) {
       const loadSummary = async (): Promise<void> => {
         try {
-          const blogResponse = await fetch('/data/blog.json');
+          const timestamp = Date.now();
+          const blogResponse = await fetch(`/data/blog.json?v=${timestamp}`, { cache: 'no-cache' });
           const blogData = blogResponse.ok ? await blogResponse.json() : [];
           
-          const podcastResponse = await fetch('/data/podcast.json');
+          const podcastResponse = await fetch(`/data/podcast.json?v=${timestamp}`, { cache: 'no-cache' });
           const podcastData = podcastResponse.ok ? await podcastResponse.json() : [];
 
           setSummary({
