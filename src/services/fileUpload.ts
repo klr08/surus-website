@@ -10,7 +10,8 @@ export interface UploadResult {
 
 export class FileUploadService {
   private static readonly STORAGE_KEY = 'surus_cms_files';
-  private static readonly MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+  private static readonly MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB (reduced for localStorage)
+  private static readonly MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB for images specifically
   private static readonly ALLOWED_TYPES = [
     'image/jpeg',
     'image/png',
@@ -23,9 +24,13 @@ export class FileUploadService {
 
   static async uploadFile(file: File): Promise<Result<UploadResult, string>> {
     try {
-      // Validate file size
-      if (file.size > this.MAX_FILE_SIZE) {
-        return Err('File size exceeds 10MB limit');
+      // Validate file size based on type
+      const isImage = file.type.startsWith('image/');
+      const maxSize = isImage ? this.MAX_IMAGE_SIZE : this.MAX_FILE_SIZE;
+      const maxSizeText = isImage ? '1MB' : '2MB';
+      
+      if (file.size > maxSize) {
+        return Err(`File size exceeds ${maxSizeText} limit. Consider compressing the image.`);
       }
 
       // Validate file type
@@ -86,7 +91,19 @@ export class FileUploadService {
   private static saveFile(file: MediaFile): void {
     const files = this.getFiles();
     files.push(file);
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(files));
+    
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(files));
+    } catch (quotaError) {
+      if (quotaError instanceof Error && (quotaError.name === 'QuotaExceededError' || quotaError.message.includes('quota'))) {
+        // Storage full - remove oldest files and try again
+        const recentFiles = files.slice(-5); // Keep only 5 most recent files
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(recentFiles));
+        throw new Error('Storage full! Keeping only recent 5 files. Please publish content to GitHub to save all files permanently.');
+      } else {
+        throw quotaError;
+      }
+    }
   }
 
   private static fileToBase64(file: File): Promise<string> {
