@@ -16,10 +16,24 @@ function parseMarkdownFile(filePath) {
 }
 
 async function buildBlog() {
+  // Check if we have published CMS data first
+  try {
+    const publishedData = readFileSync('data/blog.json', 'utf8');
+    const parsedData = JSON.parse(publishedData);
+    if (Array.isArray(parsedData) && parsedData.length > 0) {
+      console.log(`Using CMS data: ${parsedData.length} blog posts`);
+      return parsedData;
+    }
+  } catch (e) {
+    // No published data, fall back to markdown
+  }
+  
+  // Fallback to markdown files if no CMS data
   const files = await glob('content/blog/**/*.md');
   const items = files.map(parseMarkdownFile)
     .filter(p => !!p.title && !!p.date)
     .sort((a, b) => new Date(b.date) - new Date(a.date));
+  console.log(`Using markdown data: ${items.length} blog posts`);
   return items;
 }
 
