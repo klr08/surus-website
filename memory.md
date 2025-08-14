@@ -85,3 +85,13 @@ Hi Claude, this is your working memory document.
 - Complete workflow: Import → Edit → Publish → Deploy → Live Changes Visible
 - Built with React + TypeScript following @Claude-context.md: KISS, complete implementation, type-safe
 - PRODUCTION READY: Complete end-to-end solution, CMS changes now appear on live website
+
+2025-08-13 – CRITICAL FIX: CMS Publishing Path Mismatch Resolved
+- DIAGNOSED ISSUE: CMS was publishing to /data/ but React app was reading from /public/data/
+- ROOT CAUSE: Publisher.ts was publishing to wrong directory paths in GitHub repo
+- SOLUTION APPLIED: Updated publisher.ts paths from 'data/*.json' → 'public/data/*.json'
+- IMMEDIATE FIX: Copied existing CMS content from /data/ to /public/data/ for instant visibility
+- RESULT: Published content (1 podcast, 2 team members) now visible on live site
+- Build successful, committed and pushed following @Claude-context.md KISS principles
+- Full workflow restored: CMS → localStorage → GitHub (correct paths) → Netlify → Live display
+- Next CMS publishes will use corrected paths automatically

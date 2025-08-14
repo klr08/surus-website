@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 type BlogPost = {
   title: string;
@@ -83,85 +84,90 @@ export default function Insights(): JSX.Element {
         <section className="featured-post">
           <h2>Featured Post</h2>
           <p className="featured-subtitle">This is the subtitle</p>
-          <article className="featured-article">
-            {featuredItem.image && (
-              <div className="featured-thumbnail">
-                <img src={featuredItem.image} alt={featuredItem.title} />
-              </div>
-            )}
-            <div className="featured-content">
-              <h3 className="featured-title">{featuredItem.title}</h3>
-              <div className="featured-meta">
-                <span className="featured-author">
-                  {featuredItem.type === 'blog' 
-                    ? (featuredItem as BlogPost).author || 'Surus Team'
-                    : `Podcast${(featuredItem as Episode).guest ? ` • Guest: ${(featuredItem as Episode).guest}` : ''}`
-                  }
-                </span>
-                <span className="featured-date">
-                  {featuredItem.date ? new Date(featuredItem.date).toLocaleDateString() : ''}
-                </span>
-              </div>
-              <p className="featured-description">
-                {featuredItem.type === 'blog' 
-                  ? (featuredItem as BlogPost).summary
-                  : (featuredItem as Episode).description
-                }
-              </p>
-              {featuredItem.type === 'podcast' && (featuredItem as Episode).spotify_url && (
-                <div className="featured-links">
-                  <a href={(featuredItem as Episode).spotify_url} target="_blank" rel="noopener" className="listen-link">
-                    🎵 Listen on Spotify
-                  </a>
+          <Link 
+            to={`/insights/${featuredItem.type}/${featuredItem.slug}`}
+            className="featured-article-link"
+          >
+            <article className="featured-article">
+              {featuredItem.image && (
+                <div className="featured-thumbnail">
+                  <img src={featuredItem.image} alt={featuredItem.title} />
                 </div>
               )}
-            </div>
-          </article>
+              <div className="featured-content">
+                <h3 className="featured-title">{featuredItem.title}</h3>
+                <div className="featured-meta">
+                  <span className="featured-author">
+                    {featuredItem.type === 'blog' 
+                      ? (featuredItem as BlogPost).author || 'Surus Team'
+                      : `Podcast${(featuredItem as Episode).guest ? ` • Guest: ${(featuredItem as Episode).guest}` : ''}`
+                    }
+                  </span>
+                  <span className="featured-date">
+                    {featuredItem.date ? new Date(featuredItem.date).toLocaleDateString() : ''}
+                  </span>
+                </div>
+                <p className="featured-description">
+                  {featuredItem.type === 'blog' 
+                    ? (featuredItem as BlogPost).summary
+                    : (featuredItem as Episode).description
+                  }
+                </p>
+                {featuredItem.type === 'podcast' && (featuredItem as Episode).spotify_url && (
+                  <div className="featured-links">
+                    <span className="listen-indicator">🎵 Listen on Spotify</span>
+                  </div>
+                )}
+              </div>
+            </article>
+          </Link>
         </section>
       )}
 
       <section className="insights-grid">
         {otherItems.map((item) => (
-          <article key={item.title + (item.date || '')} className="insight-card">
-            {item.image && (
-              <div className="insight-thumbnail">
-                <img src={item.image} alt={item.title} />
-              </div>
-            )}
-            <div className="insight-content">
-              <h3 className="insight-title">{item.title}</h3>
-              <div className="insight-meta">
-                <span className="insight-author">
-                  {item.type === 'blog' 
-                    ? (item as BlogPost).author || 'Surus Team'
-                    : `Podcast${(item as Episode).guest ? ` • ${(item as Episode).guest}` : ''}`
-                  }
-                </span>
-                <span className="insight-date">
-                  {item.date ? new Date(item.date).toLocaleDateString() : ''}
-                </span>
-              </div>
-              <p className="insight-description">
-                {item.type === 'blog' 
-                  ? (item as BlogPost).summary
-                  : (item as Episode).description
-                }
-              </p>
-              {item.type === 'podcast' && (
-                <div className="podcast-links-small">
-                  {(item as Episode).spotify_url && (
-                    <a href={(item as Episode).spotify_url} target="_blank" rel="noopener">🎵</a>
-                  )}
-                  {(item as Episode).apple_url && (
-                    <a href={(item as Episode).apple_url} target="_blank" rel="noopener">🎧</a>
-                  )}
-                  {(item as Episode).amazon_url && (
-                    <a href={(item as Episode).amazon_url} target="_blank" rel="noopener">🎙️</a>
-                  )}
+          <Link 
+            key={item.title + (item.date || '')}
+            to={`/insights/${item.type}/${item.slug}`}
+            className="insight-card-link"
+          >
+            <article className="insight-card">
+              {item.image && (
+                <div className="insight-thumbnail">
+                  <img src={item.image} alt={item.title} />
                 </div>
               )}
-            </div>
-          </article>
+              <div className="insight-content">
+                <h3 className="insight-title">{item.title}</h3>
+                <div className="insight-meta">
+                  <span className="insight-author">
+                    {item.type === 'blog' 
+                      ? (item as BlogPost).author || 'Surus Team'
+                      : `Podcast${(item as Episode).guest ? ` • ${(item as Episode).guest}` : ''}`
+                    }
+                  </span>
+                  <span className="insight-date">
+                    {item.date ? new Date(item.date).toLocaleDateString() : ''}
+                  </span>
+                </div>
+                <p className="insight-description">
+                  {item.type === 'blog' 
+                    ? (item as BlogPost).summary
+                    : (item as Episode).description
+                  }
+                </p>
+                {item.type === 'podcast' && (
+                  <div className="podcast-links-small">
+                    <span className="listen-indicators">
+                      {(item as Episode).spotify_url && <span>🎵</span>}
+                      {(item as Episode).apple_url && <span>🎧</span>}
+                      {(item as Episode).amazon_url && <span>🎙️</span>}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </article>
+          </Link>
         ))}
       </section>
     </>

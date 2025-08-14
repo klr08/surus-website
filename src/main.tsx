@@ -5,6 +5,8 @@ import App from './App';
 import Home from './pages/Home';
 import Insights from './pages/Insights';
 import About from './pages/About';
+import BlogDetail from './pages/BlogDetail';
+import PodcastDetail from './pages/PodcastDetail';
 import AdminEnhanced from './pages/AdminEnhanced';
 
 import '../public/css/style.css';
@@ -16,6 +18,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: 'insights', element: <Insights /> },
+      { path: 'insights/blog/:slug', element: <BlogDetail /> },
+      { path: 'insights/podcast/:slug', element: <PodcastDetail /> },
       { path: 'about', element: <About /> },
     ],
   },
