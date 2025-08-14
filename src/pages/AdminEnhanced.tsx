@@ -714,13 +714,6 @@ export default function AdminEnhanced(): JSX.Element {
             >
               Sync From Site
             </button>
-            <button 
-              onClick={clearAllData}
-              className="btn-danger"
-              title="Clear all CMS data and start fresh"
-            >
-              Clear All Data
-            </button>
           </nav>
           <div className="admin-user">
             <button
