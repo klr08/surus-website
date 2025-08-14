@@ -1,0 +1,14 @@
+[build]
+  # Simple React build - no content generation
+  command = "npm run build"
+  publish = "dist"
+
+# Clear all caches
+[build.environment]
+  NODE_VERSION = "18"
+
+# Force fresh builds
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "no-cache"
