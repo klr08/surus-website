@@ -90,12 +90,6 @@ export default function Home(): JSX.Element {
         surusAnnual={surusAnnual}
         tierName={getTierName(a)}
         effectiveBps={effectiveBps}
-        benjiAnnual={benjiAnnual}
-        buidlAnnual={buidlAnnual}
-        benjiSavings={benjiSavings}
-        buidlSavings={buidlSavings}
-        benjiPercent={benjiPercent}
-        buidlPercent={buidlPercent}
         formatCurrencyDecimal={formatCurrencyDecimal}
         formatAUM={formatAUM}
       />

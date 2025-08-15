@@ -129,10 +129,39 @@ body {
   text-align: center;
 }
 
-.pricing-comparison {
+.pricing-result {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.slider-container {
+  position: relative;
+  margin: 1rem 0;
+}
+
+.slider-labels {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+.slider-min, .slider-max {
+  font-weight: 500;
+}
+
+.treasury-amount {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.effective-rate {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
 }
 
 .pricing-column {
@@ -564,9 +593,13 @@ footer {
     font-size: 2.5rem;
   }
   
-  .pricing-comparison {
+  .pricing-result {
     flex-direction: column;
-    gap: 2rem;
+    align-items: center;
+  }
+  
+  .treasury-amount {
+    font-size: 1.25rem;
   }
   
   .features-grid {

@@ -9,12 +9,6 @@ interface PricingSectionProps {
   surusAnnual: Decimal;
   tierName: string;
   effectiveBps: Decimal;
-  benjiAnnual: Decimal;
-  buidlAnnual: Decimal;
-  benjiSavings: Decimal;
-  buidlSavings: Decimal;
-  benjiPercent: Decimal;
-  buidlPercent: Decimal;
   formatCurrencyDecimal: (amount: Decimal, fractionDigits?: number) => string;
   formatAUM: (amount: Decimal) => string;
 }
@@ -27,12 +21,6 @@ const PricingSection: React.FC<PricingSectionProps> = ({
   surusAnnual,
   tierName,
   effectiveBps,
-  benjiAnnual,
-  buidlAnnual,
-  benjiSavings,
-  buidlSavings,
-  benjiPercent,
-  buidlPercent,
   formatCurrencyDecimal,
   formatAUM
 }) => {
@@ -52,45 +40,40 @@ const PricingSection: React.FC<PricingSectionProps> = ({
         <div className="pricing-calculator">
           <div className="calculator-input">
             <label htmlFor="aum-input">TREASURY SIZE (AUM):</label>
-            <input
-              id="aum-input"
-              type="range"
-              min={100000}
-              max={1000000000}
-              step={100000}
-              value={aum}
-              onChange={(e) => setAum(Number(e.target.value))}
-            />
+            <div className="slider-container">
+              <div className="slider-labels">
+                <span className="slider-min">$0</span>
+                <span className="slider-max">$5B</span>
+              </div>
+              <input
+                id="aum-input"
+                type="range"
+                min={0}
+                max={5000000000}
+                step={100000}
+                value={aum}
+                onChange={(e) => setAum(Number(e.target.value))}
+              />
+            </div>
             <div className="aum-display">
-              <span>{formatAUM(aumDecimal)}</span>
+              <span className="treasury-amount">{formatAUM(aumDecimal)}</span>
             </div>
           </div>
           
-          <div className="pricing-comparison">
+          <div className="pricing-result">
             <div className="pricing-column">
               <div className="pricing-tier">
-                <h3>AT SURUS FEE:</h3>
-                              <div className="price">
-                <span className="price-amount">${surusDaily.toFixed(2)}/day</span>
-                <span className="price-monthly">${surusMonthly.toFixed(0)}/mo</span>
-                <span className="price-annual">${surusAnnual.toFixed(0)}/yr</span>
-              </div>
-              </div>
-            </div>
-            
-            <div className="pricing-column">
-              <div className="pricing-tier">
-                <h3>AT BENJI FEE:</h3>
+                <h3>SURUS PRICING:</h3>
                 <div className="price">
-                  <span className="price-amount">${benjiAnnual.div(12).toFixed(0)}/mo</span>
-                  <span className="price-annual">${benjiAnnual.toFixed(0)}/yr</span>
+                  <span className="price-amount">${surusDaily.toFixed(2)}/day</span>
+                  <span className="price-monthly">${surusMonthly.toFixed(0)}/mo</span>
+                  <span className="price-annual">${surusAnnual.toFixed(0)}/yr</span>
+                </div>
+                <div className="effective-rate">
+                  <span>Effective rate: {effectiveBps.toFixed(1)} bps</span>
                 </div>
               </div>
             </div>
-          </div>
-          
-          <div className="pricing-cta">
-            <button className="calculate-button">CALCULATE YOUR SAVINGS</button>
           </div>
         </div>
       </div>
