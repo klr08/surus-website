@@ -4,6 +4,7 @@ import Decimal from 'decimal.js';
 interface PricingSectionProps {
   aum: number;
   setAum: (value: number) => void;
+  surusDaily: Decimal;
   surusMonthly: Decimal;
   surusAnnual: Decimal;
   tierName: string;
@@ -21,6 +22,7 @@ interface PricingSectionProps {
 const PricingSection: React.FC<PricingSectionProps> = ({
   aum,
   setAum,
+  surusDaily,
   surusMonthly,
   surusAnnual,
   tierName,
@@ -40,8 +42,8 @@ const PricingSection: React.FC<PricingSectionProps> = ({
     <section className="pricing-section" id="pricing">
       <div className="pricing-container">
         <div className="pricing-header">
-          <h2>Free up to $1M AUM.</h2>
-          <p className="pricing-subtitle">Pay only for what you use.</p>
+          <h2>On-demand pricing for treasury infrastructure</h2>
+          <p className="pricing-subtitle">Free to $1M, then starting at $0.04 per $10K daily</p>
           <p className="pricing-description">
             We custody and manage the traditional assets backing your tokens. Your compliance is our priority.
           </p>
@@ -68,10 +70,11 @@ const PricingSection: React.FC<PricingSectionProps> = ({
             <div className="pricing-column">
               <div className="pricing-tier">
                 <h3>AT SURUS FEE:</h3>
-                <div className="price">
-                  <span className="price-amount">${surusMonthly.toFixed(0)}/mo</span>
-                  <span className="price-annual">${surusAnnual.toFixed(0)}/yr</span>
-                </div>
+                              <div className="price">
+                <span className="price-amount">${surusDaily.toFixed(2)}/day</span>
+                <span className="price-monthly">${surusMonthly.toFixed(0)}/mo</span>
+                <span className="price-annual">${surusAnnual.toFixed(0)}/yr</span>
+              </div>
               </div>
             </div>
             

@@ -11,11 +11,16 @@ function d(value: number | string | undefined): Decimal {
   try { return new Decimal(value ?? 0); } catch { return new Decimal(0); }
 }
 
-function calculateSurusFeeMonthly(aum: Decimal): Decimal {
+function calculateSurusFeeDaily(aum: Decimal): Decimal {
   const million = d(1_000_000);
   const aumInMillions = aum.div(million);
   if (aumInMillions.lt(1)) return d(0);
-  return new Decimal(125).mul(aumInMillions.pow(0.72));
+  // dailyFee = AUM < 1M ? 0 : 4.167 * Math.pow(AUM/1M, 0.8)
+  return new Decimal(4.167).mul(aumInMillions.pow(0.8));
+}
+
+function calculateSurusFeeMonthly(aum: Decimal): Decimal {
+  return calculateSurusFeeDaily(aum).mul(30); // Approximate monthly fee
 }
 
 function formatCurrencyDecimal(amount: Decimal, fractionDigits = 0): string {
@@ -49,8 +54,9 @@ export default function Home(): JSX.Element {
   const [aum, setAum] = useState(5_000_000);
   const a = useMemo(() => d(aum), [aum]);
 
+  const surusDaily = useMemo(() => calculateSurusFeeDaily(a), [a]);
   const surusMonthly = useMemo(() => calculateSurusFeeMonthly(a), [a]);
-  const surusAnnual = useMemo(() => surusMonthly.mul(12), [surusMonthly]);
+  const surusAnnual = useMemo(() => surusDaily.mul(365), [surusDaily]);
   const benjiAnnual = useMemo(() => d(aum).mul(0.0015), [aum]);
   const buidlAnnual = useMemo(() => d(aum).mul(0.005), [aum]);
   const benjiSavings = useMemo(() => benjiAnnual.sub(surusAnnual), [benjiAnnual, surusAnnual]);
@@ -79,6 +85,7 @@ export default function Home(): JSX.Element {
       <PricingSection
         aum={aum}
         setAum={setAum}
+        surusDaily={surusDaily}
         surusMonthly={surusMonthly}
         surusAnnual={surusAnnual}
         tierName={getTierName(a)}
