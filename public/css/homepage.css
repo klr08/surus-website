@@ -2,20 +2,42 @@
 
 /* General Styles */
 body {
-  background-color: #0a0a0a;
+  background-color: #444;
   color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .home-page {
-  background-color: #0a0a0a;
+  background-color: #444;
 }
 
 /* Hero Section */
 .hero-section {
   padding: 6rem 2rem;
   text-align: center;
-  background-color: #0a0a0a;
+  background-color: #444;
+  position: relative;
+}
+
+/* Grid Background for Hero Section */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-section > * {
+  position: relative;
+  z-index: 2;
 }
 
 .hero-content {
@@ -223,7 +245,7 @@ body {
 /* Features Section */
 .features-section {
   padding: 4rem 2rem;
-  background-color: #0a0a0a;
+  background-color: #444;
   position: relative;
 }
 
@@ -236,9 +258,9 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    repeating-linear-gradient(0deg, transparent, transparent 14px, rgba(10,10,10,0.03) 15px),
-    repeating-linear-gradient(60deg, transparent, transparent 14px, rgba(10,10,10,0.03) 15px),
-    repeating-linear-gradient(-60deg, transparent, transparent 14px, rgba(10,10,10,0.03) 15px);
+    repeating-linear-gradient(0deg, transparent, transparent 14px, rgba(255,255,255,0.03) 15px),
+    repeating-linear-gradient(60deg, transparent, transparent 14px, rgba(255,255,255,0.03) 15px),
+    repeating-linear-gradient(-60deg, transparent, transparent 14px, rgba(255,255,255,0.03) 15px);
   pointer-events: none;
   z-index: 1;
 }
@@ -253,6 +275,13 @@ body {
   margin: 0 auto;
 }
 
+.features-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -260,11 +289,34 @@ body {
 }
 
 .feature-card {
-  background-color: #111111;
-  border: 1px solid #333333;
+  background-color: #333333;
+  border: 1px solid #555555;
   border-radius: 8px;
   padding: 2rem;
   text-align: center;
+  position: relative;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 15px 15px;
+  background-position: 0 0, 7.5px 7.5px;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.feature-card > * {
+  position: relative;
+  z-index: 2;
 }
 
 .feature-icon {
@@ -307,12 +359,12 @@ body {
 /* Testimonials Section */
 .testimonials-section {
   padding: 4rem 2rem;
-  background-color: #0a0a0a;
+  background-color: #444;
   position: relative;
 }
 
-/* Organic Sketch Pattern for Testimonials Section */
-.testimonials-section.organic-sketch-pattern::before {
+/* Dot Matrix Pattern for Testimonials Section */
+.testimonials-section::before {
   content: '';
   position: absolute;
   top: 0;
@@ -320,11 +372,10 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.03) 1px, transparent 1px),
-    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.02) 49%, rgba(255,255,255,0.02) 51%, transparent 52%);
-  background-size: 20px 20px, 20px 20px, 60px 60px;
-  background-position: 0 0, 10px 10px, 0 0;
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.05) 1px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 1px, transparent 2px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
   pointer-events: none;
   z-index: 1;
 }
@@ -347,10 +398,33 @@ body {
 }
 
 .testimonial {
-  background-color: #111111;
-  border: 1px solid #333333;
+  background-color: #333333;
+  border: 1px solid #555555;
   border-radius: 8px;
   padding: 2rem;
+  position: relative;
+}
+
+.testimonial::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 15px 15px;
+  background-position: 0 0, 7.5px 7.5px;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.testimonial > * {
+  position: relative;
+  z-index: 2;
 }
 
 .testimonial-quote {
@@ -467,8 +541,8 @@ body {
 }
 
 .podcast-card {
-  background-color: #111111;
-  border: 1px solid #333333;
+  background-color: #333333;
+  border: 1px solid #555555;
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -531,13 +605,13 @@ body {
 
 .insights-button:hover {
   background-color: white;
-  color: #0a0a0a;
+  color: #444;
 }
 
 /* CTA Section */
 .cta-section {
   padding: 4rem 2rem;
-  background-color: #0a0a0a;
+  background-color: #444;
   text-align: center;
   position: relative;
 }
@@ -584,7 +658,7 @@ body {
 
 /* Footer Styles */
 footer {
-    background-color: #111111;
+    background-color: #222;
     color: #cbd5e1;
     padding: 3rem 2rem;
 }
@@ -659,10 +733,10 @@ footer {
 .footer-bottom {
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #333333;
+  border-top: 1px solid #444444;
   text-align: center;
   font-size: 0.75rem;
-  color: #64748b;
+  color: #94a3b8;
 }
 
 /* Responsive Styles */
@@ -676,7 +750,7 @@ footer {
   }
   
   .hero-heading {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   
   .pricing-result {
@@ -686,6 +760,10 @@ footer {
   
   .treasury-amount {
     font-size: 1.25rem;
+  }
+  
+  .features-heading {
+    font-size: 2rem;
   }
   
   .features-grid {
@@ -707,9 +785,30 @@ footer {
   }
   
   /* Ensure patterns work on mobile */
-  .features-section.hexagon-pattern::before,
-  .testimonials-section.organic-sketch-pattern::before,
-  .cta-section.organic-sketch-pattern::before {
+  .hero-section::before {
+    background-size: 15px 15px;
+  }
+  
+  .features-section.hexagon-pattern::before {
+    background-size: 10px 10px;
+  }
+  
+  .testimonials-section::before {
+    background-size: 20px 20px;
+  }
+  
+  .cta-section.organic-sketch-pattern::before,
+  footer::before {
     background-size: 15px 15px, 15px 15px, 45px 45px;
+  }
+  
+  /* Adjust font sizes for mobile */
+  .font-main-headline {
+    font-size: 1.8rem;
+    line-height: 1.3;
+  }
+  
+  .font-section-header {
+    font-size: 1.8rem;
   }
 }

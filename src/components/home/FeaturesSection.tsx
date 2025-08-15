@@ -12,8 +12,8 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, icon }) =
       <div className="feature-icon">
         {icon}
       </div>
-      <h3 className="feature-title">{title}</h3>
-      <p className="feature-description">{description}</p>
+      <h3 className="feature-title font-tagline">{title}</h3>
+      <p className="feature-description font-body">{description}</p>
     </div>
   );
 };
@@ -84,6 +84,7 @@ const FeaturesSection: React.FC = () => {
   return (
     <section className="features-section hexagon-pattern">
       <div className="features-container">
+        <h2 className="features-heading font-section-header">Our Services</h2>
         <div className="features-grid">
           {features.map((feature, index) => (
             <FeatureCard

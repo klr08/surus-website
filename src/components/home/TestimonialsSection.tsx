@@ -12,7 +12,7 @@ const Testimonial: React.FC<TestimonialProps> = ({ quote, author, position, comp
   return (
     <div className="testimonial">
       <div className="testimonial-content">
-        <p className="testimonial-quote">"{quote}"</p>
+        <p className="testimonial-quote font-tagline">"{quote}"</p>
       </div>
       <div className="testimonial-author">
         {image && (
@@ -21,9 +21,9 @@ const Testimonial: React.FC<TestimonialProps> = ({ quote, author, position, comp
           </div>
         )}
         <div className="author-info">
-          <h4 className="author-name">{author}</h4>
-          <p className="author-position">{position}</p>
-          <p className="author-company">{company}</p>
+          <h4 className="author-name font-body">{author}</h4>
+          <p className="author-position font-body">{position}</p>
+          <p className="author-company font-body">{company}</p>
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@ const TestimonialsSection: React.FC = () => {
   return (
     <section className="testimonials-section organic-sketch-pattern">
       <div className="testimonials-container">
-        <h2 className="testimonials-heading">Our Clients are Saying</h2>
+        <h2 className="testimonials-heading font-section-header">Our Clients are Saying</h2>
         
         <div className="testimonials-carousel">
           <Testimonial {...testimonials[currentIndex]} />

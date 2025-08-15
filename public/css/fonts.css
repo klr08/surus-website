@@ -1,0 +1,54 @@
+/* Fonts for Surus Website */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Coming+Soon&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Font Classes */
+.font-main-headline {
+  font-family: 'Homemade Apple', cursive;
+}
+
+.font-section-header {
+  font-family: 'Architects Daughter', cursive;
+}
+
+.font-tagline {
+  font-family: 'Coming Soon', cursive;
+}
+
+.font-body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Apply fonts to specific elements */
+.hero-heading {
+  font-family: 'Homemade Apple', cursive;
+  font-weight: 400; /* Homemade Apple works best at normal weight */
+  letter-spacing: 1px;
+}
+
+.hero-tagline {
+  font-family: 'Coming Soon', cursive;
+}
+
+h2, .section-title {
+  font-family: 'Architects Daughter', cursive;
+  font-weight: 400; /* Architects Daughter works best at normal weight */
+}
+
+.testimonials-heading,
+.features-container h2,
+.cta-heading,
+.pricing-header h2 {
+  font-family: 'Architects Daughter', cursive;
+  font-weight: 400;
+}
+
+.feature-title {
+  font-family: 'Coming Soon', cursive;
+  font-weight: 600;
+}
+
+body, p, a, button, input, textarea, li {
+  font-family: 'Inter', sans-serif;
+}
