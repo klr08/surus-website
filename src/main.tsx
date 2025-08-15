@@ -11,6 +11,7 @@ import AdminEnhanced from './pages/AdminEnhanced';
 
 import '../public/css/style.css';
 import '../public/css/homepage.css';
+import '../public/css/admin.css';
 
 const router = createBrowserRouter([
   {
