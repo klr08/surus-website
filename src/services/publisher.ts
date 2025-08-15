@@ -141,6 +141,10 @@ export class Publisher {
         {
           path: 'public/data/team.json',
           content: JSON.stringify(this.generateTeamJSON(), null, 2)
+        },
+        {
+          path: 'public/data/media.json',
+          content: JSON.stringify(this.generateMediaJSON(), null, 2)
         }
       ];
 
@@ -167,11 +171,117 @@ export class Publisher {
     }
   }
 
+  // Generate media.json from uploaded files
+  static generateMediaJSON(): any[] {
+    const mediaFiles = FileUploadService.getFiles();
+    return mediaFiles.map(file => ({
+      id: file.id,
+      filename: file.filename,
+      originalName: file.originalName,
+      mimeType: file.mimeType,
+      size: file.size,
+      uploadedAt: file.uploadedAt,
+      path: `images/uploads/${file.filename}`
+    }));
+  }
+
+  // Publish media files to GitHub
+  static async publishMedia(): Promise<PublishResult> {
+    try {
+      const publisher = GitHubConfigManager.getPublisher();
+      const mediaFiles = FileUploadService.getFiles();
+      
+      if (!publisher) {
+        return {
+          success: false,
+          message: 'GitHub not configured. Please configure GitHub access first.'
+        };
+      }
+
+      // Validate access first
+      const validation = await publisher.validateAccess();
+      if (!validation.success) {
+        return {
+          success: false,
+          message: `GitHub access validation failed: ${validation.error}`
+        };
+      }
+
+      // First, publish the media index
+      const mediaIndexFile = {
+        path: 'public/data/media.json',
+        content: JSON.stringify(this.generateMediaJSON(), null, 2)
+      };
+
+      const indexResult = await publisher.publishFiles([mediaIndexFile]);
+      
+      if (!indexResult.success) {
+        return {
+          success: false,
+          message: `Failed to publish media index: ${indexResult.error}`
+        };
+      }
+
+      // Then publish each media file
+      const uploadedFiles = [];
+      let failedFiles = 0;
+
+      for (const file of mediaFiles) {
+        try {
+          // For base64 data URLs, extract just the base64 part
+          let fileContent = file.url;
+          let encoding = 'utf8';
+          
+          // If it's a data URL, extract the base64 content
+          if (fileContent.startsWith('data:')) {
+            // Extract the base64 part (after the comma)
+            fileContent = fileContent.split(',')[1];
+            encoding = 'base64';
+          }
+          
+          const fileResult = await publisher.publishFile({
+            path: `public/images/uploads/${file.filename}`,
+            content: fileContent,
+            encoding
+          });
+
+          if (fileResult.success) {
+            uploadedFiles.push(file.filename);
+          } else {
+            failedFiles++;
+          }
+        } catch (error) {
+          failedFiles++;
+        }
+      }
+
+      if (failedFiles === 0) {
+        return {
+          success: true,
+          message: `Successfully published ${uploadedFiles.length} media files to GitHub.`,
+          files: uploadedFiles
+        };
+      } else {
+        return {
+          success: true,
+          message: `Published ${uploadedFiles.length} files, but ${failedFiles} files failed.`,
+          files: uploadedFiles
+        };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message: `Media publishing failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+      };
+    }
+  }
+
   // Get publishing stats
   static getPublishStats(): { published: number; draft: number; total: number } {
     const blogs = ContentManager.getBlogPosts();
     const podcasts = ContentManager.getPodcastEpisodes();
     const team = ContentManager.getTeamMembers();
+    const media = FileUploadService.getFiles();
     
     const publishedBlogs = blogs.filter(b => b.published).length;
     const publishedPodcasts = podcasts.filter(p => p.published).length;
@@ -182,9 +292,9 @@ export class Publisher {
     const inactiveTeam = team.length - activeTeam;
     
     return {
-      published: publishedBlogs + publishedPodcasts + activeTeam,
+      published: publishedBlogs + publishedPodcasts + activeTeam + media.length,
       draft: draftBlogs + draftPodcasts + inactiveTeam,
-      total: blogs.length + podcasts.length + team.length
+      total: blogs.length + podcasts.length + team.length + media.length
     };
   }
 }

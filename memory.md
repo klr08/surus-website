@@ -167,3 +167,15 @@ Hi Claude, this is your working memory document.
 - RESPONSIVE UPDATES: Improved mobile layout and text sizing for all devices
 - RESULT: Clean, focused pricing calculator highlighting Surus value without competitor distractions
 - STATUS: Pricing calculator changes complete and approved by client - no further changes needed at this time
+
+2025-08-13 – LOGO IMPLEMENTATION: Using CMS for Official Logos
+- IDENTIFIED EXISTING FUNCTIONALITY: CMS already has Media tab for logo uploads
+- UPDATED PATHS: Changed logo references to point to /images/uploads/ directory
+- CREATED DIRECTORY: Added public/images/uploads/ for logo storage
+- INSTRUCTIONS FOR LOGO UPLOAD:
+  1. Access the CMS at /admin (login: admin@surus.io / password: surus2025!)
+  2. Navigate to the "Media" tab
+  3. Upload logo files using the file uploader (SVG format recommended)
+  4. Name files "surus-logo-light.svg" (for header) and "surus-logo-dark.svg" (for footer)
+  5. Click "Publish to Site" button to deploy logos to the live site
+- RESULT: Clean implementation using existing CMS functionality for logo management
