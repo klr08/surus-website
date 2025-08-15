@@ -154,3 +154,16 @@ Hi Claude, this is your working memory document.
 - SYMBOL VERSION: Included standalone "S" symbol for compact mobile use
 - CSS IMPLEMENTATION: Added proper styles for logo display and responsive behavior
 - RESULT: Professional branding throughout website with official company logos
+
+2025-08-13 – PRICING CALCULATOR CLEANUP: Focus on Surus Value Only
+- REMOVED COMPETITOR SECTION: Eliminated "AT BENJI FEE" section completely
+- REMOVED SAVINGS BUTTON: Cleaned up interface by removing "CALCULATE YOUR SAVINGS" button
+- ENHANCED SLIDER DESIGN: Added range labels ($0 to $5B) for better user guidance
+- EXPANDED RANGE: Increased maximum from $1B to $5B to accommodate larger treasury sizes
+- IMPROVED VISIBILITY: Changed treasury amount text to white for better contrast on dark background
+- SIMPLIFIED LAYOUT: Centered single pricing result display for cleaner presentation
+- ADDED TRANSPARENCY: Included effective rate display in basis points for pricing clarity
+- FOCUSED MESSAGING: Updated section title to "SURUS PRICING" for brand consistency
+- RESPONSIVE UPDATES: Improved mobile layout and text sizing for all devices
+- RESULT: Clean, focused pricing calculator highlighting Surus value without competitor distractions
+- STATUS: Pricing calculator changes complete and approved by client - no further changes needed at this time
