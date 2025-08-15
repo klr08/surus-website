@@ -71,7 +71,7 @@ body {
 }
 
 .cta-button {
-  background-color: #dc2626;
+  background-color: #333;
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -85,13 +85,13 @@ body {
 }
 
 .cta-button:hover {
-  background-color: #b91c1c;
+  background-color: #222;
 }
 
 /* Pricing Section */
 .pricing-section {
   padding: 4rem 2rem;
-  background-color: #dc2626;
+  background-color: #444;
   color: white;
 }
 
@@ -225,7 +225,7 @@ body {
 }
 
 .calculate-button {
-  background-color: #dc2626;
+  background-color: #333;
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -239,18 +239,18 @@ body {
 }
 
 .calculate-button:hover {
-  background-color: #b91c1c;
+  background-color: #222;
 }
 
 /* Features Section */
 .features-section {
-  padding: 4rem 2rem;
-  background-color: #444;
+  padding: 6rem 2rem;
+  background-color: #fefefe;
   position: relative;
 }
 
-/* Hexagon Mesh Pattern for Features Section */
-.features-section.hexagon-pattern::before {
+/* Organic Sketch Pattern for Features Section */
+.features-section::before {
   content: '';
   position: absolute;
   top: 0;
@@ -258,9 +258,11 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    repeating-linear-gradient(0deg, transparent, transparent 14px, rgba(255,255,255,0.03) 15px),
-    repeating-linear-gradient(60deg, transparent, transparent 14px, rgba(255,255,255,0.03) 15px),
-    repeating-linear-gradient(-60deg, transparent, transparent 14px, rgba(255,255,255,0.03) 15px);
+    radial-gradient(circle at 30% 20%, rgba(68,68,68,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 70% 80%, rgba(68,68,68,0.03) 1px, transparent 1px),
+    linear-gradient(45deg, transparent 48%, rgba(68,68,68,0.03) 49%, rgba(68,68,68,0.03) 51%, transparent 52%);
+  background-size: 25px 25px, 35px 35px, 80px 80px;
+  background-position: 0 0, 15px 15px, 0 0;
   pointer-events: none;
   z-index: 1;
 }
@@ -271,47 +273,39 @@ body {
 }
 
 .features-container {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .features-heading {
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: #ffffff;
+  font-size: 36px;
+  margin-bottom: 3rem;
+  color: #0a0a0a;
+  font-family: 'Architects Daughter', cursive;
+  font-weight: 400;
 }
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
 }
 
 .feature-card {
-  background-color: #333333;
-  border: 1px solid #555555;
-  border-radius: 8px;
-  padding: 2rem;
+  background-color: #ebebeb;
+  border: none;
+  border-radius: 12px;
+  padding: 40px;
   text-align: center;
   position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
 }
 
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.03) 1px, transparent 1px),
-    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 15px 15px;
-  background-position: 0 0, 7.5px 7.5px;
-  border-radius: 8px;
-  pointer-events: none;
-  z-index: 1;
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .feature-card > * {
@@ -344,16 +338,18 @@ body {
 }
 
 .feature-title {
-  font-size: 1.25rem;
+  font-size: 24px;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: white;
+  color: #0a0a0a;
+  font-family: 'Architects Daughter', cursive;
 }
 
 .feature-description {
-  font-size: 0.875rem;
-  color: #cbd5e1;
+  font-size: 16px;
+  color: #333;
   line-height: 1.5;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Testimonials Section */
@@ -507,7 +503,7 @@ body {
 }
 
 .carousel-indicator.active {
-  background-color: #dc2626;
+  background-color: #444;
 }
 
 /* Insights Section */
@@ -571,7 +567,7 @@ body {
 .podcast-episode-number {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #dc2626;
+  color: #444;
   margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
@@ -768,6 +764,7 @@ footer {
   
   .features-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
   
   .podcast-grid {
@@ -789,8 +786,8 @@ footer {
     background-size: 15px 15px;
   }
   
-  .features-section.hexagon-pattern::before {
-    background-size: 10px 10px;
+  .features-section::before {
+    background-size: 20px 20px, 25px 25px, 60px 60px;
   }
   
   .testimonials-section::before {

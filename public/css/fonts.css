@@ -1,13 +1,9 @@
 /* Fonts for Surus Website */
 
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Coming+Soon&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Coming+Soon&family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* Font Classes */
-.font-main-headline {
-  font-family: 'Homemade Apple', cursive;
-}
-
 .font-section-header {
   font-family: 'Architects Daughter', cursive;
 }
@@ -22,8 +18,8 @@
 
 /* Apply fonts to specific elements */
 .hero-heading {
-  font-family: 'Homemade Apple', cursive;
-  font-weight: 400; /* Homemade Apple works best at normal weight */
+  font-family: 'Architects Daughter', cursive;
+  font-weight: 400;
   letter-spacing: 1px;
 }
 
