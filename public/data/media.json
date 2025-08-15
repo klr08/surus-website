@@ -61,5 +61,32 @@
     "size": 485570,
     "uploadedAt": "2025-08-15T19:36:01.155Z",
     "path": "images/uploads/dac71d12-af42-415d-b38a-617f0a3de70f.png"
+  },
+  {
+    "id": "b8d19399-1abf-4cd8-be2c-1b55b391660e",
+    "filename": "b8d19399-1abf-4cd8-be2c-1b55b391660e.png",
+    "originalName": "Episode_.png",
+    "mimeType": "image/png",
+    "size": 281351,
+    "uploadedAt": "2025-08-15T22:13:31.868Z",
+    "path": "images/uploads/b8d19399-1abf-4cd8-be2c-1b55b391660e.png"
+  },
+  {
+    "id": "940c5682-51c5-4ad5-bf9b-11df3304d3b4",
+    "filename": "940c5682-51c5-4ad5-bf9b-11df3304d3b4.png",
+    "originalName": "S2 Episode_.png",
+    "mimeType": "image/png",
+    "size": 249246,
+    "uploadedAt": "2025-08-15T22:15:35.720Z",
+    "path": "images/uploads/940c5682-51c5-4ad5-bf9b-11df3304d3b4.png"
+  },
+  {
+    "id": "f3c85020-8833-4665-b572-041906c51b5c",
+    "filename": "f3c85020-8833-4665-b572-041906c51b5c.png",
+    "originalName": "Episode_ (1).png",
+    "mimeType": "image/png",
+    "size": 292869,
+    "uploadedAt": "2025-08-15T22:18:21.891Z",
+    "path": "images/uploads/f3c85020-8833-4665-b572-041906c51b5c.png"
   }
 ]
