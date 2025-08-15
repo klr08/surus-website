@@ -255,6 +255,20 @@ body {
   object-fit: contain;
 }
 
+.feature-icon-fallback {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3e3532;
+  border-radius: 50%;
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  margin: 0 auto;
+}
+
 .feature-title {
   font-size: 1.25rem;
   font-weight: 600;

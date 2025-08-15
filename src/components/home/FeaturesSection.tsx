@@ -7,10 +7,25 @@ interface FeatureCardProps {
 }
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, icon }) => {
+  const [imageError, setImageError] = React.useState(false);
+  
+  const handleImageError = () => {
+    console.error(`Failed to load image: ${icon}`);
+    setImageError(true);
+  };
+  
   return (
     <div className="feature-card">
       <div className="feature-icon">
-        <img src={icon} alt={title} />
+        {imageError ? (
+          <div className="feature-icon-fallback">{title.charAt(0)}</div>
+        ) : (
+          <img 
+            src={icon} 
+            alt={title} 
+            onError={handleImageError}
+          />
+        )}
       </div>
       <h3 className="feature-title">{title}</h3>
       <p className="feature-description">{description}</p>
@@ -23,22 +38,22 @@ const FeaturesSection: React.FC = () => {
     {
       title: 'Legal Asset Segregation',
       description: 'Your users\' assets protected, not on our balance sheet',
-      icon: '/images/brand/legal-asset-protection-icon.png'
+      icon: '/images/legal-asset-protection-icon.png'
     },
     {
       title: 'Regulatory Clarity',
       description: 'Licensed NC trust company satisfies compliance requirements',
-      icon: '/images/brand/Regulatory-clarity-icon.png'
+      icon: '/images/Regulatory-clarity-icon.png'
     },
     {
       title: 'No Minimums & No Lock-up Periods',
       description: 'Maintain operational flexibility',
-      icon: '/images/brand/No-minimums-icon.png'
+      icon: '/images/No-minimums-icon.png'
     },
     {
       title: 'Ready-to-Use Infrastructure',
       description: 'Ship in weeks, not months.',
-      icon: '/images/brand/ready-to-use-icon.png'
+      icon: '/images/ready-to-use-icon.png'
     }
   ];
 
