@@ -22,23 +22,23 @@ const FeaturesSection: React.FC = () => {
   const features = [
     {
       title: 'Legal Asset Segregation',
-      description: 'Your client assets are legally segregated from operational funds.',
-      icon: '/images/icons/legal-icon.svg'
+      description: 'Your users\' assets protected, not on our balance sheet',
+      icon: '/images/brand/legal-asset-protection-icon.png'
     },
     {
       title: 'Regulatory Clarity',
-      description: 'Compliant with US and global financial regulations.',
-      icon: '/images/icons/regulatory-icon.svg'
+      description: 'Licensed NC trust company satisfies compliance requirements',
+      icon: '/images/brand/Regulatory-clarity-icon.png'
     },
     {
-      title: 'No Minimums & No Lock-ups',
-      description: 'Scale as you grow without commitments.',
-      icon: '/images/icons/lock-icon.svg'
+      title: 'No Minimums & No Lock-up Periods',
+      description: 'Maintain operational flexibility',
+      icon: '/images/brand/No-minimums-icon.png'
     },
     {
       title: 'Ready-to-Use Infrastructure',
-      description: 'APIs for seamless integration.',
-      icon: '/images/icons/rocket-icon.svg'
+      description: 'Ship in weeks, not months.',
+      icon: '/images/brand/ready-to-use-icon.png'
     }
   ];
 

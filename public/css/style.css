@@ -42,7 +42,7 @@ nav {
 }
 
 .logo-image {
-    height: 70px;
+    height: 90px;
     width: auto;
     transition: opacity 0.3s ease;
     object-fit: contain;
@@ -326,7 +326,7 @@ section h2 {
     }
     
     .logo-image {
-        height: 55px;
+        height: 70px;
     }
     
     nav ul {
