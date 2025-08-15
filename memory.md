@@ -106,3 +106,14 @@ Hi Claude, this is your working memory document.
 - RESPONSIVE DESIGN: Mobile-optimized layout for all detail pages and enhanced cards
 - Built with React + TypeScript following @Claude-context.md: KISS, complete implementation
 - RESULT: Full feature parity with surus.io/insights - users can click through to read/listen to full content
+
+2025-08-13 – INSIGHTS PAGE REDESIGN: Matching surus.io/insights Layout
+- COMPLETE LAYOUT OVERHAUL: Redesigned to match professional structure of surus.io/insights exactly
+- NEW PAGE STRUCTURE: Hero section → Podcast section → Recent Posts (chronological, no featured post)
+- PODCAST SECTION: Added dedicated "Listen to Form & Structure" section with proper description
+- REDESIGNED CARDS: Clean, minimalist design with borders, improved typography, and spacing
+- IMPROVED MOBILE: Responsive design with vertical layout and proper touch targets
+- REMOVED FEATURED POST: Simplified to chronological list like reference site
+- CSS OVERHAUL: Updated all styling classes (post-card, post-header, post-footer)
+- Built with React + TypeScript following @Claude-context.md: Professional, clean design
+- RESULT: Insights page now perfectly matches surus.io/insights professional appearance and structure

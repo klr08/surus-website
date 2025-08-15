@@ -1,5 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import Decimal from 'decimal.js';
+import HeroSection from '../components/home/HeroSection';
+import PricingSection from '../components/home/PricingSection';
+import FeaturesSection from '../components/home/FeaturesSection';
+import TestimonialsSection from '../components/home/TestimonialsSection';
+import InsightsSection from '../components/home/InsightsSection';
+import CTASection from '../components/home/CTASection';
 
 function d(value: number | string | undefined): Decimal {
   try { return new Decimal(value ?? 0); } catch { return new Decimal(0); }
@@ -57,113 +63,43 @@ export default function Home(): JSX.Element {
     () => (buidlAnnual.gt(0) ? buidlSavings.div(buidlAnnual).mul(100) : d(100)),
     [buidlAnnual, buidlSavings]
   );
+  const effectiveBps = useMemo(
+    () => (a.gt(0) ? surusAnnual.div(a).mul(10000) : d(0)),
+    [a, surusAnnual]
+  );
+
+  const scrollToPricing = () => {
+    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <>
-      <section id="hero">
-        <h1>You Build the DeFi. We'll Handle the TradFi.</h1>
-        <p>Surus is an institutional-grade asset management, custody, and compliance platform for the future of finance.</p>
-        <button onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}>
-          Calculate Your Savings
-        </button>
-      </section>
-
-      <section id="pricing">
-        <div className="pricing-container">
-          <h2>Pricing that scales with you</h2>
-          <p className="pricing-subtitle">Free up to $1M AUM. Always cheaper than BENJI, BUIDL, and traditional custody.</p>
-
-          <div className="calculator-card">
-            <div className="calculator-input">
-              <label htmlFor="aum-input">Treasury Size (AUM):</label>
-              <input
-                id="aum-input"
-                type="range"
-                min={100000}
-                max={1000000000}
-                step={100000}
-                value={aum}
-                onChange={(e) => setAum(Number(e.target.value))}
-              />
-              <div className="aum-display">
-                <span id="aum-display">{formatAUM(a)}</span>
-              </div>
-            </div>
-
-            <div className="results-section">
-              <div className="surus-result">
-                <h3>Your Surus Pricing</h3>
-                <div className="tier-badge">
-                  <span id="tier-name">{getTierName(a)}</span> Tier
-                </div>
-                <div className="fee-display">
-                  <div className="monthly-fee">
-                    <span className="fee-amount" id="surus-fee">{formatCurrencyDecimal(surusMonthly, 0)}</span>
-                    <span className="fee-period">/month</span>
-                  </div>
-                  <div className="annual-fee">
-                    <span id="surus-annual">{formatCurrencyDecimal(surusAnnual, 0)}</span> /year
-                  </div>
-                  <div className="effective-rate">
-                    Effective rate:{' '}
-                    <span id="effective-bps">
-                      {Number((a.gt(0) ? surusAnnual.div(a).mul(10000) : d(0)).toFixed(1))} bps
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="comparison-section">
-                <h3>Compare Your Savings</h3>
-                <div className="comparison-table">
-                  <div className="comparison-row header">
-                    <span>Provider</span>
-                    <span>Annual Cost</span>
-                    <span>You Save</span>
-                    <span>% Savings</span>
-                  </div>
-                  <div className="comparison-row surus-row">
-                    <span className="provider-name">Surus</span>
-                    <span id="surus-annual-compare">{formatCurrencyDecimal(surusAnnual, 0)}</span>
-                    <span className="savings-amount">—</span>
-                    <span className="savings-percent">—</span>
-                  </div>
-                  <div className="comparison-row competitor-row">
-                    <span className="provider-name">BENJI (15 bps)</span>
-                    <span id="benji-annual">{formatCurrencyDecimal(benjiAnnual, 0)}</span>
-                    <span className="savings-amount positive" id="benji-savings">{formatCurrencyDecimal(benjiSavings, 0)}</span>
-                    <span className="savings-percent positive" id="benji-percent">{Number(benjiPercent.toFixed(0))}%</span>
-                  </div>
-                  <div className="comparison-row competitor-row">
-                    <span className="provider-name">BUIDL (50 bps)</span>
-                    <span id="buidl-annual">{formatCurrencyDecimal(buidlAnnual, 0)}</span>
-                    <span className="savings-amount positive" id="buidl-savings">{formatCurrencyDecimal(buidlSavings, 0)}</span>
-                    <span className="savings-percent positive" id="buidl-percent">{Number(buidlPercent.toFixed(0))}%</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="cta-section">
-                <a className="cta-button" href="#contact">Calculate My Custom Quote</a>
-                <p className="cta-subtitle">• No minimums • No lock-ups • Transparent pricing</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about">
-        <h2>What We Do</h2>
-        <p>Surus powers onchain finance by providing builders with regulated infrastructure that bridges traditional and digital assets.</p>
-      </section>
-
-      <section id="contact">
-        <h2>Get in Touch</h2>
-        <p>Let's talk about how Surus can support your business</p>
-        <p>Email: hello@surus.io</p>
-      </section>
-    </>
+    <div className="home-page">
+      <HeroSection onCalculateClick={scrollToPricing} />
+      
+      <PricingSection
+        aum={aum}
+        setAum={setAum}
+        surusMonthly={surusMonthly}
+        surusAnnual={surusAnnual}
+        tierName={getTierName(a)}
+        effectiveBps={effectiveBps}
+        benjiAnnual={benjiAnnual}
+        buidlAnnual={buidlAnnual}
+        benjiSavings={benjiSavings}
+        buidlSavings={buidlSavings}
+        benjiPercent={benjiPercent}
+        buidlPercent={buidlPercent}
+        formatCurrencyDecimal={formatCurrencyDecimal}
+        formatAUM={formatAUM}
+      />
+      
+      <FeaturesSection />
+      
+      <TestimonialsSection />
+      
+      <InsightsSection />
+      
+      <CTASection />
+    </div>
   );
 }
-
-

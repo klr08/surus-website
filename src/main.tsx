@@ -10,6 +10,7 @@ import PodcastDetail from './pages/PodcastDetail';
 import AdminEnhanced from './pages/AdminEnhanced';
 
 import '../public/css/style.css';
+import '../public/css/homepage.css';
 
 const router = createBrowserRouter([
   {
