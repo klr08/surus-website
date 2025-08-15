@@ -69,7 +69,8 @@ export default function AdminEnhanced(): JSX.Element {
     episodeNumber: 1,
     title: '',
     slug: '',
-    description: '',
+    previewDescription: '',  // Short preview shown on insights page
+    description: '',         // Full description shown on detail page
     guest: '',
     guestTitle: '',
     duration: '',
@@ -451,6 +452,7 @@ export default function AdminEnhanced(): JSX.Element {
       episodeNumber: episode.episodeNumber,
       title: episode.title,
       slug: episode.slug,
+      previewDescription: episode.previewDescription || episode.description.substring(0, 150) + '...',
       description: episode.description,
       guest: episode.guest || '',
       guestTitle: episode.guestTitle || '',
@@ -552,6 +554,7 @@ export default function AdminEnhanced(): JSX.Element {
       episodeNumber: Math.max(...podcastEpisodes.map(e => e.episodeNumber), 0) + 1,
       title: '',
       slug: '',
+      previewDescription: '',
       description: '',
       guest: '',
       guestTitle: '',
@@ -914,13 +917,15 @@ export default function AdminEnhanced(): JSX.Element {
                     </div>
 
                     <div className="form-group full-width">
-                      <label>Summary *</label>
+                      <label>Preview Summary *</label>
                       <textarea
                         value={blogForm.summary}
                         onChange={(e) => setBlogForm(prev => ({ ...prev, summary: e.target.value }))}
-                        placeholder="Brief summary for the blog post"
+                        placeholder="Brief summary for the blog post (shown on insights page)"
                         rows={3}
+                        maxLength={150}
                       />
+                      <small>{blogForm.summary.length}/150 characters recommended</small>
                     </div>
 
                     <div className="form-group full-width">
@@ -1117,11 +1122,23 @@ export default function AdminEnhanced(): JSX.Element {
                     </div>
 
                     <div className="form-group full-width">
-                      <label>Episode Description *</label>
+                      <label>Preview Description *</label>
+                      <textarea
+                        value={podcastForm.previewDescription}
+                        onChange={(e) => setPodcastForm(prev => ({ ...prev, previewDescription: e.target.value }))}
+                        placeholder="Short preview description shown on insights page (150 characters max)"
+                        rows={3}
+                        maxLength={150}
+                      />
+                      <small>{podcastForm.previewDescription.length}/150 characters</small>
+                    </div>
+
+                    <div className="form-group full-width">
+                      <label>Full Episode Description *</label>
                       <RichTextEditor
                         value={podcastForm.description}
                         onChange={(description) => setPodcastForm(prev => ({ ...prev, description }))}
-                        placeholder="Write the episode description. You can include links to resources mentioned."
+                        placeholder="Write the full episode description. You can include links to resources mentioned."
                       />
                     </div>
 

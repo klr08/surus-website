@@ -6,8 +6,8 @@ export interface BlogPost {
   title: string;
   slug: string;
   author: string;
-  summary: string;
-  content: string;
+  summary: string;      // Short preview description shown on insights page
+  content: string;      // Full content shown on detail page
   image?: string;
   tags: string[];
   featured: boolean;
@@ -22,7 +22,8 @@ export interface PodcastEpisode {
   episodeNumber: number;
   title: string;
   slug: string;
-  description: string;
+  previewDescription?: string; // Short preview shown on insights page
+  description: string;         // Full description shown on detail page
   guest?: string;
   guestTitle?: string;
   duration?: string;

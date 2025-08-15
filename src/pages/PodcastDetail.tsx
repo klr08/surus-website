@@ -101,7 +101,7 @@ export default function PodcastDetail(): JSX.Element {
         <div className="detail-container">
           <article className="detail-article">
             {/* Podcast Links */}
-            <div className="podcast-links">
+            <div className="podcast-links" id="podcast-player-links">
               <h3>Listen Now</h3>
               <div className="listen-buttons">
                 {episode.audioUrl && (

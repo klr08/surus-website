@@ -18,6 +18,7 @@ type Episode = {
   title: string;
   date?: string;
   description?: string;
+  previewDescription?: string;
   guest?: string;
   image?: string;
   spotify_url?: string;
@@ -129,12 +130,12 @@ export default function Insights(): JSX.Element {
                       }) : ''}
                     </span>
                   </div>
-                  <p className="featured-description">
-                    {featuredPost.type === 'blog' 
-                      ? (featuredPost as BlogPost).summary
-                      : (featuredPost as Episode).description
-                    }
-                  </p>
+                                      <p className="featured-description">
+                      {featuredPost.type === 'blog' 
+                        ? (featuredPost as BlogPost).summary
+                        : (featuredPost as Episode).previewDescription || (featuredPost as Episode).description.substring(0, 150) + '...'
+                      }
+                    </p>
                 </div>
               </article>
             </Link>
@@ -178,7 +179,7 @@ export default function Insights(): JSX.Element {
                     <p className="post-description">
                       {item.type === 'blog' 
                         ? (item as BlogPost).summary
-                        : (item as Episode).description
+                        : (item as Episode).previewDescription || (item as Episode).description.substring(0, 150) + '...'
                       }
                     </p>
                   </div>

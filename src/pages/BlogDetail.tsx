@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { BlogPost } from '../types/content';
 
+// CSS class to hide podcast player links on blog posts
+const hidePodcastPlayerStyle = `
+  #podcast-player-links {
+    display: none !important;
+  }
+`;
+
 export default function BlogDetail(): JSX.Element {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<BlogPost | null>(null);
@@ -61,6 +68,9 @@ export default function BlogDetail(): JSX.Element {
 
   return (
     <>
+      {/* Inject CSS to hide podcast player links */}
+      <style>{hidePodcastPlayerStyle}</style>
+      
       <section className="detail-header">
         <div className="detail-container">
           <Link to="/insights" className="back-link">← Back to Insights</Link>
@@ -92,6 +102,7 @@ export default function BlogDetail(): JSX.Element {
         <div className="detail-container">
           <article className="detail-article">
             <div className="detail-body">
+              <h3>Full Article</h3>
               {post.content.split('\n\n').map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
