@@ -80,6 +80,48 @@ export class GitHubPublisher {
       return Err(`Network error: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
+  
+  // Publish a file with custom encoding (for binary files)
+  async publishFile(fileUpdate: { path: string; content: string; encoding?: 'utf8' | 'base64' }): Promise<Result<boolean, string>> {
+    try {
+      // Get current SHA if file exists
+      const sha = await this.getFileSHA(fileUpdate.path);
+      
+      // If encoding is base64, use content as is; otherwise, encode it
+      const content = fileUpdate.encoding === 'base64' 
+        ? fileUpdate.content 
+        : btoa(unescape(encodeURIComponent(fileUpdate.content)));
+      
+      const body = {
+        message: `Update ${fileUpdate.path} from CMS`,
+        content: content,
+        branch: this.config.branch,
+        ...(sha && { sha }), // Include SHA if file exists
+      };
+
+      const response = await fetch(
+        `https://api.github.com/repos/${this.config.owner}/${this.config.repo}/contents/${fileUpdate.path}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${this.config.token}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        }
+      );
+
+      if (response.ok) {
+        return Ok(true);
+      } else {
+        const error = await response.text();
+        return Err(`GitHub API error: ${response.status} ${error}`);
+      }
+    } catch (error) {
+      return Err(`Network error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  }
 
   // Publish multiple files
   async publishFiles(files: FileUpdate[]): Promise<Result<string[], string>> {
