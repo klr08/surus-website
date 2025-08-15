@@ -505,9 +505,10 @@ footer {
 }
 
 .footer-logo-image {
-    height: 32px;
+    height: 60px;
     width: auto;
     margin-bottom: 1rem;
+    object-fit: contain;
 }
 
 .footer-container {
@@ -582,11 +583,11 @@ footer {
 /* Responsive Styles */
 @media (max-width: 768px) {
   .logo-image {
-    height: 32px;
+    height: 55px;
   }
   
   .footer-logo-image {
-    height: 28px;
+    height: 50px;
   }
   
   .hero-heading {

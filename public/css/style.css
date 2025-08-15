@@ -42,9 +42,10 @@ nav {
 }
 
 .logo-image {
-    height: 40px;
+    height: 70px;
     width: auto;
     transition: opacity 0.3s ease;
+    object-fit: contain;
 }
 
 .logo-image:hover {
@@ -322,6 +323,10 @@ section h2 {
 @media (max-width: 768px) {
     #hero h1 {
         font-size: 2rem;
+    }
+    
+    .logo-image {
+        height: 55px;
     }
     
     nav ul {
