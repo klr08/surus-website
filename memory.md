@@ -130,3 +130,15 @@ Hi Claude, this is your working memory document.
 - RESPONSIVE DESIGN: Ensured proper display on all screen sizes with mobile-first approach
 - TYPESCRIPT IMPLEMENTATION: Fully typed components with proper interfaces and props
 - RESULT: Professional homepage matching Figma design with dark theme and interactive elements
+
+2025-08-13 – PRICING CALCULATOR UPDATE: New Formula and Messaging
+- UPDATED PRICING FORMULA: Implemented dailyFee = AUM < 1M ? 0 : 4.167 * Math.pow(AUM/1M, 0.8)
+- NEW PRICING COPY: Changed to "On-demand pricing for treasury infrastructure"
+- ADDED SUBTITLE: "Free to $1M, then starting at $0.04 per $10K daily"
+- ENHANCED DISPLAY: Added daily fee alongside monthly and annual calculations
+- VERIFIED CALCULATIONS: Created test script to validate pricing at various AUM levels
+- RESULTS: $1M = $4.17/day, $5M = $15.10/day, $10M = $26.29/day, $100M = $165.89/day
+- EFFECTIVE BPS: Decreasing rate scale from 15.2 bps at $1M to 3.8 bps at $1B
+- TYPESCRIPT IMPLEMENTATION: Maintained proper typing throughout with Decimal.js for accuracy
+- RESPONSIVE DESIGN: Ensured pricing display works on all screen sizes
+- RESULT: Clear, transparent pricing with accurate calculations and professional presentation

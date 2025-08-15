@@ -6,7 +6,11 @@ export default function App(): JSX.Element {
     <div>
       <header>
         <nav>
-          <div className="logo"><h1>Surus</h1></div>
+          <div className="logo">
+            <Link to="/">
+              <img src="/images/logos/surus-logo-light.svg" alt="Surus" className="logo-image" />
+            </Link>
+          </div>
           <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/insights">Insights</Link></li>
@@ -21,7 +25,7 @@ export default function App(): JSX.Element {
         <div className="footer-container">
           <div className="footer-info">
             <div className="footer-logo">
-              <h3>Surus</h3>
+              <img src="/images/logos/surus-logo-dark.svg" alt="Surus" className="footer-logo-image" />
             </div>
             <p className="footer-description">
               Surus is an institutional-grade asset management, custody, and compliance platform for the future of finance, built on top of our licensed and regulated financial institution: Surus Trust Company.
