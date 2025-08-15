@@ -76,6 +76,14 @@ export default function Insights(): JSX.Element {
     new Date(b.date || '').getTime() - new Date(a.date || '').getTime()
   );
 
+  // Find featured post (if any)
+  const featuredPost = sortedInsights.find(item => item.featured) || sortedInsights[0];
+  
+  // Remove featured post from the list of other posts
+  const otherPosts = featuredPost 
+    ? sortedInsights.filter(item => item !== featuredPost)
+    : sortedInsights.slice(1);
+  
   return (
     <>
       {/* Page Header */}
@@ -88,29 +96,69 @@ export default function Insights(): JSX.Element {
         </div>
       </section>
 
-      {/* Podcast Section */}
-      <section className="podcast-section">
-        <div className="podcast-section-content">
-          <h2>Listen to Form & Structure</h2>
-          <p className="podcast-description">
-            Hosted by Surus CEO, Patrick Murck, the Form & Structure podcast explores the intersection of policy, technology, and financial innovation.
-          </p>
-        </div>
-      </section>
+      {/* Featured Post */}
+      {featuredPost && (
+        <section className="featured-post-section">
+          <div className="featured-post-container">
+            <h2>Featured Post</h2>
+            <p className="featured-subtitle">This is the subtitle</p>
+            <Link 
+              to={`/insights/${featuredPost.type}/${featuredPost.slug}`}
+              className="featured-post-link"
+            >
+              <article className="featured-post">
+                <div className="featured-image">
+                  {featuredPost.image && (
+                    <img src={featuredPost.image} alt={featuredPost.title} />
+                  )}
+                </div>
+                <div className="featured-content">
+                  <h3 className="featured-title">{featuredPost.title}</h3>
+                  <div className="featured-meta">
+                    <span className="featured-author">
+                      {featuredPost.type === 'blog' 
+                        ? (featuredPost as BlogPost).author || 'Surus Team'
+                        : `Patrick Murck${(featuredPost as Episode).guest ? ` hosts ${(featuredPost as Episode).guest}` : ''}`
+                      }
+                    </span>
+                    <span className="featured-date">
+                      {featuredPost.date ? new Date(featuredPost.date).toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      }) : ''}
+                    </span>
+                  </div>
+                  <p className="featured-description">
+                    {featuredPost.type === 'blog' 
+                      ? (featuredPost as BlogPost).summary
+                      : (featuredPost as Episode).description
+                    }
+                  </p>
+                </div>
+              </article>
+            </Link>
+          </div>
+        </section>
+      )}
 
-      {/* Recent Posts */}
-      <section className="recent-posts">
-        <div className="recent-posts-content">
-          <h2>Recent Posts</h2>
+      {/* All Posts Grid */}
+      <section className="all-posts-section">
+        <div className="all-posts-container">
           <div className="posts-grid">
-            {sortedInsights.map((item) => (
+            {otherPosts.map((item) => (
               <Link 
                 key={item.title + (item.date || '')}
                 to={`/insights/${item.type}/${item.slug}`}
                 className="post-card-link"
               >
                 <article className="post-card">
-                  <div className="post-header">
+                  {item.image && (
+                    <div className="post-image">
+                      <img src={item.image} alt={item.title} />
+                    </div>
+                  )}
+                  <div className="post-content">
                     <h3 className="post-title">{item.title}</h3>
                     <div className="post-meta">
                       <span className="post-author">
@@ -119,25 +167,20 @@ export default function Insights(): JSX.Element {
                           : `Patrick Murck${(item as Episode).guest ? ` hosts ${(item as Episode).guest}` : ''}`
                         }
                       </span>
-                      <span className="post-description">
-                        {item.type === 'blog' 
-                          ? (item as BlogPost).summary
-                          : (item as Episode).description
-                        }
+                      <span className="post-date">
+                        {item.date ? new Date(item.date).toLocaleDateString('en-US', { 
+                          year: 'numeric', 
+                          month: 'numeric', 
+                          day: 'numeric' 
+                        }) : ''}
                       </span>
                     </div>
-                  </div>
-                  <div className="post-footer">
-                    <span className="post-type">
-                      {item.type === 'blog' ? 'Blog Post' : 'Podcast'}
-                    </span>
-                    <span className="post-date">
-                      {item.date ? new Date(item.date).toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                      }) : ''}
-                    </span>
+                    <p className="post-description">
+                      {item.type === 'blog' 
+                        ? (item as BlogPost).summary
+                        : (item as Episode).description
+                      }
+                    </p>
                   </div>
                 </article>
               </Link>

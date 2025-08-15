@@ -715,12 +715,13 @@ section h2 {
     line-height: 1.6;
 }
 
-.featured-post {
-    margin: 0 auto 4rem;
-    max-width: 1000px;
+.featured-post-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 2rem;
 }
 
-.featured-post h2 {
+.featured-post-container h2 {
     font-size: 2rem;
     color: #1e293b;
     margin-bottom: 0.5rem;
@@ -731,7 +732,13 @@ section h2 {
     margin-bottom: 2rem;
 }
 
-.featured-article {
+.featured-post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.featured-post {
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 2rem;
@@ -740,6 +747,23 @@ section h2 {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     border: 1px solid #e2e8f0;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.featured-post:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.featured-image {
+    height: 100%;
+    overflow: hidden;
+}
+
+.featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .featured-thumbnail img {
@@ -750,6 +774,9 @@ section h2 {
 
 .featured-content {
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .featured-title {
@@ -770,6 +797,10 @@ section h2 {
 
 .featured-author {
     font-weight: 500;
+}
+
+.featured-date {
+    color: #64748b;
 }
 
 .featured-description {
@@ -794,27 +825,20 @@ section h2 {
 }
 
 /* Recent Posts Section */
-.recent-posts {
-    padding: 3rem 2rem;
+.all-posts-section {
+    padding: 2rem;
     background: #ffffff;
 }
 
-.recent-posts-content {
-    max-width: 800px;
+.all-posts-container {
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-.recent-posts h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 2rem;
-}
-
 .posts-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
 /* Post Cards */
@@ -828,13 +852,34 @@ section h2 {
     background: white;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
-    padding: 2rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .post-card:hover {
     border-color: #d1d5db;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.post-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .post-header {
@@ -945,6 +990,16 @@ section h2 {
         align-items: flex-start;
         gap: 0.5rem;
     }
+    
+    .posts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 /* About page styles */
@@ -989,7 +1044,7 @@ section h2 {
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
 }
 
@@ -1167,6 +1222,14 @@ section h2 {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+}
     
     .team-container h2,
     .investors-container h2,
