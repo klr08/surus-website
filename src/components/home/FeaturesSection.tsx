@@ -82,7 +82,7 @@ const FeaturesSection: React.FC = () => {
   ];
 
   return (
-    <section className="features-section">
+    <section className="features-section hexagon-pattern">
       <div className="features-container">
         <div className="features-grid">
           {features.map((feature, index) => (

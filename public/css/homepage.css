@@ -2,20 +2,20 @@
 
 /* General Styles */
 body {
-  background-color: #2b2320;
+  background-color: #0a0a0a;
   color: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .home-page {
-  background-color: #2b2320;
+  background-color: #0a0a0a;
 }
 
 /* Hero Section */
 .hero-section {
   padding: 6rem 2rem;
   text-align: center;
-  background-color: #2b2320;
+  background-color: #0a0a0a;
 }
 
 .hero-content {
@@ -102,7 +102,7 @@ body {
 }
 
 .pricing-calculator {
-  background-color: #2b2320;
+  background-color: #0a0a0a;
   border-radius: 8px;
   padding: 2rem;
 }
@@ -223,7 +223,29 @@ body {
 /* Features Section */
 .features-section {
   padding: 4rem 2rem;
-  background-color: #2b2320;
+  background-color: #0a0a0a;
+  position: relative;
+}
+
+/* Hexagon Mesh Pattern for Features Section */
+.features-section.hexagon-pattern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 14px, rgba(10,10,10,0.03) 15px),
+    repeating-linear-gradient(60deg, transparent, transparent 14px, rgba(10,10,10,0.03) 15px),
+    repeating-linear-gradient(-60deg, transparent, transparent 14px, rgba(10,10,10,0.03) 15px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.features-section > * {
+  position: relative;
+  z-index: 2;
 }
 
 .features-container {
@@ -238,8 +260,8 @@ body {
 }
 
 .feature-card {
-  background-color: #1e1a18;
-  border: 1px solid #3e3532;
+  background-color: #111111;
+  border: 1px solid #333333;
   border-radius: 8px;
   padding: 2rem;
   text-align: center;
@@ -261,7 +283,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #3e3532;
+  background-color: #333333;
   border-radius: 50%;
   font-size: 3rem;
   font-weight: bold;
@@ -285,7 +307,31 @@ body {
 /* Testimonials Section */
 .testimonials-section {
   padding: 4rem 2rem;
-  background-color: #2b2320;
+  background-color: #0a0a0a;
+  position: relative;
+}
+
+/* Organic Sketch Pattern for Testimonials Section */
+.testimonials-section.organic-sketch-pattern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.02) 49%, rgba(255,255,255,0.02) 51%, transparent 52%);
+  background-size: 20px 20px, 20px 20px, 60px 60px;
+  background-position: 0 0, 10px 10px, 0 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.testimonials-section > * {
+  position: relative;
+  z-index: 2;
 }
 
 .testimonials-container {
@@ -301,8 +347,8 @@ body {
 }
 
 .testimonial {
-  background-color: #1e1a18;
-  border: 1px solid #3e3532;
+  background-color: #111111;
+  border: 1px solid #333333;
   border-radius: 8px;
   padding: 2rem;
 }
@@ -355,7 +401,7 @@ body {
 
 .carousel-arrow {
   background: none;
-  border: 1px solid #3e3532;
+  border: 1px solid #333333;
   color: white;
   width: 40px;
   height: 40px;
@@ -368,7 +414,7 @@ body {
 }
 
 .carousel-arrow:hover {
-  background-color: #3e3532;
+  background-color: #333333;
 }
 
 .carousel-indicators {
@@ -381,7 +427,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #3e3532;
+  background-color: #333333;
   border: none;
   cursor: pointer;
 }
@@ -393,7 +439,7 @@ body {
 /* Insights Section */
 .insights-section {
   padding: 4rem 2rem;
-  background-color: #2b2320;
+  background-color: #0a0a0a;
 }
 
 .insights-container {
@@ -421,8 +467,8 @@ body {
 }
 
 .podcast-card {
-  background-color: #1e1a18;
-  border: 1px solid #3e3532;
+  background-color: #111111;
+  border: 1px solid #333333;
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -485,14 +531,38 @@ body {
 
 .insights-button:hover {
   background-color: white;
-  color: #2b2320;
+  color: #0a0a0a;
 }
 
 /* CTA Section */
 .cta-section {
   padding: 4rem 2rem;
-  background-color: #2b2320;
+  background-color: #0a0a0a;
   text-align: center;
+  position: relative;
+}
+
+/* Organic Sketch Pattern for CTA Section */
+.cta-section.organic-sketch-pattern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.02) 49%, rgba(255,255,255,0.02) 51%, transparent 52%);
+  background-size: 20px 20px, 20px 20px, 60px 60px;
+  background-position: 0 0, 10px 10px, 0 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cta-section > * {
+  position: relative;
+  z-index: 2;
 }
 
 .cta-container {
@@ -514,7 +584,7 @@ body {
 
 /* Footer Styles */
 footer {
-    background-color: #1e1a18;
+    background-color: #111111;
     color: #cbd5e1;
     padding: 3rem 2rem;
 }
@@ -589,7 +659,7 @@ footer {
 .footer-bottom {
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #3e3532;
+  border-top: 1px solid #333333;
   text-align: center;
   font-size: 0.75rem;
   color: #64748b;
@@ -634,5 +704,12 @@ footer {
   .footer-links {
     flex-direction: column;
     gap: 2rem;
+  }
+  
+  /* Ensure patterns work on mobile */
+  .features-section.hexagon-pattern::before,
+  .testimonials-section.organic-sketch-pattern::before,
+  .cta-section.organic-sketch-pattern::before {
+    background-size: 15px 15px, 15px 15px, 45px 45px;
   }
 }

@@ -59,7 +59,7 @@ const TestimonialsSection: React.FC = () => {
   };
 
   return (
-    <section className="testimonials-section">
+    <section className="testimonials-section organic-sketch-pattern">
       <div className="testimonials-container">
         <h2 className="testimonials-heading">Our Clients are Saying</h2>
         

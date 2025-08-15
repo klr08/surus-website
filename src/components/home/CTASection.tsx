@@ -2,7 +2,7 @@ import React from 'react';
 
 const CTASection: React.FC = () => {
   return (
-    <section className="cta-section">
+    <section className="cta-section organic-sketch-pattern">
       <div className="cta-container">
         <h2 className="cta-heading">Schedule a Strategy Call</h2>
         <p className="cta-description">
