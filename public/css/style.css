@@ -8,14 +8,14 @@
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
-    color: #fff;
-    background-color: #444;
+    color: #333;
+    background-color: #fefefe;
 }
 
 /* Header Styles */
 header {
-    background: #222;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    background: #fefefe;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -60,13 +60,16 @@ nav ul {
 
 nav a {
     text-decoration: none;
-    color: #fff;
+    color: #0a0a0a;
     font-weight: 500;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 6px;
 }
 
 nav a:hover {
     color: #dc2626;
+    background-color: rgba(235, 235, 235, 0.5);
 }
 
 /* Main Content */
@@ -349,22 +352,45 @@ section h2 {
 /* Blog Styles */
 .page-header {
     text-align: center;
-    padding: 3rem 0;
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 4rem 0;
+    background: #fefefe;
     margin-bottom: 3rem;
+    position: relative;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 30% 20%, rgba(68,68,68,0.03) 1px, transparent 1px),
+        radial-gradient(circle at 70% 80%, rgba(68,68,68,0.03) 1px, transparent 1px),
+        linear-gradient(45deg, transparent 48%, rgba(68,68,68,0.03) 49%, rgba(68,68,68,0.03) 51%, transparent 52%);
+    background-size: 25px 25px, 35px 35px, 80px 80px;
+    background-position: 0 0, 15px 15px, 0 0;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .page-header h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    color: #1e293b;
+    color: #0a0a0a;
+    position: relative;
+    z-index: 2;
+    font-family: 'Architects Daughter', cursive;
 }
 
 .page-header p {
     font-size: 1.1rem;
-    color: #64748b;
+    color: #333;
     max-width: 600px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 .blog-grid {
@@ -375,17 +401,16 @@ section h2 {
 }
 
 .blog-card {
-    background: white;
+    background: #ebebeb;
     border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border: 1px solid #e2e8f0;
-    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 40px;
+    border: none;
+    transition: all 0.3s ease;
 }
 
 .blog-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .blog-meta {
@@ -444,17 +469,16 @@ section h2 {
 }
 
 .podcast-card {
-    background: white;
+    background: #ebebeb;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border: 1px solid #e2e8f0;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    transition: all 0.3s ease;
 }
 
 .podcast-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .podcast-image {
@@ -464,7 +488,7 @@ section h2 {
 }
 
 .podcast-content {
-    padding: 2rem;
+    padding: 40px;
 }
 
 .podcast-meta {
@@ -669,50 +693,94 @@ section h2 {
 .insights-hero {
     text-align: center;
     padding: 4rem 2rem;
-    background: #ffffff;
+    background: #fefefe;
+    position: relative;
+}
+
+.insights-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 30% 20%, rgba(68,68,68,0.03) 1px, transparent 1px),
+        radial-gradient(circle at 70% 80%, rgba(68,68,68,0.03) 1px, transparent 1px),
+        linear-gradient(45deg, transparent 48%, rgba(68,68,68,0.03) 49%, rgba(68,68,68,0.03) 51%, transparent 52%);
+    background-size: 25px 25px, 35px 35px, 80px 80px;
+    background-position: 0 0, 15px 15px, 0 0;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .insights-hero-content {
     max-width: 800px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 .insights-hero h1 {
     font-size: 3rem;
     font-weight: 700;
-    color: #1e293b;
+    color: #0a0a0a;
     margin-bottom: 1rem;
+    font-family: 'Architects Daughter', cursive;
 }
 
 .insights-subtitle {
     font-size: 1.2rem;
-    color: #64748b;
+    color: #333;
     line-height: 1.6;
+    font-family: 'Inter', sans-serif;
 }
 
 /* Podcast Section */
 .podcast-section {
-    background: #f8fafc;
+    background: #fefefe;
     padding: 3rem 2rem;
     text-align: center;
+    position: relative;
+}
+
+.podcast-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 30% 20%, rgba(68,68,68,0.03) 1px, transparent 1px),
+        radial-gradient(circle at 70% 80%, rgba(68,68,68,0.03) 1px, transparent 1px),
+        linear-gradient(45deg, transparent 48%, rgba(68,68,68,0.03) 49%, rgba(68,68,68,0.03) 51%, transparent 52%);
+    background-size: 25px 25px, 35px 35px, 80px 80px;
+    background-position: 0 0, 15px 15px, 0 0;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .podcast-section-content {
     max-width: 800px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 .podcast-section h2 {
     font-size: 2rem;
     font-weight: 700;
-    color: #1e293b;
+    color: #0a0a0a;
     margin-bottom: 1rem;
+    font-family: 'Architects Daughter', cursive;
 }
 
 .podcast-description {
     font-size: 1.1rem;
-    color: #64748b;
+    color: #333;
     line-height: 1.6;
+    font-family: 'Inter', sans-serif;
 }
 
 .featured-post-section {
@@ -723,13 +791,15 @@ section h2 {
 
 .featured-post-container h2 {
     font-size: 2rem;
-    color: #1e293b;
+    color: #0a0a0a;
     margin-bottom: 0.5rem;
+    font-family: 'Architects Daughter', cursive;
 }
 
 .featured-subtitle {
-    color: #64748b;
+    color: #333;
     margin-bottom: 2rem;
+    font-family: 'Coming Soon', cursive;
 }
 
 .featured-post-link {
@@ -742,17 +812,16 @@ section h2 {
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 2rem;
-    background: white;
+    background: #ebebeb;
     border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    border: 1px solid #e2e8f0;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    transition: all 0.3s ease;
 }
 
 .featured-post:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .featured-image {
@@ -773,7 +842,7 @@ section h2 {
 }
 
 .featured-content {
-    padding: 2rem;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -782,9 +851,10 @@ section h2 {
 .featured-title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #1e293b;
+    color: #0a0a0a;
     margin-bottom: 1rem;
     line-height: 1.3;
+    font-family: 'Coming Soon', cursive;
 }
 
 .featured-meta {
@@ -804,9 +874,10 @@ section h2 {
 }
 
 .featured-description {
-    color: #4b5563;
+    color: #333;
     line-height: 1.6;
     margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
 }
 
 .featured-links .listen-link {
@@ -849,19 +920,19 @@ section h2 {
 }
 
 .post-card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
+    background: #ebebeb;
+    border: none;
+    border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     height: 100%;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: all 0.3s ease;
 }
 
 .post-card:hover {
-    border-color: #d1d5db;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .post-image {
@@ -876,7 +947,7 @@ section h2 {
 }
 
 .post-content {
-    padding: 1.5rem;
+    padding: 40px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -889,9 +960,10 @@ section h2 {
 .post-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #1e293b;
+    color: #0a0a0a;
     margin-bottom: 1rem;
     line-height: 1.5;
+    font-family: 'Coming Soon', cursive;
 }
 
 .post-meta {
@@ -907,9 +979,10 @@ section h2 {
 }
 
 .post-description {
-    color: #4b5563;
+    color: #333;
     line-height: 1.6;
     font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
 }
 
 .post-footer {
@@ -1006,24 +1079,45 @@ section h2 {
 .about-hero {
     text-align: center;
     padding: 4rem 2rem;
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    background: #fefefe;
+    position: relative;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 30% 20%, rgba(68,68,68,0.03) 1px, transparent 1px),
+        radial-gradient(circle at 70% 80%, rgba(68,68,68,0.03) 1px, transparent 1px),
+        linear-gradient(45deg, transparent 48%, rgba(68,68,68,0.03) 49%, rgba(68,68,68,0.03) 51%, transparent 52%);
+    background-size: 25px 25px, 35px 35px, 80px 80px;
+    background-position: 0 0, 15px 15px, 0 0;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .about-hero-content {
     max-width: 800px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 .about-hero h1 {
     font-size: 3rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
-    color: #1e293b;
+    color: #0a0a0a;
+    font-family: 'Architects Daughter', cursive;
 }
 
 .about-hero-description {
     font-size: 1.2rem;
-    color: #64748b;
+    color: #333;
     line-height: 1.6;
     max-width: 600px;
     margin: 0 auto;
@@ -1037,9 +1131,10 @@ section h2 {
 
 .team-container h2 {
     font-size: 2.5rem;
-    color: #1e293b;
+    color: #0a0a0a;
     margin-bottom: 3rem;
     text-align: center;
+    font-family: 'Architects Daughter', cursive;
 }
 
 .team-grid {
@@ -1049,17 +1144,16 @@ section h2 {
 }
 
 .team-member {
-    background: white;
+    background: #ebebeb;
     border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border: 1px solid #e2e8f0;
-    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 40px;
+    border: none;
+    transition: all 0.3s ease;
 }
 
 .team-member:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .team-member-image {
@@ -1082,22 +1176,25 @@ section h2 {
 .team-member-name {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #1e293b;
+    color: #0a0a0a;
     margin-bottom: 0.5rem;
+    font-family: 'Coming Soon', cursive;
 }
 
 .team-member-title {
     font-size: 1rem;
     font-weight: 600;
-    color: #dc2626;
+    color: #333;
     margin-bottom: 1rem;
+    font-family: 'Coming Soon', cursive;
 }
 
 .team-member-bio {
-    color: #4b5563;
+    color: #333;
     line-height: 1.6;
     margin-bottom: 1.5rem;
     font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
 }
 
 .team-member-links {
@@ -1247,13 +1344,14 @@ section h2 {
 
 /* Footer */
 footer {
-    background: #222;
+    background: #fefefe;
     text-align: center;
     padding: 2rem;
-    color: #cbd5e1;
+    color: #333;
     font-size: 0.9rem;
     margin-top: 2rem;
     position: relative;
+    border-top: 1px solid #ebebeb;
 }
 
 /* Organic Sketch Pattern for Footer */
@@ -1265,11 +1363,11 @@ footer::before {
     right: 0;
     bottom: 0;
     background-image: 
-        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.03) 1px, transparent 1px),
-        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.02) 49%, rgba(255,255,255,0.02) 51%, transparent 52%);
-    background-size: 20px 20px, 20px 20px, 60px 60px;
-    background-position: 0 0, 10px 10px, 0 0;
+        radial-gradient(circle at 30% 20%, rgba(68,68,68,0.03) 1px, transparent 1px),
+        radial-gradient(circle at 70% 80%, rgba(68,68,68,0.03) 1px, transparent 1px),
+        linear-gradient(45deg, transparent 48%, rgba(68,68,68,0.03) 49%, rgba(68,68,68,0.03) 51%, transparent 52%);
+    background-size: 25px 25px, 35px 35px, 80px 80px;
+    background-position: 0 0, 15px 15px, 0 0;
     pointer-events: none;
     z-index: 1;
 }
