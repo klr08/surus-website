@@ -30,11 +30,9 @@ const PricingSection: React.FC<PricingSectionProps> = ({
     <section className="pricing-section" id="pricing">
       <div className="pricing-container">
         <div className="pricing-header">
-          <h2>On-demand pricing for treasury infrastructure</h2>
+          <h2>Pay-As-You-Go Treasury Infrastructure</h2>
           <p className="pricing-subtitle">Free to $1M, then starting at $0.04 per $10K daily</p>
-          <p className="pricing-description">
-            We custody and manage the traditional assets backing your tokens.
-          </p>
+          <p className="pricing-description"></p>
         </div>
         
         <div className="pricing-calculator">
