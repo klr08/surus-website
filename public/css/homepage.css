@@ -2,20 +2,20 @@
 
 /* General Styles */
 body {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #2d2d2d;
+  color: #ffffff;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .home-page {
-  background-color: #ffffff;
+  background-color: #2d2d2d;
 }
 
 /* Hero Section */
 .hero-section {
   padding: 6rem 0;
   text-align: center;
-  background-color: #E8E8EB;
+  background-color: #444444;
   position: relative;
   width: 100%;
 }
@@ -29,8 +29,8 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
   background-size: 20px 20px;
   pointer-events: none;
   z-index: 1;
@@ -52,19 +52,19 @@ body {
   font-weight: 600;
   letter-spacing: 0.1em;
   margin-bottom: 1rem;
-  color: #000000;
+  color: #ffffff;
 }
 
 .hero-heading {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: #000000;
+  color: #ffffff;
 }
 
 .hero-subtitle {
   font-size: 1.2rem;
-  color: #000000;
+  color: #ffffff;
   margin-bottom: 2rem;
 }
 
@@ -73,7 +73,7 @@ body {
 }
 
 .cta-button {
-  background-color: #d97706;
+  background-color: #991b1b;
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -87,14 +87,14 @@ body {
 }
 
 .cta-button:hover {
-  background-color: #b45309;
+  background-color: #7f1d1d;
 }
 
 /* Pricing Section */
 .pricing-section {
   padding: 4rem 0;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #2d2d2d;
+  color: #ffffff;
   width: 100%;
 }
 
@@ -128,7 +128,7 @@ body {
 }
 
 .pricing-calculator {
-  background-color: #d97706;
+  background-color: #991b1b;
   border-radius: 12px;
   padding: 2rem;
 }
@@ -236,7 +236,7 @@ body {
 }
 
 .calculate-button {
-  background-color: #d97706;
+  background-color: #991b1b;
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -250,13 +250,13 @@ body {
 }
 
 .calculate-button:hover {
-  background-color: #b45309;
+  background-color: #7f1d1d;
 }
 
 /* Features Section */
 .features-section {
   padding: 6rem 0;
-  background-color: #E8E8EB;
+  background-color: #2d2d2d;
   position: relative;
   width: 100%;
 }
@@ -294,8 +294,8 @@ body {
   text-align: center;
   font-size: 36px;
   margin-bottom: 3rem;
-  color: #0a0a0a;
-  font-family: 'Architects Daughter', cursive;
+  color: #ffffff;
+  font-family: 'Satoshi', sans-serif;
   font-weight: 400;
 }
 
@@ -369,7 +369,7 @@ body {
   font-weight: 600;
   margin-bottom: 1rem;
   color: #0a0a0a;
-  font-family: 'Architects Daughter', cursive;
+  font-family: 'Satoshi', sans-serif;
 }
 
 .feature-description {
@@ -382,7 +382,7 @@ body {
 /* Testimonials Section */
 .testimonials-section {
   padding: 4rem 0;
-  background-color: #E8E8EB;
+  background-color: #2d2d2d;
   position: relative;
   width: 100%;
 }
@@ -538,7 +538,7 @@ body {
 /* Insights Section */
 .insights-section {
   padding: 4rem 0;
-  background-color: #ffffff;
+  background-color: #2d2d2d;
   width: 100%;
 }
 
@@ -553,7 +553,7 @@ body {
   font-weight: 700;
   text-align: center;
   margin-bottom: 3rem;
-  color: #000000;
+  color: #ffffff;
 }
 
 .podcast-grid {
@@ -607,7 +607,7 @@ body {
 .podcast-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #000000;
+  color: #ffffff;
   line-height: 1.4;
 }
 
@@ -617,7 +617,7 @@ body {
 
 .insights-button {
   display: inline-block;
-  background-color: #d97706;
+  background-color: #991b1b;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -632,14 +632,14 @@ body {
 }
 
 .insights-button:hover {
-  background-color: #b45309;
+  background-color: #7f1d1d;
   color: #ffffff;
 }
 
 /* CTA Section */
 .cta-section {
   padding: 4rem 0;
-  background-color: #E8E8EB;
+  background-color: #444444;
   text-align: center;
   position: relative;
   width: 100%;
@@ -688,8 +688,8 @@ body {
 
 /* Footer Styles */
 footer {
-    background-color: #E8E8EB;
-    color: #000000;
+    background-color: #444444;
+    color: #ffffff;
     padding: 3rem 0;
     width: 100%;
 }
