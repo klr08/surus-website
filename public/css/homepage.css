@@ -2,20 +2,20 @@
 
 /* General Styles */
 body {
-  background-color: #444;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .home-page {
-  background-color: #444;
+  background-color: #ffffff;
 }
 
 /* Hero Section */
 .hero-section {
   padding: 6rem 2rem;
   text-align: center;
-  background-color: #444;
+  background-color: #E8E8EB;
   position: relative;
 }
 
@@ -28,8 +28,8 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
   background-size: 20px 20px;
   pointer-events: none;
   z-index: 1;
@@ -50,19 +50,19 @@ body {
   font-weight: 600;
   letter-spacing: 0.1em;
   margin-bottom: 1rem;
-  color: #ffffff;
+  color: #000000;
 }
 
 .hero-heading {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: #ffffff;
+  color: #000000;
 }
 
 .hero-subtitle {
   font-size: 1.2rem;
-  color: #cbd5e1;
+  color: #000000;
   margin-bottom: 2rem;
 }
 
@@ -245,7 +245,7 @@ body {
 /* Features Section */
 .features-section {
   padding: 6rem 2rem;
-  background-color: #fefefe;
+  background-color: #E8E8EB;
   position: relative;
 }
 
@@ -293,7 +293,7 @@ body {
 }
 
 .feature-card {
-  background-color: #ebebeb;
+  background-color: #DCDCDC;
   border: none;
   border-radius: 12px;
   padding: 40px;
@@ -355,7 +355,7 @@ body {
 /* Testimonials Section */
 .testimonials-section {
   padding: 4rem 2rem;
-  background-color: #444;
+  background-color: #E8E8EB;
   position: relative;
 }
 
@@ -394,10 +394,10 @@ body {
 }
 
 .testimonial {
-  background-color: #333333;
-  border: 1px solid #555555;
-  border-radius: 8px;
-  padding: 2rem;
+  background-color: #DCDCDC;
+  border: none;
+  border-radius: 12px;
+  padding: 40px;
   position: relative;
 }
 
@@ -427,7 +427,7 @@ body {
   font-size: 1.25rem;
   line-height: 1.6;
   margin-bottom: 2rem;
-  color: white;
+  color: #000000;
 }
 
 .testimonial-author {
@@ -607,7 +607,7 @@ body {
 /* CTA Section */
 .cta-section {
   padding: 4rem 2rem;
-  background-color: #444;
+  background-color: #E8E8EB;
   text-align: center;
   position: relative;
 }
@@ -654,8 +654,8 @@ body {
 
 /* Footer Styles */
 footer {
-    background-color: #222;
-    color: #cbd5e1;
+    background-color: #E8E8EB;
+    color: #000000;
     padding: 3rem 2rem;
 }
 
