@@ -1,5 +1,11 @@
 import React from 'react';
 
+// Import images directly
+import legalIcon from '../../../public/images/icons/legal-asset-protection-icon.png';
+import regulatoryIcon from '../../../public/images/icons/Regulatory-clarity-icon.png';
+import noMinimumsIcon from '../../../public/images/icons/No-minimums-icon.png';
+import readyToUseIcon from '../../../public/images/icons/ready-to-use-icon.png';
+
 interface FeatureCardProps {
   title: string;
   description: string;
@@ -19,26 +25,28 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, iconSrc }
 };
 
 const FeaturesSection: React.FC = () => {
+  // Images are imported at the top of the file
+
   const features = [
     {
       title: 'Legal Asset Segregation',
       description: 'Your users\' assets protected, not on our balance sheet',
-      iconSrc: '/images/icons/legal-asset-protection-icon.png'
+      iconSrc: legalIcon
     },
     {
       title: 'Regulatory Clarity',
       description: 'Licensed NC trust company satisfies compliance requirements',
-      iconSrc: '/images/icons/Regulatory-clarity-icon.png'
+      iconSrc: regulatoryIcon
     },
     {
       title: 'No Minimums & No Lock-up Periods',
       description: 'Maintain operational flexibility',
-      iconSrc: '/images/icons/No-minimums-icon.png'
+      iconSrc: noMinimumsIcon
     },
     {
       title: 'Ready-to-Use Infrastructure',
       description: 'Ship in weeks, not months.',
-      iconSrc: '/images/icons/ready-to-use-icon.png'
+      iconSrc: readyToUseIcon
     }
   ];
 
