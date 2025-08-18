@@ -20,7 +20,7 @@ body {
   width: 100%;
 }
 
-/* Grid Background for Hero Section */
+/* Slanted Lines Pattern for Hero Section */
 .hero-section::before {
   content: '';
   position: absolute;
@@ -29,9 +29,9 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
+    linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 49%, rgba(255,255,255,0.05) 51%, transparent 52%);
+  background-size: 80px 80px;
+  background-position: 0 0;
   pointer-events: none;
   z-index: 1;
 }
@@ -261,7 +261,7 @@ body {
   width: 100%;
 }
 
-/* Organic Sketch Pattern for Features Section */
+/* Slanted Lines Pattern for Features Section */
 .features-section::before {
   content: '';
   position: absolute;
@@ -270,11 +270,9 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    radial-gradient(circle at 30% 20%, rgba(68,68,68,0.03) 1px, transparent 1px),
-    radial-gradient(circle at 70% 80%, rgba(68,68,68,0.03) 1px, transparent 1px),
-    linear-gradient(45deg, transparent 48%, rgba(68,68,68,0.03) 49%, rgba(68,68,68,0.03) 51%, transparent 52%);
-  background-size: 25px 25px, 35px 35px, 80px 80px;
-  background-position: 0 0, 15px 15px, 0 0;
+    linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 49%, rgba(255,255,255,0.05) 51%, transparent 52%);
+  background-size: 80px 80px;
+  background-position: 0 0;
   pointer-events: none;
   z-index: 1;
 }
@@ -387,7 +385,7 @@ body {
   width: 100%;
 }
 
-/* Dot Matrix Pattern for Testimonials Section */
+/* Slanted Lines Pattern for Testimonials Section */
 .testimonials-section::before {
   content: '';
   position: absolute;
@@ -396,10 +394,9 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.05) 1px, transparent 2px),
-    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 1px, transparent 2px);
-  background-size: 30px 30px;
-  background-position: 0 0, 15px 15px;
+    linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 49%, rgba(255,255,255,0.05) 51%, transparent 52%);
+  background-size: 80px 80px;
+  background-position: 0 0;
   pointer-events: none;
   z-index: 1;
 }
@@ -645,8 +642,8 @@ body {
   width: 100%;
 }
 
-/* Organic Sketch Pattern for CTA Section */
-.cta-section.organic-sketch-pattern::before {
+/* Slanted Lines Pattern for CTA Section */
+.cta-section::before {
   content: '';
   position: absolute;
   top: 0;
@@ -654,11 +651,9 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.03) 1px, transparent 1px),
-    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.02) 49%, rgba(255,255,255,0.02) 51%, transparent 52%);
-  background-size: 20px 20px, 20px 20px, 60px 60px;
-  background-position: 0 0, 10px 10px, 0 0;
+    linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 49%, rgba(255,255,255,0.05) 51%, transparent 52%);
+  background-size: 80px 80px;
+  background-position: 0 0;
   pointer-events: none;
   z-index: 1;
 }
