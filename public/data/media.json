@@ -1,50 +1,5 @@
 [
   {
-    "id": "dac71d12-af42-415d-b38a-617f0a3de70f",
-    "filename": "dac71d12-af42-415d-b38a-617f0a3de70f.png",
-    "originalName": "Brad Gibson_CTO.png",
-    "mimeType": "image/png",
-    "size": 485570,
-    "uploadedAt": "2025-08-15T19:36:01.155Z",
-    "path": "images/uploads/dac71d12-af42-415d-b38a-617f0a3de70f.png"
-  },
-  {
-    "id": "b8d19399-1abf-4cd8-be2c-1b55b391660e",
-    "filename": "b8d19399-1abf-4cd8-be2c-1b55b391660e.png",
-    "originalName": "Episode_.png",
-    "mimeType": "image/png",
-    "size": 281351,
-    "uploadedAt": "2025-08-15T22:13:31.868Z",
-    "path": "images/uploads/b8d19399-1abf-4cd8-be2c-1b55b391660e.png"
-  },
-  {
-    "id": "940c5682-51c5-4ad5-bf9b-11df3304d3b4",
-    "filename": "940c5682-51c5-4ad5-bf9b-11df3304d3b4.png",
-    "originalName": "S2 Episode_.png",
-    "mimeType": "image/png",
-    "size": 249246,
-    "uploadedAt": "2025-08-15T22:15:35.720Z",
-    "path": "images/uploads/940c5682-51c5-4ad5-bf9b-11df3304d3b4.png"
-  },
-  {
-    "id": "f3c85020-8833-4665-b572-041906c51b5c",
-    "filename": "f3c85020-8833-4665-b572-041906c51b5c.png",
-    "originalName": "Episode_ (1).png",
-    "mimeType": "image/png",
-    "size": 292869,
-    "uploadedAt": "2025-08-15T22:18:21.891Z",
-    "path": "images/uploads/f3c85020-8833-4665-b572-041906c51b5c.png"
-  },
-  {
-    "id": "4476c14a-2db0-41cf-93dd-1bb1713d7318",
-    "filename": "4476c14a-2db0-41cf-93dd-1bb1713d7318.png",
-    "originalName": "Bethany Wheeler_Chief Trust Officer.png",
-    "mimeType": "image/png",
-    "size": 361477,
-    "uploadedAt": "2025-08-15T22:36:04.539Z",
-    "path": "images/uploads/4476c14a-2db0-41cf-93dd-1bb1713d7318.png"
-  },
-  {
     "id": "30625cb5-bcad-4415-a8ee-923ebb8bdeca",
     "filename": "30625cb5-bcad-4415-a8ee-923ebb8bdeca.png",
     "originalName": "X Post Images.png",
@@ -54,12 +9,39 @@
     "path": "images/uploads/30625cb5-bcad-4415-a8ee-923ebb8bdeca.png"
   },
   {
-    "id": "b5c9bf58-5b20-4e19-91aa-1ebd89664896",
-    "filename": "b5c9bf58-5b20-4e19-91aa-1ebd89664896.png",
-    "originalName": "Bethany Wheeler_Chief Trust Officer.png",
+    "id": "216d898b-de5b-47d4-b049-c1603aa55f59",
+    "filename": "216d898b-de5b-47d4-b049-c1603aa55f59.png",
+    "originalName": "Patrick Murck_Chief Executive Officer.png",
     "mimeType": "image/png",
-    "size": 361477,
-    "uploadedAt": "2025-08-18T02:34:08.318Z",
-    "path": "images/uploads/b5c9bf58-5b20-4e19-91aa-1ebd89664896.png"
+    "size": 515491,
+    "uploadedAt": "2025-08-18T03:25:23.400Z",
+    "path": "images/uploads/216d898b-de5b-47d4-b049-c1603aa55f59.png"
+  },
+  {
+    "id": "0c4093be-e309-481d-bc8e-6ad2b5197e96",
+    "filename": "0c4093be-e309-481d-bc8e-6ad2b5197e96.png",
+    "originalName": "Patrick Murck_Chief Executive Officer.png",
+    "mimeType": "image/png",
+    "size": 515491,
+    "uploadedAt": "2025-08-18T11:49:18.487Z",
+    "path": "images/uploads/0c4093be-e309-481d-bc8e-6ad2b5197e96.png"
+  },
+  {
+    "id": "22a38134-9511-454b-b4d0-ee32a849878b",
+    "filename": "22a38134-9511-454b-b4d0-ee32a849878b.png",
+    "originalName": "Patrick Murck_Chief Executive Officer.png",
+    "mimeType": "image/png",
+    "size": 515491,
+    "uploadedAt": "2025-08-18T11:49:48.668Z",
+    "path": "images/uploads/22a38134-9511-454b-b4d0-ee32a849878b.png"
+  },
+  {
+    "id": "be2e9d92-27ce-4b62-8e6f-19b89815303b",
+    "filename": "be2e9d92-27ce-4b62-8e6f-19b89815303b.png",
+    "originalName": "Brad Gibson_CTO.png",
+    "mimeType": "image/png",
+    "size": 485570,
+    "uploadedAt": "2025-08-18T11:50:49.481Z",
+    "path": "images/uploads/be2e9d92-27ce-4b62-8e6f-19b89815303b.png"
   }
 ]
