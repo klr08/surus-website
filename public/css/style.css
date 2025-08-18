@@ -367,22 +367,7 @@ section h2 {
     width: 100%;
 }
 
-.page-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.05) 1px, transparent 1px),
-        radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 49%, rgba(255,255,255,0.05) 51%, transparent 52%);
-    background-size: 25px 25px, 35px 35px, 80px 80px;
-    background-position: 0 0, 15px 15px, 0 0;
-    pointer-events: none;
-    z-index: 1;
-}
+/* Page Header - No Background Pattern */
 
 .page-header-content {
     max-width: 1200px;
@@ -717,22 +702,7 @@ section h2 {
     width: 100%;
 }
 
-.insights-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.05) 1px, transparent 1px),
-        radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 49%, rgba(255,255,255,0.05) 51%, transparent 52%);
-    background-size: 25px 25px, 35px 35px, 80px 80px;
-    background-position: 0 0, 15px 15px, 0 0;
-    pointer-events: none;
-    z-index: 1;
-}
+/* Insights Hero - No Background Pattern */
 
 .insights-hero-content {
     max-width: 1200px;
@@ -766,22 +736,7 @@ section h2 {
     width: 100%;
 }
 
-.podcast-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.05) 1px, transparent 1px),
-        radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 49%, rgba(255,255,255,0.05) 51%, transparent 52%);
-    background-size: 25px 25px, 35px 35px, 80px 80px;
-    background-position: 0 0, 15px 15px, 0 0;
-    pointer-events: none;
-    z-index: 1;
-}
+/* Podcast Section - No Background Pattern */
 
 .podcast-section-content {
     max-width: 1200px;
@@ -1117,22 +1072,7 @@ section h2 {
     width: 100%;
 }
 
-.about-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.05) 1px, transparent 1px),
-        radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.05) 49%, rgba(255,255,255,0.05) 51%, transparent 52%);
-    background-size: 25px 25px, 35px 35px, 80px 80px;
-    background-position: 0 0, 15px 15px, 0 0;
-    pointer-events: none;
-    z-index: 1;
-}
+/* About Hero - No Background Pattern */
 
 .about-hero-content {
     max-width: 1200px;
@@ -1396,23 +1336,7 @@ footer {
     width: 100%;
 }
 
-/* Organic Sketch Pattern for Footer */
-footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(circle at 30% 20%, rgba(0,0,0,0.03) 1px, transparent 1px),
-        radial-gradient(circle at 70% 80%, rgba(0,0,0,0.03) 1px, transparent 1px),
-        linear-gradient(45deg, transparent 48%, rgba(0,0,0,0.03) 49%, rgba(0,0,0,0.03) 51%, transparent 52%);
-    background-size: 25px 25px, 35px 35px, 80px 80px;
-    background-position: 0 0, 15px 15px, 0 0;
-    pointer-events: none;
-    z-index: 1;
-}
+/* Footer - No Background Pattern */
 
 footer > * {
     position: relative;
