@@ -93,8 +93,8 @@ body {
 /* Pricing Section */
 .pricing-section {
   padding: 4rem 0;
-  background-color: #444;
-  color: white;
+  background-color: #ffffff;
+  color: #000000;
   width: 100%;
 }
 
@@ -128,8 +128,8 @@ body {
 }
 
 .pricing-calculator {
-  background-color: #0a0a0a;
-  border-radius: 8px;
+  background-color: #DCDCDC;
+  border-radius: 12px;
   padding: 2rem;
 }
 
@@ -142,6 +142,7 @@ body {
   margin-bottom: 1rem;
   font-size: 0.875rem;
   font-weight: 600;
+  color: #000000;
 }
 
 .calculator-input input[type="range"] {
@@ -153,6 +154,7 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   text-align: center;
+  color: #000000;
 }
 
 .pricing-result {
@@ -171,7 +173,7 @@ body {
   justify-content: space-between;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
-  color: #cbd5e1;
+  color: #000000;
 }
 
 .slider-min, .slider-max {
@@ -179,7 +181,7 @@ body {
 }
 
 .treasury-amount {
-  color: #ffffff;
+  color: #000000;
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -187,7 +189,7 @@ body {
 .effective-rate {
   margin-top: 0.5rem;
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: #000000;
 }
 
 .pricing-column {
@@ -204,6 +206,7 @@ body {
   font-weight: 600;
   margin-bottom: 1rem;
   letter-spacing: 0.05em;
+  color: #000000;
 }
 
 .price {
@@ -215,12 +218,14 @@ body {
 .price-amount {
   font-size: 2rem;
   font-weight: 700;
+  color: #000000;
 }
 
 .price-monthly,
 .price-annual {
   font-size: 1rem;
   opacity: 0.7;
+  color: #000000;
 }
 
 .pricing-cta {
@@ -229,7 +234,7 @@ body {
 }
 
 .calculate-button {
-  background-color: #333;
+  background-color: #000000;
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -243,7 +248,7 @@ body {
 }
 
 .calculate-button:hover {
-  background-color: #222;
+  background-color: #333333;
 }
 
 /* Features Section */
@@ -517,7 +522,7 @@ body {
 /* Insights Section */
 .insights-section {
   padding: 4rem 0;
-  background-color: #444;
+  background-color: #ffffff;
   width: 100%;
 }
 
@@ -532,6 +537,7 @@ body {
   font-weight: 700;
   text-align: center;
   margin-bottom: 3rem;
+  color: #000000;
 }
 
 .podcast-grid {
@@ -547,9 +553,9 @@ body {
 }
 
 .podcast-card {
-  background-color: #333333;
-  border: 1px solid #555555;
-  border-radius: 8px;
+  background-color: #DCDCDC;
+  border: none;
+  border-radius: 12px;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -585,7 +591,7 @@ body {
 .podcast-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: white;
+  color: #000000;
   line-height: 1.4;
 }
 
@@ -596,8 +602,8 @@ body {
 .insights-button {
   display: inline-block;
   background-color: transparent;
-  color: white;
-  border: 1px solid white;
+  color: #000000;
+  border: 1px solid #000000;
   padding: 0.75rem 1.5rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -610,8 +616,8 @@ body {
 }
 
 .insights-button:hover {
-  background-color: white;
-  color: #444;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 /* CTA Section */
