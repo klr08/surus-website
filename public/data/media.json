@@ -9,24 +9,6 @@
     "path": "images/uploads/30625cb5-bcad-4415-a8ee-923ebb8bdeca.png"
   },
   {
-    "id": "216d898b-de5b-47d4-b049-c1603aa55f59",
-    "filename": "216d898b-de5b-47d4-b049-c1603aa55f59.png",
-    "originalName": "Patrick Murck_Chief Executive Officer.png",
-    "mimeType": "image/png",
-    "size": 515491,
-    "uploadedAt": "2025-08-18T03:25:23.400Z",
-    "path": "images/uploads/216d898b-de5b-47d4-b049-c1603aa55f59.png"
-  },
-  {
-    "id": "0c4093be-e309-481d-bc8e-6ad2b5197e96",
-    "filename": "0c4093be-e309-481d-bc8e-6ad2b5197e96.png",
-    "originalName": "Patrick Murck_Chief Executive Officer.png",
-    "mimeType": "image/png",
-    "size": 515491,
-    "uploadedAt": "2025-08-18T11:49:18.487Z",
-    "path": "images/uploads/0c4093be-e309-481d-bc8e-6ad2b5197e96.png"
-  },
-  {
     "id": "22a38134-9511-454b-b4d0-ee32a849878b",
     "filename": "22a38134-9511-454b-b4d0-ee32a849878b.png",
     "originalName": "Patrick Murck_Chief Executive Officer.png",
@@ -43,5 +25,14 @@
     "size": 485570,
     "uploadedAt": "2025-08-18T11:50:49.481Z",
     "path": "images/uploads/be2e9d92-27ce-4b62-8e6f-19b89815303b.png"
+  },
+  {
+    "id": "4ba31a1b-2c71-4336-a18d-60508a96d8ed",
+    "filename": "4ba31a1b-2c71-4336-a18d-60508a96d8ed.png",
+    "originalName": "Brad Gibson_CTO.png",
+    "mimeType": "image/png",
+    "size": 485570,
+    "uploadedAt": "2025-08-18T11:52:37.972Z",
+    "path": "images/uploads/4ba31a1b-2c71-4336-a18d-60508a96d8ed.png"
   }
 ]
