@@ -112,7 +112,7 @@ main {
 }
 
 #hero button {
-    background: #dc2626;
+    background: #d97706;
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -124,7 +124,7 @@ main {
 }
 
 #hero button:hover {
-    background: #b91c1c;
+    background: #b45309;
 }
 
 /* Pricing Section */
@@ -1314,7 +1314,7 @@ section h2 {
 
 .contact-button {
     display: inline-block;
-    background: #dc2626;
+    background: #d97706;
     color: white;
     padding: 1rem 2rem;
     border-radius: 8px;
@@ -1325,7 +1325,7 @@ section h2 {
 }
 
 .contact-button:hover {
-    background: #b91c1c;
+    background: #b45309;
 }
 
 .about-footer-info {
@@ -2405,7 +2405,7 @@ footer > * {
 }
 
 .back-button {
-    background: #dc2626;
+    background: #d97706;
     color: white;
     padding: 0.75rem 2rem;
     border-radius: 8px;
@@ -2415,7 +2415,7 @@ footer > * {
 }
 
 .back-button:hover {
-    background: #b91c1c;
+    background: #b45309;
 }
 
 /* Clickable Cards */
