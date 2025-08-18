@@ -1,15 +1,28 @@
 /* Fonts for Surus Website */
 
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Coming+Soon&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Import Satoshi font */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Variable.woff2') format('woff2'),
+       url('/fonts/Satoshi-Variable.woff') format('woff'),
+       url('/fonts/Satoshi-Variable.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* Font Classes */
 .font-section-header {
-  font-family: 'Architects Daughter', cursive;
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 700;
 }
 
 .font-tagline {
-  font-family: 'Coming Soon', cursive;
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 500;
 }
 
 .font-body {
@@ -18,30 +31,31 @@
 
 /* Apply fonts to specific elements */
 .hero-heading {
-  font-family: 'Architects Daughter', cursive;
-  font-weight: 400;
-  letter-spacing: 1px;
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .hero-tagline {
-  font-family: 'Coming Soon', cursive;
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 500;
 }
 
 h2, .section-title {
-  font-family: 'Architects Daughter', cursive;
-  font-weight: 400; /* Architects Daughter works best at normal weight */
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 700;
 }
 
 .testimonials-heading,
 .features-container h2,
 .cta-heading,
 .pricing-header h2 {
-  font-family: 'Architects Daughter', cursive;
-  font-weight: 400;
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 700;
 }
 
 .feature-title {
-  font-family: 'Coming Soon', cursive;
+  font-family: 'Satoshi', sans-serif;
   font-weight: 600;
 }
 

@@ -381,7 +381,8 @@ section h2 {
     color: #0a0a0a;
     position: relative;
     z-index: 2;
-    font-family: 'Architects Daughter', cursive;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
 }
 
 .page-header p {
@@ -726,7 +727,7 @@ section h2 {
     font-weight: 700;
     color: #0a0a0a;
     margin-bottom: 1rem;
-    font-family: 'Architects Daughter', cursive;
+    font-family: 'Satoshi', sans-serif;
 }
 
 .insights-subtitle {
@@ -773,7 +774,7 @@ section h2 {
     font-weight: 700;
     color: #0a0a0a;
     margin-bottom: 1rem;
-    font-family: 'Architects Daughter', cursive;
+    font-family: 'Satoshi', sans-serif;
 }
 
 .podcast-description {
@@ -793,13 +794,15 @@ section h2 {
     font-size: 2rem;
     color: #0a0a0a;
     margin-bottom: 0.5rem;
-    font-family: 'Architects Daughter', cursive;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
 }
 
 .featured-subtitle {
     color: #333;
     margin-bottom: 2rem;
-    font-family: 'Coming Soon', cursive;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
 }
 
 .featured-post-link {
@@ -854,7 +857,7 @@ section h2 {
     color: #0a0a0a;
     margin-bottom: 1rem;
     line-height: 1.3;
-    font-family: 'Coming Soon', cursive;
+    font-family: 'Satoshi', sans-serif;
 }
 
 .featured-meta {
@@ -963,7 +966,7 @@ section h2 {
     color: #0a0a0a;
     margin-bottom: 1rem;
     line-height: 1.5;
-    font-family: 'Coming Soon', cursive;
+    font-family: 'Satoshi', sans-serif;
 }
 
 .post-meta {
@@ -1112,7 +1115,7 @@ section h2 {
     font-weight: bold;
     margin-bottom: 1.5rem;
     color: #0a0a0a;
-    font-family: 'Architects Daughter', cursive;
+    font-family: 'Satoshi', sans-serif;
 }
 
 .about-hero-description {
@@ -1134,7 +1137,8 @@ section h2 {
     color: #0a0a0a;
     margin-bottom: 3rem;
     text-align: center;
-    font-family: 'Architects Daughter', cursive;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
 }
 
 .team-grid {
@@ -1178,7 +1182,7 @@ section h2 {
     font-weight: 600;
     color: #0a0a0a;
     margin-bottom: 0.5rem;
-    font-family: 'Coming Soon', cursive;
+    font-family: 'Satoshi', sans-serif;
 }
 
 .team-member-title {
@@ -1186,7 +1190,7 @@ section h2 {
     font-weight: 600;
     color: #333;
     margin-bottom: 1rem;
-    font-family: 'Coming Soon', cursive;
+    font-family: 'Satoshi', sans-serif;
 }
 
 .team-member-bio {
