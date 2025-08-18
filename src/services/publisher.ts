@@ -128,6 +128,9 @@ export class Publisher {
         };
       }
 
+      // Save team data for backup before potentially clearing it
+      const teamData = this.generateTeamJSON();
+      
       // Prepare file updates
       const files = [
         {
@@ -140,7 +143,7 @@ export class Publisher {
         },
         {
           path: 'public/data/team.json',
-          content: JSON.stringify(this.generateTeamJSON(), null, 2)
+          content: JSON.stringify(teamData, null, 2)
         },
         {
           path: 'public/data/media.json',
@@ -152,6 +155,20 @@ export class Publisher {
       const result = await publisher.publishFiles(files);
       
       if (result.success) {
+        // Check if localStorage is near capacity (>90%)
+        const usage = this.getStorageUsage();
+        if (usage.used / usage.total > 0.9) {
+          // Clear team members from localStorage to free up space
+          // The data is now safely stored in GitHub
+          localStorage.removeItem('surus_cms_team_members');
+          
+          return {
+            success: true,
+            message: `Successfully published ${result.data.length} files to GitHub. Team data has been cleared from local storage to free up space. Netlify will rebuild automatically.`,
+            files: result.data
+          };
+        }
+        
         return {
           success: true,
           message: `Successfully published ${result.data.length} files to GitHub. Netlify will rebuild automatically.`,
@@ -169,6 +186,24 @@ export class Publisher {
         message: `Publishing failed: ${error instanceof Error ? error.message : 'Unknown error'}`
       };
     }
+  }
+  
+  // Check localStorage usage
+  private static getStorageUsage(): { used: number; total: number; available: number } {
+    let total = 0;
+    for (let key in localStorage) {
+      if (localStorage.hasOwnProperty(key)) {
+        total += (localStorage[key] || '').length + key.length;
+      }
+    }
+    
+    // Estimate total available (usually ~5-10MB)
+    const estimated = 5 * 1024 * 1024; // 5MB estimate
+    return {
+      used: total,
+      total: estimated,
+      available: estimated - total
+    };
   }
 
   // Generate media.json from uploaded files
