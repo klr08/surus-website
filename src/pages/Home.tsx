@@ -5,7 +5,7 @@ import PricingSection from '../components/home/PricingSection';
 import FeaturesSection from '../components/home/FeaturesSection';
 import TestimonialsSection from '../components/home/TestimonialsSection';
 import InsightsSection from '../components/home/InsightsSection';
-import CTASection from '../components/home/CTASection';
+// CTA Section removed as requested
 
 function d(value: number | string | undefined): Decimal {
   try { return new Decimal(value ?? 0); } catch { return new Decimal(0); }
@@ -99,8 +99,6 @@ export default function Home(): JSX.Element {
       <TestimonialsSection />
       
       <InsightsSection />
-      
-      <CTASection />
     </div>
   );
 }
