@@ -73,7 +73,7 @@ body {
 }
 
 .cta-button {
-  background-color: #333;
+  background-color: #d97706;
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -87,7 +87,7 @@ body {
 }
 
 .cta-button:hover {
-  background-color: #222;
+  background-color: #b45309;
 }
 
 /* Pricing Section */
@@ -234,7 +234,7 @@ body {
 }
 
 .calculate-button {
-  background-color: #000000;
+  background-color: #d97706;
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -248,7 +248,7 @@ body {
 }
 
 .calculate-button:hover {
-  background-color: #333333;
+  background-color: #b45309;
 }
 
 /* Features Section */
@@ -601,9 +601,9 @@ body {
 
 .insights-button {
   display: inline-block;
-  background-color: transparent;
-  color: #000000;
-  border: 1px solid #000000;
+  background-color: #d97706;
+  color: white;
+  border: none;
   padding: 0.75rem 1.5rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -616,7 +616,7 @@ body {
 }
 
 .insights-button:hover {
-  background-color: #000000;
+  background-color: #b45309;
   color: #ffffff;
 }
 

@@ -186,14 +186,14 @@ main {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #dc2626;
+    background: #d97706;
     cursor: pointer;
 }
 
 .aum-display {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #dc2626;
+    color: #d97706;
 }
 
 .results-section {
@@ -294,7 +294,7 @@ main {
 }
 
 .cta-button {
-    background: #dc2626;
+    background: #d97706;
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -307,7 +307,7 @@ main {
 }
 
 .cta-button:hover {
-    background: #b91c1c;
+    background: #b45309;
 }
 
 .cta-subtitle {
@@ -704,7 +704,7 @@ section h2 {
 }
 
 .cta-section .cta-button:hover {
-    background: #b91c1c;
+    background: #b45309;
 }
 
 /* Insights page styles */
