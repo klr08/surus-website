@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surus CMS - Storage Migration Tool</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    
+    h1, h2 {
+      color: #0a0a0a;
+    }
+    
+    .container {
+      background-color: white;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .button {
+      background-color: #d97706;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+    
+    .button:hover {
+      background-color: #b45309;
+    }
+    
+    .button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 6px;
+      display: none;
+    }
+    
+    .success {
+      background-color: #d1fae5;
+      color: #065f46;
+      border: 1px solid #10b981;
+    }
+    
+    .error {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #ef4444;
+    }
+    
+    .info {
+      background-color: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #0ea5e9;
+    }
+    
+    .progress-container {
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .progress-bar {
+      height: 20px;
+      background-color: #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .progress {
+      height: 100%;
+      background-color: #d97706;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    
+    .steps {
+      margin-top: 30px;
+      counter-reset: step;
+    }
+    
+    .step {
+      margin-bottom: 15px;
+      padding-left: 35px;
+      position: relative;
+    }
+    
+    .step:before {
+      content: counter(step);
+      counter-increment: step;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 25px;
+      height: 25px;
+      background-color: #d97706;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Surus CMS - Storage Migration Tool</h1>
+    
+    <p>This tool will migrate your CMS data from localStorage to IndexedDB, which provides much more storage space (50MB+ vs 5MB).</p>
+    
+    <h2>Benefits of IndexedDB</h2>
+    <ul>
+      <li>Significantly more storage space (50MB+ vs 5MB)</li>
+      <li>No more "QuotaExceededError" when adding team members</li>
+      <li>Better performance for large datasets</li>
+      <li>More reliable storage that won't be cleared as easily</li>
+    </ul>
+    
+    <div class="steps">
+      <div class="step">Back up your current data by clicking the button below</div>
+      <div class="step">Migrate your data to IndexedDB</div>
+      <div class="step">Return to the CMS and continue working with more storage space</div>
+    </div>
+    
+    <button id="backupBtn" class="button">1. Download Backup</button>
+    <button id="migrateBtn" class="button" disabled>2. Migrate to IndexedDB</button>
+    <button id="returnBtn" class="button" disabled>3. Return to CMS</button>
+    
+    <div id="progressContainer" class="progress-container">
+      <div class="progress-bar">
+        <div id="progress" class="progress"></div>
+      </div>
+    </div>
+    
+    <div id="status" class="status"></div>
+  </div>
+
+  <script>
+    // DOM Elements
+    const backupBtn = document.getElementById('backupBtn');
+    const migrateBtn = document.getElementById('migrateBtn');
+    const returnBtn = document.getElementById('returnBtn');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progress');
+    const statusEl = document.getElementById('status');
+    
+    // Helper functions
+    function showStatus(message, type) {
+      statusEl.textContent = message;
+      statusEl.className = `status ${type}`;
+      statusEl.style.display = 'block';
+    }
+    
+    function setProgress(percent) {
+      progressContainer.style.display = 'block';
+      progressBar.style.width = `${percent}%`;
+    }
+    
+    // Check if we have data in localStorage
+    function checkLocalStorage() {
+      const blogPosts = localStorage.getItem('surus_cms_blog_posts');
+      const podcastEpisodes = localStorage.getItem('surus_cms_podcast_episodes');
+      const teamMembers = localStorage.getItem('surus_cms_team_members');
+      const files = localStorage.getItem('surus_cms_files');
+      
+      return {
+        hasBlogPosts: !!blogPosts,
+        hasPodcastEpisodes: !!podcastEpisodes,
+        hasTeamMembers: !!teamMembers,
+        hasFiles: !!files,
+        hasAny: !!(blogPosts || podcastEpisodes || teamMembers || files)
+      };
+    }
+    
+    // Create a backup of localStorage data
+    function createBackup() {
+      try {
+        const backup = {
+          exportedAt: new Date().toISOString(),
+          blogPosts: JSON.parse(localStorage.getItem('surus_cms_blog_posts') || '[]'),
+          podcastEpisodes: JSON.parse(localStorage.getItem('surus_cms_podcast_episodes') || '[]'),
+          teamMembers: JSON.parse(localStorage.getItem('surus_cms_team_members') || '[]'),
+          mediaFiles: JSON.parse(localStorage.getItem('surus_cms_files') || '[]')
+        };
+        
+        const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const timestamp = new Date().toISOString().slice(0, 19).replace(/[T:]/g, '-');
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `surus-backup-${timestamp}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        return true;
+      } catch (error) {
+        console.error('Backup failed:', error);
+        return false;
+      }
+    }
+    
+    // Initialize IndexedDB
+    function initIndexedDB() {
+      return new Promise((resolve, reject) => {
+        const DB_NAME = 'surus_cms_db';
+        const DB_VERSION = 1;
+        const STORES = {
+          BLOG_POSTS: 'blog_posts',
+          PODCAST_EPISODES: 'podcast_episodes',
+          TEAM_MEMBERS: 'team_members',
+        };
+        
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        
+        request.onupgradeneeded = (event) => {
+          const db = event.target.result;
+          
+          // Create object stores if they don't exist
+          if (!db.objectStoreNames.contains(STORES.BLOG_POSTS)) {
+            db.createObjectStore(STORES.BLOG_POSTS, { keyPath: 'id' });
+          }
+          
+          if (!db.objectStoreNames.contains(STORES.PODCAST_EPISODES)) {
+            db.createObjectStore(STORES.PODCAST_EPISODES, { keyPath: 'id' });
+          }
+          
+          if (!db.objectStoreNames.contains(STORES.TEAM_MEMBERS)) {
+            db.createObjectStore(STORES.TEAM_MEMBERS, { keyPath: 'id' });
+          }
+        };
+        
+        request.onsuccess = (event) => {
+          resolve(event.target.result);
+        };
+        
+        request.onerror = (event) => {
+          reject(new Error('Failed to open IndexedDB: ' + event.target.error));
+        };
+      });
+    }
+    
+    // Migrate data from localStorage to IndexedDB
+    async function migrateData() {
+      try {
+        const db = await initIndexedDB();
+        const localData = checkLocalStorage();
+        
+        if (!localData.hasAny) {
+          showStatus('No data to migrate', 'info');
+          return false;
+        }
+        
+        // Migrate blog posts
+        if (localData.hasBlogPosts) {
+          setProgress(10);
+          const blogPosts = JSON.parse(localStorage.getItem('surus_cms_blog_posts') || '[]');
+          const blogTx = db.transaction('blog_posts', 'readwrite');
+          const blogStore = blogTx.objectStore('blog_posts');
+          
+          for (const post of blogPosts) {
+            blogStore.add(post);
+          }
+          
+          await new Promise((resolve, reject) => {
+            blogTx.oncomplete = resolve;
+            blogTx.onerror = reject;
+          });
+        }
+        
+        // Migrate podcast episodes
+        if (localData.hasPodcastEpisodes) {
+          setProgress(40);
+          const episodes = JSON.parse(localStorage.getItem('surus_cms_podcast_episodes') || '[]');
+          const podcastTx = db.transaction('podcast_episodes', 'readwrite');
+          const podcastStore = podcastTx.objectStore('podcast_episodes');
+          
+          for (const episode of episodes) {
+            podcastStore.add(episode);
+          }
+          
+          await new Promise((resolve, reject) => {
+            podcastTx.oncomplete = resolve;
+            podcastTx.onerror = reject;
+          });
+        }
+        
+        // Migrate team members
+        if (localData.hasTeamMembers) {
+          setProgress(70);
+          const members = JSON.parse(localStorage.getItem('surus_cms_team_members') || '[]');
+          const teamTx = db.transaction('team_members', 'readwrite');
+          const teamStore = teamTx.objectStore('team_members');
+          
+          for (const member of members) {
+            teamStore.add(member);
+          }
+          
+          await new Promise((resolve, reject) => {
+            teamTx.oncomplete = resolve;
+            teamTx.onerror = reject;
+          });
+        }
+        
+        setProgress(100);
+        return true;
+      } catch (error) {
+        console.error('Migration failed:', error);
+        return false;
+      }
+    }
+    
+    // Event Listeners
+    backupBtn.addEventListener('click', async () => {
+      const success = createBackup();
+      
+      if (success) {
+        showStatus('Backup created successfully! Download should start automatically.', 'success');
+        migrateBtn.disabled = false;
+      } else {
+        showStatus('Failed to create backup. Please try again.', 'error');
+      }
+    });
+    
+    migrateBtn.addEventListener('click', async () => {
+      migrateBtn.disabled = true;
+      showStatus('Migrating data to IndexedDB...', 'info');
+      
+      try {
+        const success = await migrateData();
+        
+        if (success) {
+          showStatus('Migration completed successfully! Your data is now stored in IndexedDB with much more storage space.', 'success');
+          returnBtn.disabled = false;
+        } else {
+          showStatus('Migration failed. Please try again.', 'error');
+          migrateBtn.disabled = false;
+        }
+      } catch (error) {
+        showStatus(`Migration failed: ${error.message}`, 'error');
+        migrateBtn.disabled = false;
+      }
+    });
+    
+    returnBtn.addEventListener('click', () => {
+      window.location.href = '/admin';
+    });
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      const localData = checkLocalStorage();
+      
+      if (!localData.hasAny) {
+        showStatus('No data found in localStorage. You can return to the CMS.', 'info');
+        backupBtn.disabled = true;
+        migrateBtn.disabled = true;
+        returnBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

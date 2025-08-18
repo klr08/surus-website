@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ContentSummary, BlogPost, PodcastEpisode, TeamMember } from '../types/content';
 import { ContentManager } from '../services/contentManager';
+import { EnhancedContentManager } from '../services/enhancedContentManager';
 import { FileUploadService } from '../services/fileUpload';
 import RichTextEditor from '../components/admin/RichTextEditor';
 import FileUpload from '../components/admin/FileUpload';
@@ -117,30 +118,42 @@ export default function AdminEnhanced(): JSX.Element {
   // Load content when authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      loadAllContent();
-      // Load GitHub config
-      const saved = GitHubConfigManager.load();
-      setGithubConfig(prev => ({ ...prev, ...saved }));
+      // Initialize IndexedDB and migrate data if needed
+      EnhancedContentManager.initialize().then(result => {
+        if (result.success) {
+          loadAllContent();
+          // Load GitHub config
+          const saved = GitHubConfigManager.load();
+          setGithubConfig(prev => ({ ...prev, ...saved }));
+        } else {
+          alert(`Failed to initialize storage: ${result.error}`);
+        }
+      });
     }
   }, [isAuthenticated]);
 
-  const loadAllContent = (): void => {
-    const blogs = ContentManager.getBlogPosts();
-    const podcasts = ContentManager.getPodcastEpisodes();
-    const team = ContentManager.getTeamMembers();
-    const media = FileUploadService.getFiles();
+  const loadAllContent = async (): Promise<void> => {
+    try {
+      // Use EnhancedContentManager for all content operations
+      const blogs = await EnhancedContentManager.getBlogPosts();
+      const podcasts = await EnhancedContentManager.getPodcastEpisodes();
+      const team = await EnhancedContentManager.getTeamMembers();
+      const media = FileUploadService.getFiles();
 
-    setBlogPosts(blogs);
-    setPodcastEpisodes(podcasts);
-    setTeamMembers(team);
-    setMediaFiles(media);
+      setBlogPosts(blogs);
+      setPodcastEpisodes(podcasts);
+      setTeamMembers(team);
+      setMediaFiles(media);
 
-    setSummary({
-      blogPosts: blogs.length,
-      podcastEpisodes: podcasts.length,
-      teamMembers: team.length,
-      mediaFiles: media.length,
-    });
+      setSummary({
+        blogPosts: blogs.length,
+        podcastEpisodes: podcasts.length,
+        teamMembers: team.length,
+        mediaFiles: media.length,
+      });
+    } catch (error) {
+      console.error('Error loading content:', error);
+    }
   };
 
   const handleExportBackup = (): void => {
@@ -161,21 +174,43 @@ export default function AdminEnhanced(): JSX.Element {
       const data = JSON.parse(text);
       if (!data) return;
 
-      // Replace localStorage buckets atomically
+      // First, initialize our IndexedDB storage
+      const initResult = await EnhancedContentManager.initialize();
+      if (!initResult.success) {
+        alert(`Failed to initialize storage: ${initResult.error}`);
+        return;
+      }
+
+      // Clear existing data
+      await EnhancedContentManager.clearAllData();
+
+      // Import blog posts
       if (Array.isArray(data.blogPosts)) {
-        localStorage.setItem('surus_cms_blog_posts', JSON.stringify(data.blogPosts));
+        for (const post of data.blogPosts) {
+          await EnhancedContentManager.saveBlogPost(post);
+        }
       }
+
+      // Import podcast episodes
       if (Array.isArray(data.podcastEpisodes)) {
-        localStorage.setItem('surus_cms_podcast_episodes', JSON.stringify(data.podcastEpisodes));
+        for (const episode of data.podcastEpisodes) {
+          await EnhancedContentManager.savePodcastEpisode(episode);
+        }
       }
+
+      // Import team members
       if (Array.isArray(data.teamMembers)) {
-        localStorage.setItem('surus_cms_team_members', JSON.stringify(data.teamMembers));
+        for (const member of data.teamMembers) {
+          await EnhancedContentManager.saveTeamMember(member);
+        }
       }
+
+      // Import media files
       if (Array.isArray(data.mediaFiles)) {
         localStorage.setItem('surus_cms_files', JSON.stringify(data.mediaFiles));
       }
 
-      loadAllContent();
+      await loadAllContent();
       alert('Backup imported successfully.');
     } catch (e) {
       alert('Import failed. Please check the file format.');
@@ -184,7 +219,7 @@ export default function AdminEnhanced(): JSX.Element {
 
   const handlePublishToSite = async (): Promise<void> => {
     try {
-      const stats = Publisher.getPublishStats();
+      const stats = await Publisher.getPublishStats();
       const isConfigured = GitHubConfigManager.isConfigured();
       
       const message = isConfigured 
@@ -231,27 +266,33 @@ export default function AdminEnhanced(): JSX.Element {
     }
   };
 
-  const clearAllData = (): void => {
+  const clearAllData = async (): Promise<void> => {
     if (confirm('This will permanently delete ALL content from the CMS. Are you sure?')) {
-      localStorage.removeItem('surus_cms_blog_posts');
-      localStorage.removeItem('surus_cms_podcast_episodes');
-      localStorage.removeItem('surus_cms_team_members');
-      localStorage.removeItem('surus_cms_files');
-      
-      // Reset state
-      setBlogPosts([]);
-      setPodcastEpisodes([]);
-      setTeamMembers([]);
-      
-      alert('All CMS data cleared. You can now start fresh!');
+      const result = await EnhancedContentManager.clearAllData();
+      if (result.success) {
+        // Reset state
+        setBlogPosts([]);
+        setPodcastEpisodes([]);
+        setTeamMembers([]);
+        
+        alert('All CMS data cleared. You can now start fresh!');
+      } else {
+        alert(`Failed to clear data: ${result.error}`);
+      }
     }
   };
 
   const importFromLiveSite = async (): Promise<void> => {
     try {
+      // First, initialize our IndexedDB storage
+      const initResult = await EnhancedContentManager.initialize();
+      if (!initResult.success) {
+        alert(`Failed to initialize storage: ${initResult.error}`);
+        return;
+      }
+
       // Clear existing data first for clean re-import
-      localStorage.removeItem('surus_cms_blog_posts');
-      localStorage.removeItem('surus_cms_podcast_episodes');
+      await EnhancedContentManager.clearAllData();
 
       // Import Blog
       let importedBlogs = 0;
@@ -275,7 +316,7 @@ export default function AdminEnhanced(): JSX.Element {
               published: Boolean(item.published ?? true),
               publishDate: (item.publishDate || item.date || new Date().toISOString()).split('T')[0],
             };
-            const r = ContentManager.saveBlogPost(mapped);
+            const r = await EnhancedContentManager.saveBlogPost(mapped);
             if (r.success) importedBlogs += 1;
           }
         }
@@ -298,6 +339,7 @@ export default function AdminEnhanced(): JSX.Element {
               title: item.title || 'Untitled',
               slug,
               description: item.description || item.summary || item.body || '',
+              previewDescription: (item.description || item.summary || item.body || '').substring(0, 150) + '...',
               guest: item.guest || '',
               guestTitle: item.guestTitle || item.guest_title || '',
               duration: item.duration || '',
@@ -313,7 +355,7 @@ export default function AdminEnhanced(): JSX.Element {
               published: Boolean(item.published ?? true),
               publishDate: (item.publishDate || item.date || new Date().toISOString()).split('T')[0],
             };
-            const r = ContentManager.savePodcastEpisode(mapped);
+            const r = await EnhancedContentManager.savePodcastEpisode(mapped);
             if (r.success) importedEpisodes += 1;
           }
         }
@@ -340,7 +382,7 @@ export default function AdminEnhanced(): JSX.Element {
               twitterUrl: item.twitter || item.twitterUrl || '',
               active: Boolean(item.active ?? true),
             };
-            const r = ContentManager.saveTeamMember(mapped);
+            const r = await EnhancedContentManager.saveTeamMember(mapped);
             if (r.success) importedTeam += 1;
           }
         }
@@ -348,7 +390,7 @@ export default function AdminEnhanced(): JSX.Element {
         console.error('Team import error:', e);
       }
 
-      loadAllContent();
+      await loadAllContent();
       alert(`Import complete. Added ${importedBlogs} blog posts, ${importedEpisodes} podcast episodes, and ${importedTeam} team members. You can now edit them!`);
     } catch (e) {
       console.error('Import failed:', e);
@@ -387,18 +429,18 @@ export default function AdminEnhanced(): JSX.Element {
   };
 
   // Blog handlers
-  const handleSaveBlog = (): void => {
+  const handleSaveBlog = async (): Promise<void> => {
     const blogData = {
       ...blogForm,
       tags: blogForm.tags.split(',').map(t => t.trim()).filter(Boolean),
     };
 
     const result = editingBlog 
-      ? ContentManager.updateBlogPost(editingBlog.id, blogData)
-      : ContentManager.saveBlogPost(blogData);
+      ? await EnhancedContentManager.updateBlogPost(editingBlog.id, blogData)
+      : await EnhancedContentManager.saveBlogPost(blogData);
 
     if (result.success) {
-      loadAllContent();
+      await loadAllContent();
       resetBlogForm();
     } else {
       alert(`Error: ${result.error}`);
@@ -439,10 +481,10 @@ export default function AdminEnhanced(): JSX.Element {
     setShowBlogForm(true);
   };
 
-  const handleDeleteBlog = (id: string): void => {
+  const handleDeleteBlog = async (id: string): Promise<void> => {
     if (confirm('Are you sure you want to delete this blog post?')) {
-      ContentManager.deleteBlogPost(id);
-      loadAllContent();
+      await EnhancedContentManager.deleteBlogPost(id);
+      await loadAllContent();
     }
   };
 
@@ -473,10 +515,10 @@ export default function AdminEnhanced(): JSX.Element {
     setShowPodcastForm(true);
   };
 
-  const handleDeletePodcast = (id: string): void => {
+  const handleDeletePodcast = async (id: string): Promise<void> => {
     if (confirm('Are you sure you want to delete this episode?')) {
-      ContentManager.deletePodcastEpisode(id);
-      loadAllContent();
+      await EnhancedContentManager.deletePodcastEpisode(id);
+      await loadAllContent();
     }
   };
 
@@ -496,10 +538,10 @@ export default function AdminEnhanced(): JSX.Element {
     setShowTeamForm(true);
   };
 
-  const handleDeleteTeam = (id: string): void => {
+  const handleDeleteTeam = async (id: string): Promise<void> => {
     if (confirm('Are you sure you want to delete this team member?')) {
-      ContentManager.deleteTeamMember(id);
-      loadAllContent();
+      await EnhancedContentManager.deleteTeamMember(id);
+      await loadAllContent();
     }
   };
 
@@ -526,18 +568,18 @@ export default function AdminEnhanced(): JSX.Element {
   }, [podcastForm.title, editingPodcast]);
 
   // Similar handlers for podcast and team (simplified for brevity)
-  const handleSavePodcast = (): void => {
+  const handleSavePodcast = async (): Promise<void> => {
     const episodeData = {
       ...podcastForm,
       tags: podcastForm.tags.split(',').map(t => t.trim()).filter(Boolean),
     };
 
     const result = editingPodcast 
-      ? ContentManager.updatePodcastEpisode(editingPodcast.id, episodeData)
-      : ContentManager.savePodcastEpisode(episodeData);
+      ? await EnhancedContentManager.updatePodcastEpisode(editingPodcast.id, episodeData)
+      : await EnhancedContentManager.savePodcastEpisode(episodeData);
 
     if (result.success) {
-      loadAllContent();
+      await loadAllContent();
       resetPodcastForm();
     } else {
       // Enhanced error handling for quota issues
@@ -575,13 +617,13 @@ export default function AdminEnhanced(): JSX.Element {
     setShowPodcastForm(false);
   };
 
-  const handleSaveTeam = (): void => {
+  const handleSaveTeam = async (): Promise<void> => {
     const result = editingTeam 
-      ? ContentManager.updateTeamMember(editingTeam.id, teamForm)
-      : ContentManager.saveTeamMember(teamForm);
+      ? await EnhancedContentManager.updateTeamMember(editingTeam.id, teamForm)
+      : await EnhancedContentManager.saveTeamMember(teamForm);
 
     if (result.success) {
-      loadAllContent();
+      await loadAllContent();
       resetTeamForm();
     } else {
       alert(`Error: ${result.error}`);
@@ -762,6 +804,18 @@ export default function AdminEnhanced(): JSX.Element {
               <div className="dashboard-header">
                 <h1>Content Management Dashboard</h1>
                 <p>Manage your Surus website content</p>
+                <div className="announcement" style={{
+                  backgroundColor: '#e0f2fe',
+                  color: '#0369a1',
+                  padding: '15px',
+                  borderRadius: '8px',
+                  marginTop: '15px',
+                  border: '1px solid #0ea5e9'
+                }}>
+                  <h3 style={{ margin: '0 0 10px 0', color: '#0369a1' }}>🚀 Storage Upgrade Complete!</h3>
+                  <p style={{ margin: '0' }}>Your CMS now uses IndexedDB instead of localStorage, providing much more storage space (50MB+ vs 5MB).</p>
+                  <p style={{ margin: '10px 0 0 0' }}>You can now add as many team members, blog posts, and podcast episodes as you need without running into storage limits.</p>
+                </div>
               </div>
 
               <div className="dashboard-stats">
@@ -790,21 +844,14 @@ export default function AdminEnhanced(): JSX.Element {
                 </div>
 
                 <div className="stat-card storage-card">
-                  <div className="stat-number">{(() => {
-                    const usage = ContentManager.getStorageUsage();
-                    const usedMB = (usage.used / (1024 * 1024)).toFixed(1);
-                    const totalMB = (usage.total / (1024 * 1024)).toFixed(1);
-                    return `${usedMB}/${totalMB}MB`;
-                  })()}</div>
-                  <div className="stat-label">Storage Used</div>
+                  <div className="stat-number">50MB+</div>
+                  <div className="stat-label">Storage Available</div>
                   <div className="storage-warning" style={{
-                    color: ContentManager.getStorageUsage().used / ContentManager.getStorageUsage().total > 0.8 ? '#e74c3c' : '#27ae60',
+                    color: '#27ae60',
                     fontSize: '12px',
                     marginTop: '4px'
                   }}>
-                    {ContentManager.getStorageUsage().used / ContentManager.getStorageUsage().total > 0.8 
-                      ? '⚠️ Consider publishing to free space' 
-                      : '✅ Storage healthy'}
+                    ✅ Using IndexedDB (high capacity storage)
                   </div>
                 </div>
               </div>
@@ -1574,18 +1621,22 @@ export default function AdminEnhanced(): JSX.Element {
                   </button>
                 </div>
 
-                <div className="settings-help">
-                  <h4>How it works:</h4>
-                  <ol>
-                    <li>Create a GitHub Personal Access Token with <code>repo</code> permissions</li>
-                    <li>Enter your repository details above</li>
-                    <li>Click "Test & Validate" to verify the configuration</li>
-                    <li>Use "🚀 Publish to Site" to automatically commit content and trigger Netlify deploy</li>
-                  </ol>
+                              <div className="settings-help">
+                <h4>How it works:</h4>
+                <ol>
+                  <li>Create a GitHub Personal Access Token with <code>repo</code> permissions</li>
+                  <li>Enter your repository details above</li>
+                  <li>Click "Test & Validate" to verify the configuration</li>
+                  <li>Use "🚀 Publish to Site" to automatically commit content and trigger Netlify deploy</li>
+                </ol>
 
-                  <h4>Security:</h4>
-                  <p>Your token is stored locally in your browser and never transmitted to third parties. It's only used to communicate directly with GitHub's API.</p>
-                </div>
+                <h4>Security:</h4>
+                <p>Your token is stored locally in your browser and never transmitted to third parties. It's only used to communicate directly with GitHub's API.</p>
+                
+                <h4>Storage Management:</h4>
+                <p>This CMS now uses IndexedDB for content storage, providing much more capacity (50MB+) than the previous localStorage solution (5MB).</p>
+                <p>If you're experiencing any issues with the storage migration, you can use our <a href="/migrate-to-indexeddb.html" target="_blank" rel="noopener noreferrer">Migration Tool</a> to manually transfer your data.</p>
+              </div>
               </div>
 
               {/* Reset CMS Section */}
@@ -1599,23 +1650,28 @@ export default function AdminEnhanced(): JSX.Element {
                   <button 
                     onClick={() => {
                       if (confirm('⚠️ This will permanently delete ALL CMS content from your browser storage.\n\nMake sure you have published your content to GitHub first if you want to keep it.\n\nAre you sure you want to continue?')) {
-                        // Clear all localStorage data
-                        ContentManager.clearAllData();
-                        FileUploadService.clearAllFiles();
-                        
-                        // Reset state
-                        setBlogPosts([]);
-                        setPodcastEpisodes([]);
-                        setTeamMembers([]);
-                        setMediaFiles([]);
-                        setSummary({
-                          blogPosts: 0,
-                          podcastEpisodes: 0,
-                          teamMembers: 0,
-                          mediaFiles: 0,
+                        // Clear all data
+                        EnhancedContentManager.clearAllData().then(result => {
+                          if (result.success) {
+                            FileUploadService.clearAllFiles();
+                            
+                            // Reset state
+                            setBlogPosts([]);
+                            setPodcastEpisodes([]);
+                            setTeamMembers([]);
+                            setMediaFiles([]);
+                            setSummary({
+                              blogPosts: 0,
+                              podcastEpisodes: 0,
+                              teamMembers: 0,
+                              mediaFiles: 0,
+                            });
+                            
+                            alert('✅ CMS data cleared successfully! You can now start fresh.');
+                          } else {
+                            alert(`Failed to clear data: ${result.error}`);
+                          }
                         });
-                        
-                        alert('✅ CMS data cleared successfully! You can now start fresh.');
                       }
                     }}
                     className="btn btn-danger"

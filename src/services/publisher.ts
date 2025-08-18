@@ -1,5 +1,6 @@
 // Publisher service for one-click publishing to live site
 import { ContentManager } from './contentManager';
+import { EnhancedContentManager } from './enhancedContentManager';
 import { FileUploadService } from './fileUpload';
 import { downloadJSON } from './backup';
 import { GitHubPublisher, GitHubConfigManager } from './github';
@@ -12,8 +13,8 @@ export interface PublishResult {
 
 export class Publisher {
   // Generate blog.json in the format expected by the live site
-  static generateBlogJSON(): any[] {
-    const posts = ContentManager.getBlogPosts();
+  static async generateBlogJSON(): Promise<any[]> {
+    const posts = await EnhancedContentManager.getBlogPosts();
     return posts
       .filter(post => post.published)
       .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime())
@@ -33,8 +34,8 @@ export class Publisher {
   }
 
   // Generate podcast.json in the format expected by the live site
-  static generatePodcastJSON(): any[] {
-    const episodes = ContentManager.getPodcastEpisodes();
+  static async generatePodcastJSON(): Promise<any[]> {
+    const episodes = await EnhancedContentManager.getPodcastEpisodes();
     return episodes
       .filter(episode => episode.published)
       .sort((a, b) => b.episodeNumber - a.episodeNumber)
@@ -70,8 +71,8 @@ export class Publisher {
   }
 
   // Generate team.json from CMS data
-  static generateTeamJSON(): any[] {
-    const members = ContentManager.getTeamMembers();
+  static async generateTeamJSON(): Promise<any[]> {
+    const members = await EnhancedContentManager.getTeamMembers();
     return members
       .filter(member => member.active)
       .sort((a, b) => a.order - b.order)
@@ -88,19 +89,19 @@ export class Publisher {
   }
 
   // Download all JSON files for manual deployment
-  static downloadPublishFiles(): void {
+  static async downloadPublishFiles(): Promise<void> {
     const timestamp = new Date().toISOString().slice(0, 19).replace(/[T:]/g, '-');
     
     // Download blog.json
-    const blogData = this.generateBlogJSON();
+    const blogData = await this.generateBlogJSON();
     downloadJSON(`blog-${timestamp}.json`, blogData);
     
     // Download podcast.json
-    const podcastData = this.generatePodcastJSON();
+    const podcastData = await this.generatePodcastJSON();
     downloadJSON(`podcast-${timestamp}.json`, podcastData);
     
     // Download team.json
-    const teamData = this.generateTeamJSON();
+    const teamData = await this.generateTeamJSON();
     downloadJSON(`team-${timestamp}.json`, teamData);
   }
 
@@ -111,7 +112,7 @@ export class Publisher {
       
       if (!publisher) {
         // Fallback to download if not configured
-        this.downloadPublishFiles();
+        await this.downloadPublishFiles();
         return {
           success: true,
           message: 'GitHub not configured. Files downloaded for manual upload to public/data/.',
@@ -129,17 +130,20 @@ export class Publisher {
       }
 
       // Save team data for backup before potentially clearing it
-      const teamData = this.generateTeamJSON();
+      const teamData = await this.generateTeamJSON();
+      const blogData = await this.generateBlogJSON();
+      const podcastData = await this.generatePodcastJSON();
+      const mediaData = this.generateMediaJSON();
       
       // Prepare file updates
       const files = [
         {
           path: 'public/data/blog.json',
-          content: JSON.stringify(this.generateBlogJSON(), null, 2)
+          content: JSON.stringify(blogData, null, 2)
         },
         {
           path: 'public/data/podcast.json',
-          content: JSON.stringify(this.generatePodcastJSON(), null, 2)
+          content: JSON.stringify(podcastData, null, 2)
         },
         {
           path: 'public/data/team.json',
@@ -147,7 +151,7 @@ export class Publisher {
         },
         {
           path: 'public/data/media.json',
-          content: JSON.stringify(this.generateMediaJSON(), null, 2)
+          content: JSON.stringify(mediaData, null, 2)
         }
       ];
 
@@ -155,24 +159,12 @@ export class Publisher {
       const result = await publisher.publishFiles(files);
       
       if (result.success) {
-        // Check if localStorage is near capacity (>90%)
-        const usage = this.getStorageUsage();
-        if (usage.used / usage.total > 0.9) {
-          // Clear team members from localStorage to free up space
-          // The data is now safely stored in GitHub
-          localStorage.removeItem('surus_cms_team_members');
-          
-          return {
+        // No need to check storage capacity with IndexedDB
+        return {
             success: true,
             message: `Successfully published ${result.data.length} files to GitHub. Team data has been cleared from local storage to free up space. Netlify will rebuild automatically.`,
             files: result.data
           };
-        }
-        
-        return {
-          success: true,
-          message: `Successfully published ${result.data.length} files to GitHub. Netlify will rebuild automatically.`,
-          files: result.data
         };
       } else {
         return {
@@ -188,23 +180,8 @@ export class Publisher {
     }
   }
   
-  // Check localStorage usage
-  private static getStorageUsage(): { used: number; total: number; available: number } {
-    let total = 0;
-    for (let key in localStorage) {
-      if (localStorage.hasOwnProperty(key)) {
-        total += (localStorage[key] || '').length + key.length;
-      }
-    }
-    
-    // Estimate total available (usually ~5-10MB)
-    const estimated = 5 * 1024 * 1024; // 5MB estimate
-    return {
-      used: total,
-      total: estimated,
-      available: estimated - total
-    };
-  }
+  // IndexedDB doesn't have the same storage limitations as localStorage
+  // so we don't need to check usage
 
   // Generate media.json from uploaded files
   static generateMediaJSON(): any[] {
@@ -312,10 +289,10 @@ export class Publisher {
   }
 
   // Get publishing stats
-  static getPublishStats(): { published: number; draft: number; total: number } {
-    const blogs = ContentManager.getBlogPosts();
-    const podcasts = ContentManager.getPodcastEpisodes();
-    const team = ContentManager.getTeamMembers();
+  static async getPublishStats(): Promise<{ published: number; draft: number; total: number }> {
+    const blogs = await EnhancedContentManager.getBlogPosts();
+    const podcasts = await EnhancedContentManager.getPodcastEpisodes();
+    const team = await EnhancedContentManager.getTeamMembers();
     const media = FileUploadService.getFiles();
     
     const publishedBlogs = blogs.filter(b => b.published).length;

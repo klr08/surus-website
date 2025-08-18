@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clear CMS Storage</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #333;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.5rem;
+    }
+    .warning {
+      background-color: #fff3cd;
+      color: #856404;
+      padding: 1rem;
+      border-radius: 0.25rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      background-color: #d97706;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.25rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #b45309;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 1rem;
+      border-radius: 0.25rem;
+      margin-top: 1rem;
+      display: none;
+    }
+    ol {
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Clear CMS Storage</h1>
+  
+  <div class="warning">
+    <strong>Warning:</strong> This tool will clear team member data from your browser's localStorage to free up space.
+    A backup will be downloaded automatically. Make sure you have published your data to GitHub first!
+  </div>
+  
+  <button id="clearBtn">Clear Team Storage</button>
+  
+  <div id="successMessage" class="success">
+    Storage cleared successfully! You can now add new team members in the CMS.
+  </div>
+  
+  <ol>
+    <li>Click the button above to clear team member data from localStorage</li>
+    <li>A backup file will be downloaded automatically</li>
+    <li>Go back to the CMS and add your new team member</li>
+    <li>Remember to publish to GitHub after adding the new team member</li>
+  </ol>
+  
+  <script>
+    document.getElementById('clearBtn').addEventListener('click', function() {
+      // First, backup the current team members to a variable
+      const teamMembers = localStorage.getItem('surus_cms_team_members');
+      let teamData = [];
+      if (teamMembers) {
+        try {
+          teamData = JSON.parse(teamMembers);
+          console.log(`Backed up ${teamData.length} team members to variable`);
+        } catch (e) {
+          console.error('Error parsing team members:', e);
+        }
+      }
+
+      // Remove team members from localStorage to free up space
+      localStorage.removeItem('surus_cms_team_members');
+      console.log('Team members removed from localStorage');
+
+      // Create a download of the team data as a backup
+      if (teamData.length > 0) {
+        const dataStr = JSON.stringify(teamData, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        
+        const exportFileDefaultName = 'team-backup.json';
+        
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+        
+        console.log('Team data backup downloaded');
+      }
+
+      document.getElementById('successMessage').style.display = 'block';
+      console.log('Storage cleared! You can now add new team members.');
+    });
+  </script>
+</body>
+</html>
