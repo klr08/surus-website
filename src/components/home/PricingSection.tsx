@@ -33,7 +33,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({
           <h2>On-demand pricing for treasury infrastructure</h2>
           <p className="pricing-subtitle">Free to $1M, then starting at $0.04 per $10K daily</p>
           <p className="pricing-description">
-            We custody and manage the traditional assets backing your tokens. Your compliance is our priority.
+            We custody and manage the traditional assets backing your tokens.
           </p>
         </div>
         
