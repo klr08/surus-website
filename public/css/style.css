@@ -684,12 +684,13 @@ section h2 {
     margin-bottom: 0.5rem;
 }
 
-.cta-section {
+/* Original CTA section styles moved to homepage.css */
+/* .cta-section {
     text-align: center;
     padding: 3rem 2rem;
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     margin: 3rem -2rem 0;
-}
+} */
 
 .cta-section .cta-button {
     display: inline-block;
