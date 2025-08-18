@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { FileUploadService } from '../../services/fileUpload';
+import { EnhancedFileUpload } from '../../services/enhancedFileUpload';
 
 interface FileUploadProps {
   onUpload: (url: string, filename: string) => void;
@@ -29,7 +29,7 @@ export default function FileUpload({
 
     try {
       const uploadPromises = Array.from(files).map(async (file) => {
-        const result = await FileUploadService.uploadFile(file);
+        const result = await EnhancedFileUpload.uploadFile(file);
         if (result.success) {
           onUpload(result.data.url, result.data.file.originalName);
           return result.data;
@@ -66,7 +66,7 @@ export default function FileUpload({
   };
 
   const formatMaxSize = (bytes: number): string => {
-    return FileUploadService.formatFileSize(bytes);
+    return EnhancedFileUpload.formatFileSize(bytes);
   };
 
   return (

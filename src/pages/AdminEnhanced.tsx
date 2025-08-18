@@ -4,6 +4,7 @@ import { ContentSummary, BlogPost, PodcastEpisode, TeamMember } from '../types/c
 import { ContentManager } from '../services/contentManager';
 import { FallbackContentManager } from '../services/fallbackContentManager';
 import { FileUploadService } from '../services/fileUpload';
+import { EnhancedFileUpload } from '../services/enhancedFileUpload';
 import RichTextEditor from '../components/admin/RichTextEditor';
 import FileUpload from '../components/admin/FileUpload';
 import { downloadJSON, getTimestampSlug } from '../services/backup';
@@ -132,7 +133,7 @@ export default function AdminEnhanced(): JSX.Element {
       const blogs = FallbackContentManager.getBlogPosts();
       const podcasts = FallbackContentManager.getPodcastEpisodes();
       const team = FallbackContentManager.getTeamMembers();
-      const media = FileUploadService.getFiles();
+      const media = EnhancedFileUpload.getFiles();
 
       setBlogPosts(blogs);
       setPodcastEpisodes(podcasts);
@@ -248,10 +249,12 @@ export default function AdminEnhanced(): JSX.Element {
   const clearAllData = (): void => {
     if (confirm('This will permanently delete ALL content from the CMS. Are you sure?')) {
       FallbackContentManager.clearAllData();
+      EnhancedFileUpload.clearAllFiles();
       // Reset state
       setBlogPosts([]);
       setPodcastEpisodes([]);
       setTeamMembers([]);
+      setMediaFiles([]);
       
       alert('All CMS data cleared. You can now start fresh!');
     }
@@ -783,11 +786,12 @@ export default function AdminEnhanced(): JSX.Element {
                   border: '1px solid #ef4444'
                 }}>
                   <h3 style={{ margin: '0 0 10px 0', color: '#991b1b' }}>⚠️ Storage Management Tips</h3>
-                  <p style={{ margin: '0' }}>When adding team members, follow these tips to avoid storage issues:</p>
+                  <p style={{ margin: '0' }}>Follow these tips to avoid storage issues:</p>
                   <ol style={{ margin: '10px 0 0 20px', paddingLeft: '0' }}>
                     <li>Keep team member bios under 500 characters</li>
+                    <li>Compress images before uploading (max 1MB per image)</li>
                     <li>Publish your content to GitHub regularly</li>
-                    <li>Delete inactive team members you no longer need</li>
+                    <li>Delete unused media and inactive team members</li>
                   </ol>
                 </div>
               </div>
@@ -1615,11 +1619,12 @@ export default function AdminEnhanced(): JSX.Element {
                 <p>Your token is stored locally in your browser and never transmitted to third parties. It's only used to communicate directly with GitHub's API.</p>
                 
                 <h4>Storage Management:</h4>
-                <p>To avoid storage quota issues when adding team members:</p>
+                <p>To avoid storage quota issues:</p>
                 <ul>
                   <li>Keep team member bios under 500 characters</li>
+                  <li>Compress images before uploading (max 1MB per image)</li>
                   <li>Publish your content to GitHub regularly</li>
-                  <li>Delete inactive team members you no longer need</li>
+                  <li>Delete unused media and inactive team members</li>
                 </ul>
               </div>
               </div>
@@ -1637,7 +1642,7 @@ export default function AdminEnhanced(): JSX.Element {
                       if (confirm('⚠️ This will permanently delete ALL CMS content from your browser storage.\n\nMake sure you have published your content to GitHub first if you want to keep it.\n\nAre you sure you want to continue?')) {
                         // Clear all data
                         FallbackContentManager.clearAllData();
-                        FileUploadService.clearAllFiles();
+                        EnhancedFileUpload.clearAllFiles();
                         
                         // Reset state
                         setBlogPosts([]);

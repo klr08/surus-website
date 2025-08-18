@@ -1,7 +1,7 @@
 // Publisher service for one-click publishing to live site
 import { ContentManager } from './contentManager';
 import { FallbackContentManager } from './fallbackContentManager';
-import { FileUploadService } from './fileUpload';
+import { EnhancedFileUpload } from './enhancedFileUpload';
 import { downloadJSON } from './backup';
 import { GitHubPublisher, GitHubConfigManager } from './github';
 
@@ -180,7 +180,7 @@ export class Publisher {
   
   // Generate media.json from uploaded files
   static generateMediaJSON(): any[] {
-    const mediaFiles = FileUploadService.getFiles();
+    const mediaFiles = EnhancedFileUpload.getFiles();
     return mediaFiles.map(file => ({
       id: file.id,
       filename: file.filename,
@@ -196,7 +196,7 @@ export class Publisher {
   static async publishMedia(): Promise<PublishResult> {
     try {
       const publisher = GitHubConfigManager.getPublisher();
-      const mediaFiles = FileUploadService.getFiles();
+      const mediaFiles = EnhancedFileUpload.getFiles();
       
       if (!publisher) {
         return {
@@ -288,7 +288,7 @@ export class Publisher {
     const blogs = FallbackContentManager.getBlogPosts();
     const podcasts = FallbackContentManager.getPodcastEpisodes();
     const team = FallbackContentManager.getTeamMembers();
-    const media = FileUploadService.getFiles();
+    const media = EnhancedFileUpload.getFiles();
     
     const publishedBlogs = blogs.filter(b => b.published).length;
     const publishedPodcasts = podcasts.filter(p => p.published).length;
