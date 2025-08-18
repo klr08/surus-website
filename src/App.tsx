@@ -8,7 +8,7 @@ export default function App(): JSX.Element {
         <nav>
           <div className="logo">
             <Link to="/">
-              <img src="/images/brand/logo-light.png" alt="Surus" className="logo-image" />
+              <img src="/images/brand/logo-white-red-icon.svg" alt="Surus" className="logo-image" />
             </Link>
           </div>
           <ul>
