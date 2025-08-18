@@ -74,9 +74,17 @@ nav a:hover {
 
 /* Main Content */
 main {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Content Container */
+.content-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 5%;
+    width: 100%;
 }
 
 /* Hero Section */
@@ -84,7 +92,7 @@ main {
     text-align: center;
     padding: 4rem 0;
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    margin: 0 -5%;
+    width: 100%;
 }
 
 #hero h1 {
@@ -356,6 +364,7 @@ section h2 {
     background: #E8E8EB;
     margin-bottom: 3rem;
     position: relative;
+    width: 100%;
 }
 
 .page-header::before {
@@ -373,6 +382,14 @@ section h2 {
     background-position: 0 0, 15px 15px, 0 0;
     pointer-events: none;
     z-index: 1;
+}
+
+.page-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+    position: relative;
+    z-index: 2;
 }
 
 .page-header h1 {
@@ -693,9 +710,10 @@ section h2 {
 /* Insights page styles */
 .insights-hero {
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 4rem 0;
     background: #E8E8EB;
     position: relative;
+    width: 100%;
 }
 
 .insights-hero::before {
@@ -716,8 +734,9 @@ section h2 {
 }
 
 .insights-hero-content {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 5%;
     position: relative;
     z-index: 2;
 }
@@ -740,9 +759,10 @@ section h2 {
 /* Podcast Section */
 .podcast-section {
     background: #E8E8EB;
-    padding: 3rem 2rem;
+    padding: 3rem 0;
     text-align: center;
     position: relative;
+    width: 100%;
 }
 
 .podcast-section::before {
@@ -763,8 +783,9 @@ section h2 {
 }
 
 .podcast-section-content {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 5%;
     position: relative;
     z-index: 2;
 }
@@ -785,9 +806,15 @@ section h2 {
 }
 
 .featured-post-section {
-    padding: 2rem;
-    max-width: 1200px;
+    padding: 2rem 0;
+    width: 100%;
     margin: 0 auto 2rem;
+}
+
+.featured-post-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
 }
 
 .featured-post-container h2 {
@@ -900,13 +927,15 @@ section h2 {
 
 /* Recent Posts Section */
 .all-posts-section {
-    padding: 2rem;
+    padding: 2rem 0;
     background: #ffffff;
+    width: 100%;
 }
 
 .all-posts-container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 5%;
 }
 
 .posts-grid {
@@ -1081,9 +1110,10 @@ section h2 {
 /* About page styles */
 .about-hero {
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 4rem 0;
     background: #E8E8EB;
     position: relative;
+    width: 100%;
 }
 
 .about-hero::before {
@@ -1104,8 +1134,9 @@ section h2 {
 }
 
 .about-hero-content {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 5%;
     position: relative;
     z-index: 2;
 }
@@ -1127,9 +1158,15 @@ section h2 {
 }
 
 .team-section {
-    padding: 4rem 2rem;
+    padding: 4rem 0;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.team-container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 5%;
 }
 
 .team-container h2 {
@@ -1350,12 +1387,13 @@ section h2 {
 footer {
     background: #E8E8EB;
     text-align: center;
-    padding: 2rem;
+    padding: 2rem 0;
     color: #000000;
     font-size: 0.9rem;
     margin-top: 2rem;
     position: relative;
     border-top: 1px solid #DCDCDC;
+    width: 100%;
 }
 
 /* Organic Sketch Pattern for Footer */
@@ -1379,6 +1417,12 @@ footer::before {
 footer > * {
     position: relative;
     z-index: 2;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
 }
 
 /* Admin Styles */

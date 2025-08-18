@@ -13,10 +13,11 @@ body {
 
 /* Hero Section */
 .hero-section {
-  padding: 6rem 2rem;
+  padding: 6rem 0;
   text-align: center;
   background-color: #E8E8EB;
   position: relative;
+  width: 100%;
 }
 
 /* Grid Background for Hero Section */
@@ -41,8 +42,9 @@ body {
 }
 
 .hero-content {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 5%;
 }
 
 .hero-tagline {
@@ -90,14 +92,16 @@ body {
 
 /* Pricing Section */
 .pricing-section {
-  padding: 4rem 2rem;
+  padding: 4rem 0;
   background-color: #444;
   color: white;
+  width: 100%;
 }
 
 .pricing-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 5%;
 }
 
 .pricing-header {
@@ -244,9 +248,10 @@ body {
 
 /* Features Section */
 .features-section {
-  padding: 6rem 2rem;
+  padding: 6rem 0;
   background-color: #E8E8EB;
   position: relative;
+  width: 100%;
 }
 
 /* Organic Sketch Pattern for Features Section */
@@ -273,8 +278,9 @@ body {
 }
 
 .features-container {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 5%;
 }
 
 .features-heading {
@@ -354,9 +360,10 @@ body {
 
 /* Testimonials Section */
 .testimonials-section {
-  padding: 4rem 2rem;
+  padding: 4rem 0;
   background-color: #E8E8EB;
   position: relative;
+  width: 100%;
 }
 
 /* Dot Matrix Pattern for Testimonials Section */
@@ -382,8 +389,9 @@ body {
 }
 
 .testimonials-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 5%;
 }
 
 .testimonials-heading {
@@ -508,13 +516,15 @@ body {
 
 /* Insights Section */
 .insights-section {
-  padding: 4rem 2rem;
-  background-color: #0a0a0a;
+  padding: 4rem 0;
+  background-color: #444;
+  width: 100%;
 }
 
 .insights-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 5%;
 }
 
 .insights-heading {
@@ -606,10 +616,11 @@ body {
 
 /* CTA Section */
 .cta-section {
-  padding: 4rem 2rem;
+  padding: 4rem 0;
   background-color: #E8E8EB;
   text-align: center;
   position: relative;
+  width: 100%;
 }
 
 /* Organic Sketch Pattern for CTA Section */
@@ -636,8 +647,9 @@ body {
 }
 
 .cta-container {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 5%;
 }
 
 .cta-heading {
@@ -656,7 +668,8 @@ body {
 footer {
     background-color: #E8E8EB;
     color: #000000;
-    padding: 3rem 2rem;
+    padding: 3rem 0;
+    width: 100%;
 }
 
 .footer-logo-image {
@@ -669,6 +682,7 @@ footer {
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 5%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
