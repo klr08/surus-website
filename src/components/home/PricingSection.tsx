@@ -40,6 +40,9 @@ const PricingSection: React.FC<PricingSectionProps> = ({
         <div className="pricing-calculator">
           <div className="calculator-input">
             <label htmlFor="aum-input">TREASURY SIZE (AUM):</label>
+            <div className="aum-display">
+              <span className="treasury-amount">{formatAUM(aumDecimal)}</span>
+            </div>
             <div className="slider-container">
               <div className="slider-labels">
                 <span className="slider-min">$0</span>
@@ -54,9 +57,6 @@ const PricingSection: React.FC<PricingSectionProps> = ({
                 value={aum}
                 onChange={(e) => setAum(Number(e.target.value))}
               />
-            </div>
-            <div className="aum-display">
-              <span className="treasury-amount">{formatAUM(aumDecimal)}</span>
             </div>
           </div>
           
